@@ -1,0 +1,267 @@
+/* ============================================================
+   Gedeelde stijlen voor alle pagina's (overgenomen uit de
+   oorspronkelijke HTML). Paginaspecifieke stijlen staan bij
+   de pagina in src/pages.
+   ============================================================ */
+body {
+    position: relative;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #0000EE;
+    text-decoration: underline;
+}
+a:visited {
+    color: #551A8B;
+}
+table {
+    border-collapse: collapse;
+}
+.wrapper {
+    width: 600px;
+    margin: 0 auto;
+    padding: 40px 10px 20px 10px;
+    text-align: center;
+}
+.titel {
+    display: block;
+    width: 56px;
+    height: auto;
+    margin: 0 auto 2px auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(3px 4px 3px rgba(0, 0, 0, 0.45));
+}
+.titel-link {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    line-height: 0;
+}
+
+/* ---- taakbalk ---- */
+.taakbalk {
+    position: relative;
+    left: 50%;
+    width: 55vw;
+    margin-left: -27.5vw;
+    margin-top: 40px;
+    height: 28px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 3px;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    box-shadow: inset 0 2px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+}
+.startknop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 22px;
+    padding: 0 7px 0 4px;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+}
+.startknop:visited { color: #000000; }
+.startknop:active {
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    box-shadow:
+        inset 2px 2px 0 #808080,
+        inset -2px -2px 0 #DFDFDF;
+    padding: 1px 6px 0 5px;
+}
+.startknop img {
+    width: 17px;
+    height: 17px;
+    image-rendering: pixelated;
+}
+.greep {
+    width: 3px;
+    height: 20px;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #808080;
+    margin: 0 2px;
+}
+.lade {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 8px;
+    color: #000000;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* ---- navigatiemenu ---- */
+.navbar {
+    position: absolute;
+    top: 0;
+    right: calc(77.5vw + 85px);
+    display: flex;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: normal;
+    -webkit-font-smoothing: none;
+    line-height: 1;
+    background-color: #C0C0C0;
+    padding: 2px;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    z-index: 100;
+}
+.navbar .balk {
+    width: 17px;
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, #05430a 0%, #0a6b0c 72%, #39FF14 100%);
+    color: #FFFFFF;
+    font-weight: normal;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 3px;
+}
+.navbar .items {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.menu-item {
+    position: relative;
+}
+.navbar .pijl {
+    margin-left: auto;
+    padding-left: 10px;
+    font-size: 8px;
+    line-height: 1;
+}
+.submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -3px;
+    margin-left: 2px;
+    padding: 2px;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    z-index: 200;
+}
+.menu-item:hover .submenu {
+    display: block;
+}
+.navbar a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 14px 4px 6px;
+    white-space: nowrap;
+    color: #000000;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+.navbar a:visited {
+    color: #000000;
+}
+.navbar a:hover,
+.navbar a:hover:visited {
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    color: #FFFFFF;
+}
+.navbar a:hover span {
+    background: transparent;
+    color: #FFFFFF;
+}
+.navbar a.actief {
+    font-weight: bold;
+}
+.navbar a img {
+    width: 18px;
+    height: 16px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+    filter: drop-shadow(1px 1px 0 #000000);
+}
+.navbar a:hover {
+    text-decoration: none;
+}
+.navbar a:active {
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    box-shadow:
+        inset 2px 2px 0 #808080,
+        inset -2px -2px 0 #DFDFDF;
+    padding: 5px 5px 3px 7px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+/* ---- voettekst ---- */
+.footer {
+    margin-top: 40px;
+    padding-top: 6px;
+    text-align: center;
+}
+.footer a {
+    display: inline-block;
+    line-height: 0;
+}
+.footer img {
+    width: 18px;
+    height: auto;
+    image-rendering: pixelated;
+}
+.copyright {
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    color: #666666;
+    margin-top: 8px;
+}

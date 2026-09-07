@@ -1,0 +1,38 @@
+/* tabel van kijklijst, rugzak en verkocht */
+.wrapper.lijst table.datatable {
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    width: auto;
+    font-size: 11px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.wrapper.lijst table.datatable td,
+.wrapper.lijst table.datatable th {
+    padding: 2px 14px 2px 6px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.wrapper.lijst table.datatable td a {
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px dotted #999999;
+}
+.wrapper.lijst table.datatable td a:visited {
+    color: #000000;
+}
+.wrapper.lijst table.datatable td a:hover {
+    color: #000080;
+    border-bottom: 1px solid #000080;
+}
+.wrapper.lijst table.datatable tr:first-child {
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+}
+.wrapper.lijst table.datatable th {
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: normal;
+}

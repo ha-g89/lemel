@@ -1,0 +1,154 @@
+/* ---- lenzendatabase-specifiek ---- */
+.databox {
+    width: 92vw;
+    max-width: 1200px;
+    position: relative;
+    left: 50%;
+    margin-left: -46vw;
+    margin-top: 100px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+@media (min-width: 1305px) {
+    .databox { margin-left: -600px; }
+}
+#statusregel {
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #333333;
+    margin-bottom: 8px;
+    text-align: center;
+}
+#filterpaneel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 14px 0;
+    padding: 8px 10px;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+#filterpaneel label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+#filterpaneel input[type="text"],
+#filterpaneel select {
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    padding: 2px 3px;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
+}
+#zoekveld { width: 170px; }
+#aantalresultaten {
+    margin-left: auto;
+    font-weight: normal;
+    color: #05430a;
+}
+.tabel-omhulsel {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+.wrapper.database table.datatable {
+    font-family: "Courier New", Courier, monospace;
+    width: 100%;
+    min-width: 100%;
+    font-size: 11px;
+    margin: 0;
+    text-align: left;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+.wrapper.database table.datatable td,
+.wrapper.database table.datatable th {
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+    border-bottom: 1px solid #C5D5C5;
+}
+.wrapper.database table.datatable thead tr {
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+}
+.wrapper.database table.datatable th {
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: normal;
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+}
+.wrapper.database table.datatable th:hover {
+    text-decoration: underline;
+}
+.wrapper.database table.datatable th .pijltje {
+    font-size: 9px;
+    opacity: 0.8;
+}
+.wrapper.database table.datatable tbody tr:nth-child(even) {
+    background-color: #EAF3EA;
+}
+.wrapper.database table.datatable tbody tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+.wrapper.database table.datatable tbody tr:hover {
+    background-color: #CFE8CF;
+}
+.wrapper.database table.datatable td a {
+    color: #05430a;
+    text-decoration: underline;
+}
+.wrapper.database table.datatable td a:visited {
+    color: #05430a;
+}
+.status-owned {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 9px;
+    background-color: #05430a;
+    color: #FFFFFF;
+}
+.status-wanted {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 9px;
+    background-color: #C0C0C0;
+    color: #000000;
+    border: 1px solid #808080;
+}
+.status-sold {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 9px;
+    background-color: #888888;
+    color: #FFFFFF;
+}
+.geen-data {
+    color: #999999;
+}
