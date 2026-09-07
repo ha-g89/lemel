@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Foto's (1,6 GB) staan niet in git; zie README voor hosting
-src/assets/kluis/*
-!src/assets/kluis/.gitkeep

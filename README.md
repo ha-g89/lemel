@@ -27,7 +27,10 @@ npm run preview    # dist/ lokaal bekijken
 
 ## Foto's toevoegen
 
-1. Zet de foto in `src/assets/kluis/`.
+1. Zet het origineel in de map `kluis` op je bureaublad en draai
+   `node scripts/verklein-fotos.mjs`. Dat maakt een webversie (lange zijde
+   2400 px, JPEG 85, zonder metadata, ca. 0,5 tot 1 MB) in `src/assets/kluis/`.
+   De originelen blijven waar ze staan en horen niet in git.
 2. Wil je de lens vastleggen? Zet de lenscode achter de naam, gescheiden
    door een liggend streepje, bijvoorbeeld `MCA_0194_pentax-m-35.JPG`.
    Een thema kan erachter: `MCA_1226_pentax-a-50_autos.JPG`.
