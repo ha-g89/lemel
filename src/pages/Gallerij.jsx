@@ -30,8 +30,12 @@ export default function Gallerij() {
 
   const sluitLightbox = useCallback(() => zetOpenFoto(null), [])
 
+  const venster = openFoto
+    ? { titel: openFoto.naam + '.jpg', onKlik: sluitLightbox }
+    : null
+
   return (
-    <Pagina titel="le mel" metJaar>
+    <Pagina titel="le mel" metJaar venster={venster}>
       <SchermInstellingen />
 
       <h2 id="fotos"></h2>

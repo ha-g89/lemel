@@ -11,8 +11,9 @@ import instagramIcoon from '../assets/iconen/instagram.png'
  * @param {string}  titel     browsertitel
  * @param {string}  klasse    extra klasse op de wrapper voor paginaspecifieke stijlen
  * @param {boolean} metJaar   jaartal in de menubalk (alleen gallerij)
+ * @param {{ titel: string, onKlik: Function }} [venster] knop in de taakbalk voor een open venster (bv. de lightbox)
  */
-export default function Pagina({ titel, klasse, metJaar = false, children }) {
+export default function Pagina({ titel, klasse, metJaar = false, venster, children }) {
   useEffect(() => {
     document.title = titel
   }, [titel])
@@ -27,7 +28,7 @@ export default function Pagina({ titel, klasse, metJaar = false, children }) {
 
       {children}
 
-      <Taakbalk />
+      <Taakbalk venster={venster} />
 
       <div className="footer" id="contact">
         <a

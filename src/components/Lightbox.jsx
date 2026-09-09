@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { LENS_NAAM } from '../data/lenzen.js'
 import { ebayZoeklink } from '../lib/fotonamen.js'
 import ebayLogo from '../assets/iconen/ebay.png'
@@ -36,6 +36,18 @@ function Kruisje() {
  * @param {Function} onSluit  sluit het venster
  */
 export default function Lightbox({ foto, onSluit }) {
+  /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
+  const [laadprofiel, zetLaadprofiel] = useState(null)
+  useLayoutEffect(() => {
+    if (!foto) return
+    const varianten = ['a', 'b', 'c']
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- willekeurig per keer openen, mag geen render-pure berekening zijn
+    zetLaadprofiel({
+      klasse: 'laadprofiel-' + varianten[Math.floor(Math.random() * varianten.length)],
+      duur: Math.round(500 + Math.random() * 600) + 'ms',
+    })
+  }, [foto])
+
   useEffect(() => {
     function opToets(e) {
       if (e.key === 'Escape') onSluit()
@@ -50,7 +62,12 @@ export default function Lightbox({ foto, onSluit }) {
 
   return (
     <div id="lightbox-overlay" onClick={onSluit}>
-      <div id="lightbox-venster" onClick={(e) => e.stopPropagation()}>
+      <div
+        id="lightbox-venster"
+        className={laadprofiel?.klasse}
+        style={laadprofiel ? { animationDuration: laadprofiel.duur } : undefined}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div id="lightbox-titelbalk">
           <span id="lightbox-naam">
             {foto.naam}.jpg{lensnaam ? '  —  ' + lensnaam : ''}

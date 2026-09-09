@@ -254,6 +254,7 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    animation: lightbox-waas 140ms ease-out;
 }
 #lightbox-venster {
     background-color: #C0C0C0;
@@ -264,12 +265,61 @@
     border-bottom: 2px solid #000000;
     box-shadow:
         inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
+        inset 2px 2px 0 #DFDFDF,
+        16px 16px 0 rgba(0, 0, 0, 0.55);
     max-width: 92vw;
     max-height: 92vh;
     display: flex;
     flex-direction: column;
     cursor: default;
+    animation-timing-function: steps(1, jump-end);
+    animation-duration: 700ms;
+}
+.laadprofiel-a { animation-name: lightbox-open-a; }
+.laadprofiel-b { animation-name: lightbox-open-b; }
+.laadprofiel-c { animation-name: lightbox-open-c; }
+@keyframes lightbox-waas {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* drie ongelijke laad-"haperingen", alsof een trage pc de foto in brokken binnenhaalt */
+@keyframes lightbox-open-a {
+    0%   { clip-path: inset(0 0 100% 0); }
+    5%   { clip-path: inset(0 0 82% 0); }
+    8%   { clip-path: inset(0 0 82% 0); }
+    45%  { clip-path: inset(0 0 66% 0); }
+    48%  { clip-path: inset(0 0 66% 0); }
+    52%  { clip-path: inset(0 0 30% 0); }
+    78%  { clip-path: inset(0 0 26% 0); }
+    82%  { clip-path: inset(0 0 26% 0); }
+    100% { clip-path: inset(0 0 0% 0); }
+}
+@keyframes lightbox-open-b {
+    0%   { clip-path: inset(0 0 100% 0); }
+    3%   { clip-path: inset(0 0 90% 0); }
+    15%  { clip-path: inset(0 0 90% 0); }
+    20%  { clip-path: inset(0 0 78% 0); }
+    24%  { clip-path: inset(0 0 78% 0); }
+    30%  { clip-path: inset(0 0 54% 0); }
+    60%  { clip-path: inset(0 0 50% 0); }
+    64%  { clip-path: inset(0 0 50% 0); }
+    100% { clip-path: inset(0 0 0% 0); }
+}
+@keyframes lightbox-open-c {
+    0%   { clip-path: inset(0 0 100% 0); }
+    10%  { clip-path: inset(0 0 70% 0); }
+    14%  { clip-path: inset(0 0 68% 0); }
+    18%  { clip-path: inset(0 0 45% 0); }
+    22%  { clip-path: inset(0 0 43% 0); }
+    88%  { clip-path: inset(0 0 40% 0); }
+    92%  { clip-path: inset(0 0 5% 0); }
+    100% { clip-path: inset(0 0 0% 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #lightbox-overlay,
+    #lightbox-venster {
+        animation: none;
+    }
 }
 #lightbox-titelbalk {
     display: flex;
