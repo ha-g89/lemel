@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar from './Navbar.jsx'
 import Taakbalk from './Taakbalk.jsx'
+import Afsluitscherm from './Afsluitscherm.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
 
@@ -14,9 +14,26 @@ import instagramIcoon from '../assets/iconen/instagram.png'
  * @param {{ titel: string, onKlik: Function }} [venster] knop in de taakbalk voor een open venster (bv. de lightbox)
  */
 export default function Pagina({ titel, klasse, metJaar = false, venster, children }) {
+  const [afgesloten, zetAfgesloten] = useState(false)
+  const [menuOpen, zetMenuOpen] = useState(false)
+
   useEffect(() => {
     document.title = titel
   }, [titel])
+
+  /* klik buiten het menu (en buiten de Start-knop) sluit het,
+     net als het echte Windows-95 Start-menu */
+  useEffect(() => {
+    if (!menuOpen) return
+    function opDocumentKlik(e) {
+      if (e.target.closest('.navbar') || e.target.closest('.startknop')) return
+      zetMenuOpen(false)
+    }
+    document.addEventListener('mousedown', opDocumentKlik)
+    return () => document.removeEventListener('mousedown', opDocumentKlik)
+  }, [menuOpen])
+
+  if (afgesloten) return <Afsluitscherm />
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
@@ -24,11 +41,16 @@ export default function Pagina({ titel, klasse, metJaar = false, venster, childr
         <img className="titel" src={logo} alt="le mel" />
       </Link>
 
-      <Navbar metJaar={metJaar} />
-
       {children}
 
-      <Taakbalk venster={venster} />
+      <Taakbalk
+        venster={venster}
+        metJaar={metJaar}
+        menuOpen={menuOpen}
+        onToggleMenu={() => zetMenuOpen((o) => !o)}
+        onSluitMenu={() => zetMenuOpen(false)}
+        opAfsluiten={() => zetAfgesloten(true)}
+      />
 
       <div className="footer" id="contact">
         <a

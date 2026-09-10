@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Navbar from './Navbar.jsx'
 import logo from '../assets/iconen/logo.png'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
 
@@ -20,25 +20,39 @@ function Klok() {
 /**
  * De Windows-95-taakbalk onder de inhoud, met Start-knop, klok en
  * (optioneel) een knop voor een open venster, zoals bij de lightbox.
+ * Het Start-menu (Navbar) hangt hier positioneel aan vast: het klapt
+ * open vlak boven de Start-knop.
+ * @param {boolean}  menuOpen      staat het Start-menu open
+ * @param {Function} onToggleMenu  klik op Start: menu open/dicht
+ * @param {Function} onSluitMenu   sluit het Start-menu (klik op een link erin)
+ * @param {boolean}  metJaar       doorgegeven aan Navbar
+ * @param {Function} [opAfsluiten] doorgegeven aan Navbar
  * @param {{ titel: string, onKlik: Function }} [venster]
  */
-export default function Taakbalk({ venster }) {
-  const { pathname } = useLocation()
-
-  function startKlik(e) {
-    /* op de gallerij zelf: alleen naar boven scrollen */
-    if (pathname === '/') {
-      e.preventDefault()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
+export default function Taakbalk({
+  venster,
+  menuOpen,
+  onToggleMenu,
+  onSluitMenu,
+  metJaar,
+  opAfsluiten,
+}) {
   return (
     <div className="taakbalk">
-      <Link className="startknop" to="/" onClick={startKlik}>
+      <Navbar
+        metJaar={metJaar}
+        open={menuOpen}
+        onSluitMenu={onSluitMenu}
+        opAfsluiten={opAfsluiten}
+      />
+      <button
+        type="button"
+        className={menuOpen ? 'startknop actief' : 'startknop'}
+        onClick={onToggleMenu}
+      >
         <img src={logo} alt="" />
         <span>Start</span>
-      </Link>
+      </button>
       <div className="greep"></div>
       {venster && (
         <button type="button" className="taakvenster" onClick={venster.onKlik}>

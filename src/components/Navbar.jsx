@@ -5,15 +5,24 @@ import kijklijstIcoon from '../assets/iconen/kijklijst.png'
 import rugzakIcoon from '../assets/iconen/rugzak.png'
 import verkochtIcoon from '../assets/iconen/verkocht.png'
 import databaseIcoon from '../assets/iconen/database.png'
+import homeIcoon from '../assets/iconen/home.png'
+import afsluitenIcoon from '../assets/iconen/afsluiten.png'
 
 const actief = ({ isActive }) => (isActive ? 'actief' : undefined)
 
 /**
- * Het Windows-95-menu links van de inhoud.
- * @param {boolean} metJaar  toont het jaartal in de groene balk (alleen op de gallerij)
+ * Het Windows-95 Start-menu: verborgen totdat er op Start wordt geklikt,
+ * verschijnt dan als uitklapmenu boven de taakbalk.
+ * @param {boolean}  metJaar       toont het jaartal in de groene balk (alleen op de gallerij)
+ * @param {boolean}  open          staat het menu open
+ * @param {Function} [onSluitMenu] sluit het menu (klik op een link erin)
+ * @param {Function} [opAfsluiten] klik op "Shut Down..." onderaan het menu
  */
-export default function Navbar({ metJaar = false }) {
+export default function Navbar({ metJaar = false, open = false, onSluitMenu, opAfsluiten }) {
   const jaarKort = String(new Date().getFullYear()).slice(-2)
+
+  if (!open) return null
+
   return (
     <div className="navbar">
       <div className="balk" id="jaarbalk">
@@ -21,34 +30,61 @@ export default function Navbar({ metJaar = false }) {
       </div>
       <div className="items">
         <div className="menu-item">
-          <NavLink to="/" end className={actief}>
+          <NavLink to="/" end className={actief} onClick={onSluitMenu}>
             <img src={gallerijIcoon} alt="" />
-            <span>gallerij</span>
+            <span><u>g</u>allerij</span>
             <span className="pijl">&#9654;</span>
           </NavLink>
           <div className="submenu">
-            <Link to="/?thema=autos">
+            <Link to="/?thema=autos" onClick={onSluitMenu}>
               <img src={autosIcoon} alt="" />
-              <span>auto&#39;s</span>
+              <span><u>a</u>uto&#39;s</span>
             </Link>
           </div>
         </div>
-        <NavLink to="/kijklijst" className={actief}>
+        <NavLink to="/kijklijst" className={actief} onClick={onSluitMenu}>
           <img src={kijklijstIcoon} alt="" />
-          <span>kijklijst</span>
+          <span><u>k</u>ijklijst</span>
         </NavLink>
-        <NavLink to="/rugzak" className={actief}>
+        <NavLink to="/rugzak" className={actief} onClick={onSluitMenu}>
           <img src={rugzakIcoon} alt="" />
-          <span>rugzak</span>
+          <span><u>r</u>ugzak</span>
         </NavLink>
-        <NavLink to="/verkocht" className={actief}>
+        <NavLink to="/verkocht" className={actief} onClick={onSluitMenu}>
           <img src={verkochtIcoon} alt="" />
-          <span>verkocht</span>
+          <span><u>v</u>erkocht</span>
         </NavLink>
-        <NavLink to="/lenzendatabase" className={actief}>
+        <NavLink to="/lenzendatabase" className={actief} onClick={onSluitMenu}>
           <img src={databaseIcoon} alt="" />
-          <span>database</span>
+          <span><u>d</u>atabase</span>
         </NavLink>
+        {opAfsluiten && (
+          <>
+            <div className="menu-scheiding"></div>
+            <Link
+              to="/"
+              onClick={() => {
+                if (onSluitMenu) onSluitMenu()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              <img src={homeIcoon} alt="" className="home-icoon" />
+              <span><u>h</u>ome</span>
+            </Link>
+            <a
+              className="afsluiten-link"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                if (onSluitMenu) onSluitMenu()
+                opAfsluiten()
+              }}
+            >
+              <img src={afsluitenIcoon} alt="" />
+              <span><u>s</u>hut down...</span>
+            </a>
+          </>
+        )}
       </div>
     </div>
   )

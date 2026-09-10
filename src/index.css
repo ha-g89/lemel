@@ -3,6 +3,9 @@
    oorspronkelijke HTML). Paginaspecifieke stijlen staan bij
    de pagina in src/pages.
    ============================================================ */
+html {
+    transition: filter 150ms ease-out, transform 400ms ease-in-out;
+}
 body {
     position: relative;
     background-color: #FFFFFF;
@@ -68,33 +71,39 @@ table {
     align-items: center;
     gap: 4px;
     height: 22px;
-    padding: 0 7px 0 4px;
+    box-sizing: border-box;
+    padding: 0 7px 0 5px;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
     font-weight: bold;
     color: #000000;
     text-decoration: none;
+    cursor: pointer;
     background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
     box-shadow:
-        inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
 }
 .startknop:visited { color: #000000; }
-.startknop:active {
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
+.startknop:active,
+.startknop.actief {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
     box-shadow:
-        inset 2px 2px 0 #808080,
-        inset -2px -2px 0 #DFDFDF;
-    padding: 1px 6px 0 5px;
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+    padding: 1px 6px 0 6px;
 }
 .startknop img {
-    width: 17px;
-    height: 17px;
+    width: 15px;
+    height: 15px;
     image-rendering: pixelated;
 }
 .greep {
@@ -152,11 +161,12 @@ table {
     border-bottom: 1px solid #FFFFFF;
 }
 
-/* ---- navigatiemenu ---- */
+/* ---- navigatiemenu (Start-menu, klapt open boven de taakbalk) ---- */
 .navbar {
     position: absolute;
-    top: 0;
-    right: calc(77.5vw + 85px);
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 2px;
     display: flex;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 10px;
@@ -262,6 +272,12 @@ table {
 .navbar a:hover {
     text-decoration: none;
 }
+.navbar a span u {
+    text-decoration: underline;
+}
+.afsluiten-link {
+    font-size: 9px;
+}
 .navbar a:active {
     border-top: 2px solid #000000;
     border-left: 2px solid #000000;
@@ -277,6 +293,51 @@ h2 {
     font-size: 20px;
     margin-top: 4px;
     margin-bottom: 0;
+}
+
+/* ---- scheiding boven Shut Down in het menu ---- */
+.menu-scheiding {
+    height: 0;
+    margin: 3px 4px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* ---- afsluitscherm ---- */
+#afsluitscherm {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: #0A0A2A;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    letter-spacing: normal;
+    -webkit-font-smoothing: none;
+}
+#afsluitscherm-tekst {
+    background-color: rgba(0, 0, 40, 0.55);
+    padding: 24px 32px;
+    border-radius: 2px;
+}
+#afsluitscherm-tekst p {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    line-height: 1.5;
+}
+#afsluitscherm-subtekst {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-bottom: 0 !important;
 }
 
 /* ---- voettekst ---- */
