@@ -11,9 +11,10 @@ import instagramIcoon from '../assets/iconen/instagram.png'
  * @param {string}  titel     browsertitel
  * @param {string}  klasse    extra klasse op de wrapper voor paginaspecifieke stijlen
  * @param {boolean} metJaar   jaartal in de menubalk (alleen gallerij)
- * @param {{ titel: string, onKlik: Function }} [venster] knop in de taakbalk voor een open venster (bv. de lightbox)
+ * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
+ *   knoppen in de taakbalk voor open vensters (bv. de lightbox), één per geopende foto
  */
-export default function Pagina({ titel, klasse, metJaar = false, venster, children }) {
+export default function Pagina({ titel, klasse, metJaar = false, vensters = [], children }) {
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
 
@@ -44,7 +45,7 @@ export default function Pagina({ titel, klasse, metJaar = false, venster, childr
       {children}
 
       <Taakbalk
-        venster={venster}
+        vensters={vensters}
         metJaar={metJaar}
         menuOpen={menuOpen}
         onToggleMenu={() => zetMenuOpen((o) => !o)}

@@ -29,7 +29,14 @@ Gevuld uit `rugzak.html` en `kijklijst.html`.
 
 ## Nu in de database
 
-240 lenzen, waarvan 7 in bezit en 1 op de kijklijst.
+243 lenzen, waarvan 7 in bezit en 1 op de kijklijst.
+
+Aangevuld met de Nikkor-N-familie: de enige lenzen die ooit de letter "N" droegen
+(novem, 9 elementen) — Nikkor-N Auto 24mm f/2.8 (1967-1972, single-coated), Nikkor-N.C
+Auto 24mm f/2.8 (1972-1977, multi-coated, zelfde 9/7-ontwerp) en de AI-omgebouwde
+AI Nikkor-N Auto 24mm f/2.8 (1977-1979). Specs komen van Kamerastore, lens-db.com en
+allphotolenses.com. Alle drie 9 elementen/7 groepen, 52mm filter, 7 lamellen, min.
+scherpstelafstand 0,3m; verschillen zitten in vatting (pre-AI vs AI) en coating.
 
 Belangrijk om te weten: de basis komt uit Lensfun, en dat dekt maar een klein deel van
 wat er ooit gemaakt is — grofweg 15% van het vintage handmatige aanbod. Van jouw eigen

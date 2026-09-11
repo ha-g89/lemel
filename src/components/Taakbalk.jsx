@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Navbar from './Navbar.jsx'
 import logo from '../assets/iconen/logo.png'
-import gallerijIcoon from '../assets/iconen/gallerij.png'
+import vensterIcoon from '../assets/iconen/venster.png'
 
 function tijdNu() {
   const d = new Date()
@@ -19,7 +19,9 @@ function Klok() {
 
 /**
  * De Windows-95-taakbalk onder de inhoud, met Start-knop, klok en
- * (optioneel) een knop voor een open venster, zoals bij de lightbox.
+ * (optioneel) een knop per open venster, zoals bij de lightbox: elke
+ * geopende foto krijgt zijn eigen knop, ingedrukt als hij zichtbaar is
+ * en "opgetild" als hij geminimaliseerd is.
  * Het Start-menu (Navbar) hangt hier positioneel aan vast: het klapt
  * open vlak boven de Start-knop.
  * @param {boolean}  menuOpen      staat het Start-menu open
@@ -27,10 +29,10 @@ function Klok() {
  * @param {Function} onSluitMenu   sluit het Start-menu (klik op een link erin)
  * @param {boolean}  metJaar       doorgegeven aan Navbar
  * @param {Function} [opAfsluiten] doorgegeven aan Navbar
- * @param {{ titel: string, onKlik: Function }} [venster]
+ * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
  */
 export default function Taakbalk({
-  venster,
+  vensters = [],
   menuOpen,
   onToggleMenu,
   onSluitMenu,
@@ -54,12 +56,17 @@ export default function Taakbalk({
         <span>Start</span>
       </button>
       <div className="greep"></div>
-      {venster && (
-        <button type="button" className="taakvenster" onClick={venster.onKlik}>
-          <img src={gallerijIcoon} alt="" />
-          <span>{venster.titel}</span>
+      {vensters.map((v) => (
+        <button
+          key={v.basis}
+          type="button"
+          className={v.actief ? 'taakvenster actief' : 'taakvenster'}
+          onClick={v.onKlik}
+        >
+          <img src={vensterIcoon} alt="" />
+          <span>{v.titel}</span>
         </button>
-      )}
+      ))}
       <div className="lade">
         <Klok />
       </div>

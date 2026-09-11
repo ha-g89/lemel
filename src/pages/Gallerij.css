@@ -247,7 +247,14 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
     animation: lightbox-waas 140ms ease-out;
+}
+#lightbox-overlay.verborgen {
+    display: none;
 }
 #lightbox-venster {
     background-color: #C0C0C0;
@@ -266,6 +273,13 @@
     cursor: default;
     animation-timing-function: steps(1, jump-end);
     animation-duration: 700ms;
+}
+#lightbox-venster.verborgen {
+    display: none;
+}
+/* meerdere vensters tegelijk open: iets smaller zodat ze ernaast passen */
+#lightbox-overlay.meerdere #lightbox-venster {
+    max-width: 44vw;
 }
 .laadprofiel-a { animation-name: lightbox-open-a; }
 .laadprofiel-b { animation-name: lightbox-open-b; }

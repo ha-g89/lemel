@@ -12,7 +12,9 @@ export default function Gallerij() {
   const [params] = useSearchParams()
   const lens = params.get('lens')
   const thema = params.get('thema')
-  const [openFoto, zetOpenFoto] = useState(null)
+  /* elk open venster: { basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
+     ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop. */
+  const [vensters, zetVensters] = useState([])
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
@@ -28,14 +30,36 @@ export default function Gallerij() {
 
   useMenuLayout({ deps: [lens, thema] })
 
-  const sluitLightbox = useCallback(() => zetOpenFoto(null), [])
+  const openLightbox = useCallback((foto) => {
+    zetVensters((lijst) => {
+      const bestaat = lijst.some((v) => v.basis === foto.basis)
+      if (bestaat) {
+        return lijst.map((v) => (v.basis === foto.basis ? { ...v, geminimaliseerd: false } : v))
+      }
+      return [...lijst, { basis: foto.basis, foto, geminimaliseerd: false }]
+    })
+  }, [])
+  const sluitLightbox = useCallback((basis) => {
+    zetVensters((lijst) => lijst.filter((v) => v.basis !== basis))
+  }, [])
+  const wisselLightbox = useCallback((basis) => {
+    zetVensters((lijst) =>
+      lijst.map((v) => (v.basis === basis ? { ...v, geminimaliseerd: !v.geminimaliseerd } : v))
+    )
+  }, [])
+  const minimaliseerAlles = useCallback(() => {
+    zetVensters((lijst) => lijst.map((v) => ({ ...v, geminimaliseerd: true })))
+  }, [])
 
-  const venster = openFoto
-    ? { titel: openFoto.naam + '.jpg', onKlik: sluitLightbox }
-    : null
+  const taakbalkVensters = vensters.map((v) => ({
+    basis: v.basis,
+    titel: v.foto.naam + '.jpg',
+    actief: !v.geminimaliseerd,
+    onKlik: () => wisselLightbox(v.basis),
+  }))
 
   return (
-    <Pagina titel="le mel" metJaar venster={venster}>
+    <Pagina titel="le mel" metJaar vensters={taakbalkVensters}>
       <SchermInstellingen />
 
       <h2 id="fotos"></h2>
@@ -61,13 +85,13 @@ export default function Gallerij() {
               src={foto.url || undefined}
               alt={foto.naam}
               loading={laadwijze}
-              onClick={() => zetOpenFoto(foto)}
+              onClick={() => openLightbox(foto)}
             />
           </div>
         ))}
       </div>
 
-      <Lightbox foto={openFoto} onSluit={sluitLightbox} />
+      <Lightbox vensters={vensters} onSluit={sluitLightbox} onMinimaliseerAlles={minimaliseerAlles} />
     </Pagina>
   )
 }
