@@ -102,7 +102,12 @@ export default function Gallerij() {
         })}
       </div>
 
-      <Lightbox vensters={vensters} onSluit={sluitLightbox} onMinimaliseerAlles={minimaliseerAlles} />
+      <Lightbox
+        vensters={vensters}
+        onSluit={sluitLightbox}
+        onMinimaliseer={wisselLightbox}
+        onMinimaliseerAlles={minimaliseerAlles}
+      />
 
       {contextMenu && (
         <FotoContextMenu

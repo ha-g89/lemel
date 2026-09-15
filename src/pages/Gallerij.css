@@ -387,6 +387,27 @@
 #lightbox-overlay.meerdere #lightbox-venster {
     max-width: 44vw;
 }
+/* gemaximaliseerd: het venster (en dus de foto) vult het hele scherm */
+#lightbox-venster.gemaximaliseerd,
+#lightbox-overlay.meerdere #lightbox-venster.gemaximaliseerd {
+    width: 96vw;
+    height: 96vh;
+    max-width: 96vw;
+    max-height: 96vh;
+}
+#lightbox-venster.gemaximaliseerd #lightbox-vlak {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#lightbox-venster.gemaximaliseerd #lightbox-vlak img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
 .laadprofiel-a { animation-name: lightbox-open-a; }
 .laadprofiel-b { animation-name: lightbox-open-b; }
 .laadprofiel-c { animation-name: lightbox-open-c; }
@@ -450,6 +471,13 @@
     padding: 3px 3px 3px 5px;
     margin-bottom: 3px;
 }
+.lightbox-knoppen {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+}
+#lightbox-min,
+#lightbox-max,
 #lightbox-sluit {
     width: 22px;
     height: 20px;
@@ -468,6 +496,8 @@
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
 }
+#lightbox-min:active,
+#lightbox-max:active,
 #lightbox-sluit:active {
     border-top: 1px solid #000000;
     border-left: 1px solid #000000;
@@ -478,6 +508,8 @@
         inset -1px -1px 0 #DFDFDF;
     background-color: #D4D4D4;
 }
+#lightbox-min:active svg,
+#lightbox-max:active svg,
 #lightbox-sluit:active svg {
     transform: translate(1px, 1px);
 }

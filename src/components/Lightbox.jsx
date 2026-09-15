@@ -3,6 +3,8 @@ import { LENS_NAAM } from '../data/lenzen.js'
 import { ebayZoeklink } from '../lib/fotonamen.js'
 import ebayLogo from '../assets/iconen/ebay.png'
 import Kruisje from './Kruisje.jsx'
+import Streepje from './Streepje.jsx'
+import Vergroten from './Vergroten.jsx'
 
 /**
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft
@@ -11,10 +13,12 @@ import Kruisje from './Kruisje.jsx'
  * @param {object}   foto            item uit FOTOLIJST ({ url, naam, lens })
  * @param {boolean}  geminimaliseerd niet zichtbaar, maar wel nog gemount
  * @param {Function} onSluit         sluit dit venster helemaal (kruisje)
+ * @param {Function} onMinimaliseer  verberg dit venster (streepje), blijft in de taakbalk
  */
-function LightboxVenster({ foto, geminimaliseerd, onSluit }) {
+function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
   /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
   const [laadprofiel, zetLaadprofiel] = useState(null)
+  const [gemaximaliseerd, zetGemaximaliseerd] = useState(false)
   useLayoutEffect(() => {
     const varianten = ['a', 'b', 'c']
     // eslint-disable-next-line react-hooks/set-state-in-effect -- willekeurig per keer openen, mag geen render-pure berekening zijn
@@ -29,7 +33,10 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit }) {
   return (
     <div
       id="lightbox-venster"
-      className={geminimaliseerd ? 'verborgen' : laadprofiel?.klasse}
+      className={
+        (geminimaliseerd ? 'verborgen' : laadprofiel?.klasse || '') +
+        (gemaximaliseerd ? ' gemaximaliseerd' : '')
+      }
       style={!geminimaliseerd && laadprofiel ? { animationDuration: laadprofiel.duur } : undefined}
       onClick={(e) => e.stopPropagation()}
     >
@@ -37,8 +44,16 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit }) {
         <span id="lightbox-naam">
           {foto.naam}.jpg{lensnaam ? '  —  ' + lensnaam : ''}
         </span>
-        <span id="lightbox-sluit" onClick={onSluit}>
-          <Kruisje />
+        <span className="lightbox-knoppen">
+          <span id="lightbox-min" onClick={onMinimaliseer}>
+            <Streepje />
+          </span>
+          <span id="lightbox-max" onClick={() => zetGemaximaliseerd((m) => !m)}>
+            <Vergroten hersteld={gemaximaliseerd} />
+          </span>
+          <span id="lightbox-sluit" onClick={onSluit}>
+            <Kruisje />
+          </span>
         </span>
       </div>
       <div id="lightbox-vlak">
@@ -61,9 +76,10 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit }) {
  * bewaard blijft; de overlay zelf verbergt zich pas als er niets zichtbaar is.
  * @param {{ basis: string, foto: object, geminimaliseerd: boolean }[]} vensters
  * @param {Function} onSluit             sluit één venster helemaal (basis) => void
+ * @param {Function} onMinimaliseer      verberg één venster (streepje) (basis) => void
  * @param {Function} onMinimaliseerAlles verberg alle zichtbare vensters, blijven in de taakbalk
  */
-export default function Lightbox({ vensters, onSluit, onMinimaliseerAlles }) {
+export default function Lightbox({ vensters, onSluit, onMinimaliseer, onMinimaliseerAlles }) {
   const zichtbaar = vensters.filter((v) => !v.geminimaliseerd)
 
   useEffect(() => {
@@ -89,6 +105,7 @@ export default function Lightbox({ vensters, onSluit, onMinimaliseerAlles }) {
           foto={v.foto}
           geminimaliseerd={v.geminimaliseerd}
           onSluit={() => onSluit(v.basis)}
+          onMinimaliseer={() => onMinimaliseer(v.basis)}
         />
       ))}
     </div>
