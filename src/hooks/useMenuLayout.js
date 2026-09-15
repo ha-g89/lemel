@@ -27,32 +27,41 @@ function plaatsBalk() {
 
 const ICOON_MARGE = 20 /* afstand tussen het icoontje en de taakbalk zodra die eronder komt, en tussen het icoontje en de fotogrid */
 
-/* het weergave-icoontje (paasei) net naast de rechterkant van het doek
-   zetten (niet erover heen), en de natuurlijke (document-)hoogte van de
-   eerste foto's onthouden: dat is waar het icoontje hoort te staan, naast
-   de bovenkant van de fotogrid */
-function plaatsSchermIcoonHorizontaal() {
-  const icoon = document.getElementById('scherminstellingen-icoon')
-  const venster = document.getElementById('scherminstellingen-venster')
+/* een icoontje (paasei-icoon of de "naar start"-knop) naast het doek
+   zetten (niet erover heen) aan de gevraagde kant, op de natuurlijke
+   hoogte naast de bovenkant van de fotogrid. De (document-)hoogte wordt
+   ook onthouden: dat is waar het paasei-icoon vandaan begint mee te
+   scrollen (zie plaatsIcoonVerticaal) */
+function plaatsIcoonHorizontaal(icoonId, kant, vensterId) {
+  const icoon = document.getElementById(icoonId)
+  const venster = vensterId ? document.getElementById(vensterId) : null
   const vlak = doek()
   if (!icoon || !vlak) return
 
   const doekRect = vlak.getBoundingClientRect()
-  const links = Math.round(doekRect.right + ICOON_MARGE)
-  icoon.dataset.natuurlijkeTop = Math.round(doekRect.top + window.scrollY)
+  const positie =
+    kant === 'links'
+      ? Math.round(doekRect.left - ICOON_MARGE - icoon.offsetWidth)
+      : Math.round(doekRect.right + ICOON_MARGE)
+  const natuurlijkeTop = Math.round(doekRect.top + window.scrollY)
+  icoon.dataset.natuurlijkeTop = natuurlijkeTop
 
-  icoon.style.left = links + 'px'
-  if (venster) venster.style.left = links + icoon.offsetWidth - 260 + 'px'
+  icoon.style.left = positie + 'px'
+  icoon.style.top = natuurlijkeTop + 'px'
+  if (venster) venster.style.left = positie + icoon.offsetWidth - 260 + 'px'
 }
 
-/* het icoontje staat op zijn natuurlijke plek naast de bovenkant van de
-   fotogrid totdat je daaraan voorbij scrollt; daarna blijft het op een
-   vaste afstand van de bovenkant van het scherm meescrollen, totdat de
-   taakbalk eronder dat punt zou inhalen. Vanaf dat moment blijft het vlak
-   boven de taakbalk hangen in plaats van erdoorheen te schuiven */
-function plaatsSchermIcoonVerticaal() {
-  const icoon = document.getElementById('scherminstellingen-icoon')
-  const venster = document.getElementById('scherminstellingen-venster')
+/* het paasei-icoontje staat op zijn natuurlijke plek naast de bovenkant
+   van de fotogrid totdat je daaraan voorbij scrollt; daarna blijft het op
+   een vaste afstand van de bovenkant van het scherm meescrollen, totdat
+   de taakbalk eronder dat punt zou inhalen. Vanaf dat moment blijft het
+   vlak boven de taakbalk hangen in plaats van erdoorheen te schuiven.
+   (De "naar start"-knop blijft juist gewoon boven staan, zie
+   plaatsIcoonHorizontaal, anders staan er twee start-achtige knoppen
+   tegelijk in beeld zodra je bij de taakbalk bent) */
+function plaatsIcoonVerticaal(icoonId, vensterId) {
+  const icoon = document.getElementById(icoonId)
+  const venster = vensterId ? document.getElementById(vensterId) : null
   if (!icoon) return
 
   const natuurlijkeTop = parseFloat(icoon.dataset.natuurlijkeTop) || 0
@@ -60,8 +69,8 @@ function plaatsSchermIcoonVerticaal() {
 
   const balk = document.querySelector('.taakbalk')
   if (balk) {
-    const vloer = balk.getBoundingClientRect().top + window.scrollY - icoon.offsetHeight - ICOON_MARGE
-    top = Math.min(top, vloer)
+    const grens = balk.getBoundingClientRect().top + window.scrollY - icoon.offsetHeight - ICOON_MARGE
+    top = Math.min(top, grens)
   }
 
   icoon.style.top = Math.round(top) + 'px'
@@ -80,8 +89,9 @@ export function useMenuLayout({ deps = [] } = {}) {
   useEffect(() => {
     function plaatsAlles() {
       plaatsBalk()
-      plaatsSchermIcoonHorizontaal()
-      plaatsSchermIcoonVerticaal()
+      plaatsIcoonHorizontaal('scherminstellingen-icoon', 'rechts', 'scherminstellingen-venster')
+      plaatsIcoonVerticaal('scherminstellingen-icoon', 'scherminstellingen-venster')
+      plaatsIcoonHorizontaal('naar-start-knop', 'links')
     }
     plaatsAlles()
 
@@ -92,7 +102,7 @@ export function useMenuLayout({ deps = [] } = {}) {
       if (aangevraagd !== null) return
       aangevraagd = requestAnimationFrame(() => {
         aangevraagd = null
-        plaatsSchermIcoonVerticaal()
+        plaatsIcoonVerticaal('scherminstellingen-icoon', 'scherminstellingen-venster')
       })
     }
 

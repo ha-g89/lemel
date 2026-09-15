@@ -72,7 +72,6 @@ export default function Navbar({ metJaar = false, open = false, onSluitMenu, opA
               <span><u>h</u>ome</span>
             </Link>
             <a
-              className="afsluiten-link"
               href="#"
               onClick={(e) => {
                 e.preventDefault()

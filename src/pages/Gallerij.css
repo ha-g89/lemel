@@ -50,7 +50,12 @@
     height: 22px;
     padding: 2px 4px 2px 5px;
     margin-bottom: 6px;
-    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
+        linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    background-size: 50px 50px, 100% 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: overlay, normal;
     color: #FFFFFF;
     font-weight: bold;
 }
@@ -77,6 +82,7 @@
     border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+    background-color: #D4D4D4;
 }
 #scherminstellingen-venster .inhoud {
     padding: 0;
@@ -159,6 +165,7 @@
     border-left: 2px solid #000000;
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
+    background-color: #D4D4D4;
 }
 .ok-knop {
     min-width: 46px;
@@ -415,7 +422,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
+        linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    background-size: 50px 50px, 100% 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: overlay, normal;
     color: #FFFFFF;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
@@ -449,6 +461,7 @@
     box-shadow:
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
+    background-color: #D4D4D4;
 }
 #lightbox-sluit:active svg {
     transform: translate(1px, 1px);
@@ -484,6 +497,7 @@
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
     padding: 4px 7px 2px 9px;
+    background-color: #D4D4D4;
 }
 #lightbox-overlay #lightbox-ebay img {
     height: 16px;

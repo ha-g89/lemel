@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import Navbar from './Navbar.jsx'
 import logo from '../assets/iconen/logo.png'
 import vensterIcoon from '../assets/iconen/venster.png'
+import boomIcoon from '../assets/iconen/boom.png'
+import netwerkIcoon from '../assets/iconen/netwerk.png'
+import smileyIcoon from '../assets/iconen/smiley.png'
 
 function tijdNu() {
   const d = new Date()
@@ -68,6 +71,21 @@ export default function Taakbalk({
         </button>
       ))}
       <div className="lade">
+        <a
+          className="lade-knop"
+          href="https://www.instagram.com/meneermel/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="netwerk: instagram"
+        >
+          <img src={netwerkIcoon} alt="" />
+        </a>
+        <span className="lade-icoon">
+          <img src={smileyIcoon} alt="" />
+        </span>
+        <span className="lade-icoon">
+          <img src={boomIcoon} alt="" />
+        </span>
         <Klok />
       </div>
     </div>

@@ -100,10 +100,11 @@ table {
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
     padding: 1px 6px 0 6px;
+    background-color: #D4D4D4;
 }
 .startknop img {
-    width: 15px;
-    height: 15px;
+    width: 11px;
+    height: 11px;
     image-rendering: pixelated;
 }
 .greep {
@@ -147,8 +148,8 @@ table {
         inset 1px 1px 0 #DFDFDF;
 }
 .taakvenster img {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     flex-shrink: 0;
     object-fit: contain;
     image-rendering: pixelated;
@@ -163,6 +164,7 @@ table {
     margin-left: auto;
     display: flex;
     align-items: center;
+    gap: 6px;
     height: 22px;
     padding: 0 8px;
     color: #000000;
@@ -170,6 +172,26 @@ table {
     border-left: 1px solid #808080;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+}
+.lade-knop {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+    cursor: pointer;
+}
+.lade-icoon {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+}
+.lade-knop img,
+.lade-icoon img,
+.lade-icoon svg {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 /* ---- navigatiemenu (Start-menu, klapt open boven de taakbalk) ---- */
@@ -294,18 +316,33 @@ table {
 .navbar a span u {
     text-decoration: underline;
 }
-.afsluiten-link {
-    font-size: 9px;
-}
 .navbar a:active {
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
-    box-shadow:
-        inset 2px 2px 0 #808080,
-        inset -2px -2px 0 #DFDFDF;
-    padding: 5px 5px 3px 7px;
+    animation: navbar-knipperen 120ms steps(1, end) 1;
+}
+.navbar a:active span {
+    animation: navbar-knipperen-tekst 120ms steps(1, end) 1;
+}
+@keyframes navbar-knipperen {
+    0%, 100% {
+        background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    }
+    50% {
+        background: transparent;
+    }
+}
+@keyframes navbar-knipperen-tekst {
+    0%, 100% {
+        color: #FFFFFF;
+    }
+    50% {
+        color: #000000;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .navbar a:active,
+    .navbar a:active span {
+        animation: none;
+    }
 }
 
 h2 {
@@ -375,6 +412,52 @@ h2 {
 }
 #bsod p {
     margin: 0;
+}
+
+/* ---- knop: naar start (scrollt naar de taakbalk); staat, net als het
+   paasei-icoontje, naast het doek en schuift mee tot boven de taakbalk,
+   maar dan gespiegeld aan de andere kant ---- */
+.naar-start-knop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 22px;
+    box-sizing: border-box;
+    padding: 0 7px 0 5px;
+    margin: 0;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    background-color: #C0C0C0;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.naar-start-knop img {
+    width: 15px;
+    height: 15px;
+    image-rendering: pixelated;
+}
+.naar-start-knop:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+    padding: 1px 6px 0 6px;
+    background-color: #D4D4D4;
 }
 
 /* ---- voettekst ---- */

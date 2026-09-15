@@ -5,6 +5,7 @@ import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
+import spelIcoon from '../assets/iconen/spel.png'
 
 /**
  * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst.
@@ -56,6 +57,18 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
+      <button
+        type="button"
+        id="naar-start-knop"
+        className="naar-start-knop"
+        onClick={() =>
+          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
+        }
+      >
+        <img src={spelIcoon} alt="" />
+        <span>start</span>
+      </button>
+
       <Link className="titel-link" to="/">
         <img className="titel" src={logo} alt="le mel" />
       </Link>
