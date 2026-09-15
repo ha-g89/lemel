@@ -15,7 +15,7 @@ export default function LenzenTabel({ rijen, metFotos = false, stijl }) {
         <tr>
           <th>model</th>
           <th>mount</th>
-          <th>focall</th>
+          <th>focal</th>
           <th>f-stop</th>
           <th>waarde</th>
           {metFotos && <th>foto&#39;s</th>}

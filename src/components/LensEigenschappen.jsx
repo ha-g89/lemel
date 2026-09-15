@@ -1,4 +1,5 @@
-import { euro, ebayZoeklink } from '../lib/lenzendatabase.js'
+import { euro } from '../lib/lenzendatabase.js'
+import { ebayZoeklink } from '../lib/ebay.js'
 import databaseIcoon from '../assets/iconen/database.png'
 import Kruisje from './Kruisje.jsx'
 

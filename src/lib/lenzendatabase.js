@@ -56,11 +56,6 @@ export function euro(bedrag, valuta) {
   return symbool + Number(bedrag).toFixed(2).replace('.', ',')
 }
 
-export function ebayZoeklink(naam) {
-  const term = naam.replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').trim()
-  return 'https://www.ebay.nl/sch/i.html?_nkw=' + encodeURIComponent(term)
-}
-
 export function vergelijk(a, b, kolom) {
   let va = a[kolom]
   let vb = b[kolom]

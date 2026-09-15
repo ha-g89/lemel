@@ -47,12 +47,3 @@ export function naamVarianten(basis) {
   }
   return lijst
 }
-
-/* zoekterm voor eBay: zonder haakjes, umlaut weg */
-export function zoekterm(naam) {
-  return naam.replace(/\([^)]*\)/g, '').replace(/ä/g, 'a').replace(/\s+/g, ' ').trim()
-}
-
-export function ebayZoeklink(naam) {
-  return 'https://www.ebay.nl/sch/i.html?_nkw=' + encodeURIComponent(zoekterm(naam))
-}

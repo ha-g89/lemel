@@ -4,7 +4,8 @@ import Contextmenu from '../components/Contextmenu.jsx'
 import LensEigenschappen from '../components/LensEigenschappen.jsx'
 import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
-import { laadLenzen, euro, ebayZoeklink, vergelijk } from '../lib/lenzendatabase.js'
+import { laadLenzen, euro, vergelijk } from '../lib/lenzendatabase.js'
+import { ebayZoeklink } from '../lib/ebay.js'
 import './Lenzendatabase.css'
 
 const KOLOMMEN = [
@@ -193,7 +194,7 @@ export default function Lenzendatabase() {
                 value={statusfilter}
                 onChange={(e) => zetStatusfilter(e.target.value)}
               >
-                <option value="">alle 175</option>
+                <option value="">alle {alleRijen.length}</option>
                 <option value="owned">in bezit</option>
                 <option value="wanted">op kijklijst</option>
                 <option value="sold">verkocht</option>

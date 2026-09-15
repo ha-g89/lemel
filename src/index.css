@@ -194,8 +194,7 @@ table {
     line-height: 0;
 }
 .lade-knop img,
-.lade-icoon img,
-.lade-icoon svg {
+.lade-icoon img {
     width: 11px;
     height: 11px;
     flex-shrink: 0;

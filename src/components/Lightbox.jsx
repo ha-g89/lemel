@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { LENS_NAAM } from '../data/lenzen.js'
-import { ebayZoeklink } from '../lib/fotonamen.js'
+import { ebayZoeklink } from '../lib/ebay.js'
 import ebayLogo from '../assets/iconen/ebay.png'
 import Kruisje from './Kruisje.jsx'
 import Streepje from './Streepje.jsx'
