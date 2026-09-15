@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import Pagina from '../components/Pagina.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import SchermInstellingen from '../components/SchermInstellingen.jsx'
+import FotoContextMenu from '../components/FotoContextMenu.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { FOTOLIJST } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
@@ -15,6 +16,7 @@ export default function Gallerij() {
   /* elk open venster: { basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
      ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop. */
   const [vensters, zetVensters] = useState([])
+  const [contextMenu, zetContextMenu] = useState(null) /* { x, y, foto } */
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
@@ -74,24 +76,43 @@ export default function Gallerij() {
       )}
 
       <div className="photogrid" data-doek>
-        {FOTOLIJST.map((foto) => (
-          <div
-            key={foto.basis}
-            className={past(foto) ? 'photobox' : 'photobox verborgen'}
-            data-lens={foto.lens || ''}
-            data-thema={foto.thema || ''}
-          >
-            <img
-              src={foto.url || undefined}
-              alt={foto.naam}
-              loading={laadwijze}
-              onClick={() => openLightbox(foto)}
-            />
-          </div>
-        ))}
+        {FOTOLIJST.map((foto) => {
+          const lensnaam = foto.lens ? LENS_NAAM[foto.lens] : null
+          const tooltip = foto.naam + '.jpg' + (lensnaam ? '  —  ' + lensnaam : '')
+          return (
+            <div
+              key={foto.basis}
+              className={past(foto) ? 'photobox' : 'photobox verborgen'}
+              data-lens={foto.lens || ''}
+              data-thema={foto.thema || ''}
+              data-tooltip={tooltip}
+            >
+              <img
+                src={foto.url || undefined}
+                alt={foto.naam}
+                loading={laadwijze}
+                onClick={() => openLightbox(foto)}
+                onContextMenu={(e) => {
+                  e.preventDefault()
+                  zetContextMenu({ x: e.clientX, y: e.clientY, foto })
+                }}
+              />
+            </div>
+          )
+        })}
       </div>
 
       <Lightbox vensters={vensters} onSluit={sluitLightbox} onMinimaliseerAlles={minimaliseerAlles} />
+
+      {contextMenu && (
+        <FotoContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          foto={contextMenu.foto}
+          onOpenen={() => openLightbox(contextMenu.foto)}
+          onSluiten={() => zetContextMenu(null)}
+        />
+      )}
     </Pagina>
   )
 }

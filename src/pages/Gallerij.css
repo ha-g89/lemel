@@ -86,29 +86,46 @@
     grid-template-columns: 1fr 1fr;
     gap: 4px;
 }
-.effect-knop {
+.effect-optie {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 10px;
-    padding: 3px 4px;
-    background-color: #C0C0C0;
     color: #000000;
-    border-top: 1px solid #FFFFFF;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    box-shadow:
-        inset -1px -1px 0 #808080,
-        inset 1px 1px 0 #DFDFDF;
     cursor: pointer;
 }
-.effect-knop.actief {
-    border-top: 1px solid #000000;
-    border-left: 1px solid #000000;
+.effect-optie input[type="checkbox"] {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    margin: 0;
+    opacity: 0;
+}
+.vinkje {
+    position: relative;
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
-    box-shadow:
-        inset 1px 1px 0 #808080,
-        inset -1px -1px 0 #DFDFDF;
+}
+.effect-optie input:checked + .vinkje::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='1.5,6.5 4.5,9.5 10.5,2' fill='none' stroke='%23000000' stroke-width='1.8' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 9px 9px;
+}
+.effect-optie input:focus-visible + .vinkje {
+    outline: 1px dotted #000000;
+    outline-offset: 1px;
 }
 #scherminstellingen-venster fieldset {
     margin: 0;
@@ -154,25 +171,13 @@
     outline: 1px dotted #000000;
     outline-offset: -1px;
 }
-#pixel-canvas-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 50;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-}
-
 /* ---- fotogrid ---- */
 #fotos {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;
 }
 .photobox {
+    position: relative;
     width: 100%;
     margin-bottom: 4px;
     overflow: hidden;
@@ -181,6 +186,40 @@
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
+}
+/* Win98-tooltip bij hover, blijft binnen de foto zelf zodat "overflow: hidden"
+   hem niet afkapt (anders zou het buiten de masonry-tegel vallen) */
+.photobox[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    max-width: calc(100% - 8px);
+    box-sizing: border-box;
+    padding: 2px 4px;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 5;
+}
+.photobox[data-tooltip]:hover::after {
+    animation: tooltip-verschijnen 0s 500ms forwards;
+}
+@keyframes tooltip-verschijnen {
+    to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .photobox[data-tooltip]:hover::after {
+        animation: none;
+        opacity: 1;
+    }
 }
 .photobox img {
     width: 100%;
@@ -235,6 +274,51 @@
     margin-bottom: 40px;
 }
 
+/* ---- contextmenu (rechtermuisknop op een foto) ---- */
+.contextmenu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    background-color: #C0C0C0;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    z-index: 2000;
+}
+.contextmenu button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    text-align: left;
+    padding: 4px 16px 4px 10px;
+    white-space: nowrap;
+    font: inherit;
+    color: #000000;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+.contextmenu button img {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+}
+.contextmenu button:hover {
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    color: #FFFFFF;
+}
+
 /* ---- lightbox ---- */
 #lightbox-overlay {
     display: flex;
@@ -259,13 +343,13 @@
 #lightbox-venster {
     background-color: #C0C0C0;
     padding: 6px;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
     box-shadow:
-        inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
     max-width: 92vw;
     max-height: 92vh;
     display: flex;
@@ -362,6 +446,12 @@
     border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+}
+#lightbox-sluit:active svg {
+    transform: translate(1px, 1px);
 }
 #lightbox-onder {
     display: flex;
@@ -402,10 +492,10 @@
     flex-shrink: 0;
 }
 #lightbox-vlak {
-    border-top: 2px solid #808080;
-    border-left: 2px solid #808080;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
     line-height: 0;
     overflow: hidden;
 }

@@ -359,6 +359,24 @@ h2 {
     margin-bottom: 0 !important;
 }
 
+/* ---- bsod (paasei: typ ergens op de site "bsod") ---- */
+#bsod {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: #0000AA;
+    color: #FFFFFF;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 60px 80px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: none;
+}
+#bsod p {
+    margin: 0;
+}
+
 /* ---- voettekst ---- */
 .footer {
     margin-top: 40px;

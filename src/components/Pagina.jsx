@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
+import BSOD from './BSOD.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
 
@@ -17,10 +18,26 @@ import instagramIcoon from '../assets/iconen/instagram.png'
 export default function Pagina({ titel, klasse, metJaar = false, vensters = [], children }) {
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
+  const [bsod, zetBsod] = useState(false)
 
   useEffect(() => {
     document.title = titel
   }, [titel])
+
+  /* paasei zonder knop: typ ergens op de site "bsod" (niet terwijl je in
+     een tekstveld typt, anders triggert het per ongeluk bij het zoeken) */
+  useEffect(() => {
+    let buffer = ''
+    function opToets(e) {
+      const tag = e.target.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+      if (e.key.length !== 1) return
+      buffer = (buffer + e.key).slice(-4).toLowerCase()
+      if (buffer === 'bsod') zetBsod(true)
+    }
+    document.addEventListener('keydown', opToets)
+    return () => document.removeEventListener('keydown', opToets)
+  }, [])
 
   /* klik buiten het menu (en buiten de Start-knop) sluit het,
      net als het echte Windows-95 Start-menu */
@@ -35,6 +52,7 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
   }, [menuOpen])
 
   if (afgesloten) return <Afsluitscherm />
+  if (bsod) return <BSOD />
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>

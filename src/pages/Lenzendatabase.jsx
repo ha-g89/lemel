@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import Pagina from '../components/Pagina.jsx'
+import Contextmenu from '../components/Contextmenu.jsx'
+import LensEigenschappen from '../components/LensEigenschappen.jsx'
+import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { laadLenzen, euro, ebayZoeklink, vergelijk } from '../lib/lenzendatabase.js'
 import './Lenzendatabase.css'
@@ -22,7 +25,7 @@ function StatusBadge({ status }) {
   return null
 }
 
-function Rij({ r }) {
+function Rij({ r, onContextMenu }) {
   const naam = r.maker + ' ' + r.model
   const focal = r.focal_mm ? Math.round(r.focal_mm) + 'mm' : ''
   const fstop = r.aperture_max ? 'f/' + r.aperture_max : ''
@@ -30,7 +33,7 @@ function Rij({ r }) {
   const prijslink = r.prijsurl || ebayZoeklink(naam)
 
   return (
-    <tr>
+    <tr onContextMenu={onContextMenu}>
       <td>{r.maker || ''}</td>
       <td>
         <a href={prijslink} target="_blank" rel="noopener noreferrer">
@@ -83,6 +86,8 @@ export default function Lenzendatabase() {
   const [vatting, zetVatting] = useState('')
   const [statusfilter, zetStatusfilter] = useState('')
   const [sortering, zetSortering] = useState({ kolom: 'maker', omhoog: true })
+  const [contextMenu, zetContextMenu] = useState(null) /* { x, y, r } */
+  const [eigenschappenRij, zetEigenschappenRij] = useState(null)
 
   useEffect(() => {
     let actief = true
@@ -147,7 +152,16 @@ export default function Lenzendatabase() {
   return (
     <Pagina titel="le mel — lenzen" klasse="database">
       <div className="databox" data-doek>
-        {!geladen && <div id="statusregel">{status}</div>}
+        {!geladen && (
+          <div id="statusregel">
+            <p>{status}</p>
+            {status === 'database wordt geladen…' && (
+              <div className="laadbalk-buiten">
+                <div className="laadbalk-binnen"></div>
+              </div>
+            )}
+          </div>
+        )}
 
         {geladen && (
           <div id="filterpaneel">
@@ -209,12 +223,38 @@ export default function Lenzendatabase() {
                 </tr>
               )}
               {rijen.map((r) => (
-                <Rij key={r.id} r={r} />
+                <Rij
+                  key={r.id}
+                  r={r}
+                  onContextMenu={(e) => {
+                    e.preventDefault()
+                    zetContextMenu({ x: e.clientX, y: e.clientY, r })
+                  }}
+                />
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {contextMenu && (
+        <Contextmenu x={contextMenu.x} y={contextMenu.y} onSluiten={() => zetContextMenu(null)}>
+          <button
+            type="button"
+            onClick={() => {
+              zetEigenschappenRij(contextMenu.r)
+              zetContextMenu(null)
+            }}
+          >
+            <img src={vergrootglasIcoon} alt="" />
+            eigenschappen
+          </button>
+        </Contextmenu>
+      )}
+
+      {eigenschappenRij && (
+        <LensEigenschappen r={eigenschappenRij} onSluiten={() => zetEigenschappenRij(null)} />
+      )}
     </Pagina>
   )
 }

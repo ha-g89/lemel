@@ -19,6 +19,43 @@
     margin-bottom: 8px;
     text-align: center;
 }
+#statusregel p {
+    margin: 0 0 8px 0;
+}
+.laadbalk-buiten {
+    width: 220px;
+    height: 16px;
+    margin: 0 auto;
+    padding: 2px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    overflow: hidden;
+}
+.laadbalk-binnen {
+    height: 100%;
+    width: 40%;
+    background-image: repeating-linear-gradient(
+        to right,
+        #05430a 0px, #05430a 8px,
+        transparent 8px, transparent 10px
+    );
+    animation: laadbalk-schuiven 1.1s linear infinite;
+}
+@keyframes laadbalk-schuiven {
+    from { margin-left: -40%; }
+    to { margin-left: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .laadbalk-binnen {
+        animation: none;
+        width: 100%;
+        margin-left: 0;
+    }
+}
 #filterpaneel {
     display: flex;
     flex-wrap: wrap;
@@ -151,4 +188,115 @@
 }
 .geen-data {
     color: #999999;
+}
+
+/* ---- eigenschappen-venster (rechtsklik op een rij) ---- */
+.eigenschappen-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.eigenschappen-venster {
+    width: 320px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #C0C0C0;
+    padding: 6px;
+    box-sizing: border-box;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+}
+.eigenschappen-venster .titelbalk {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 22px;
+    padding: 2px 4px 2px 5px;
+    margin-bottom: 6px;
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.eigenschappen-venster .titelbalk-icoon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    image-rendering: pixelated;
+}
+.eigenschappen-venster .titelbalk-tekst {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.eigenschappen-venster .titelbalk .sluitknop {
+    width: 22px;
+    height: 20px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C0C0C0;
+    cursor: pointer;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.eigenschappen-venster .titelbalk .sluitknop:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+}
+.eigenschappen-venster fieldset {
+    margin: 0 0 8px 0;
+    padding: 8px;
+    border: 1px solid #808080;
+    box-shadow: inset 1px 1px 0 #FFFFFF;
+}
+.eigenschappen-venster legend {
+    padding: 0 3px;
+}
+.eigenschappen-venster dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    margin: 0;
+}
+.eigenschappen-venster dt {
+    color: #333333;
+    white-space: nowrap;
+}
+.eigenschappen-venster dd {
+    margin: 0;
+    text-align: right;
+    overflow-wrap: break-word;
+}
+.eigenschappen-venster dd a {
+    color: #05430a;
 }
