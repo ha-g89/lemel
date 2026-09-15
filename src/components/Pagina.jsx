@@ -65,8 +65,7 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
           window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
         }
       >
-        <img src={spelIcoon} alt="" />
-        <span>start</span>
+        <img src={spelIcoon} alt="naar start" />
       </button>
 
       <Link className="titel-link" to="/">
