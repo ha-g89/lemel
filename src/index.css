@@ -29,7 +29,7 @@ table {
 .wrapper {
     width: 600px;
     margin: 0 auto;
-    padding: 40px 10px 20px 10px;
+    padding: 64px 10px 20px 10px;
     text-align: center;
 }
 .titel {
@@ -313,7 +313,7 @@ table {
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%;
+    width: calc(100% + 80px);
     height: 100%;
     z-index: 0;
     pointer-events: none;
@@ -342,9 +342,6 @@ table {
     background: transparent;
     color: #FFFFFF;
 }
-.navbar a.actief {
-    font-weight: bold;
-}
 .navbar a img {
     width: 18px;
     height: 16px;
@@ -352,6 +349,13 @@ table {
     image-rendering: pixelated;
     flex-shrink: 0;
     filter: drop-shadow(1px 1px 0 #000000);
+}
+.navbar a img.afsluiten-icoon {
+    /* afsluiten.png vult zijn canvas vrijwel helemaal, andere
+       menu-icoontjes hebben meer ruimte errond; visueel iets
+       verkleinen (zonder de icoon-kolom smaller te maken, anders
+       schuift de tekst ernaast uit lijn met de rest) */
+    transform: scale(0.78);
 }
 .navbar a:hover {
     text-decoration: none;
@@ -457,61 +461,48 @@ h2 {
     margin: 0;
 }
 
-/* ---- knop: naar start (scrollt naar de taakbalk); staat, net als het
-   paasei-icoontje, naast het doek en schuift mee tot boven de taakbalk,
-   maar dan gespiegeld aan de andere kant ---- */
+/* ---- knop: naar start (scrollt naar de taakbalk); een gewone grijze
+   Win98-knop, rechte hoeken, gecentreerd onder het logo ---- */
 .naar-start-knop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 22px;
-    width: 26px;
+    gap: 6px;
+    height: 26px;
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+    padding: 0 12px;
+    margin: 110px auto 0 auto;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
-    font-weight: bold;
+    font-weight: normal;
     color: #000000;
+    white-space: nowrap;
     cursor: pointer;
     background-color: #C0C0C0;
-    border: none;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
     box-shadow:
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
-    filter: drop-shadow(0 0 1.5px #39FF14) drop-shadow(0 0 1.5px #39FF14);
-    animation: naar-start-puls 1.8s ease-in-out infinite;
 }
 .naar-start-knop img {
     width: 15px;
     height: 15px;
     image-rendering: pixelated;
+    flex-shrink: 0;
 }
 .naar-start-knop:active {
+    background-color: #D4D4D4;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
     box-shadow:
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
-    filter: drop-shadow(0 0 1.5px #39FF14) drop-shadow(0 0 1.5px #39FF14);
-    padding: 1px 0 0 1px;
-    background-color: #D4D4D4;
-    animation: none;
-}
-@keyframes naar-start-puls {
-    0%, 100% {
-        filter: drop-shadow(0 0 1.5px #39FF14) drop-shadow(0 0 1.5px #39FF14);
-    }
-    50% {
-        filter: drop-shadow(0 0 3px #39FF14) drop-shadow(0 0 5px rgba(57, 255, 20, 0.8));
-    }
-}
-@media (prefers-reduced-motion: reduce) {
-    .naar-start-knop {
-        animation: none;
-    }
+    padding: 1px 11px 0 13px;
 }
 
 /* ---- voettekst ---- */

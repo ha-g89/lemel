@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Pagina from '../components/Pagina.jsx'
 import Lightbox from '../components/Lightbox.jsx'
-import SchermInstellingen from '../components/SchermInstellingen.jsx'
 import FotoContextMenu from '../components/FotoContextMenu.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { FOTOLIJST } from '../data/fotos.js'
@@ -22,7 +21,7 @@ export default function Gallerij() {
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
   const past = (foto) => {
     if (!filterGeldig) return true
-    return lens ? foto.lens === lens : foto.thema === thema
+    return lens ? foto.lens === lens : foto.themas.includes(thema)
   }
   const aantal = FOTOLIJST.filter(past).length
   const filternaam = lens ? LENS_NAAM[lens] : THEMA_NAAM[thema]
@@ -62,8 +61,6 @@ export default function Gallerij() {
 
   return (
     <Pagina titel="le mel" metJaar vensters={taakbalkVensters}>
-      <SchermInstellingen />
-
       <h2 id="fotos"></h2>
 
       {filterGeldig && (
@@ -84,7 +81,7 @@ export default function Gallerij() {
               key={foto.basis}
               className={past(foto) ? 'photobox' : 'photobox verborgen'}
               data-lens={foto.lens || ''}
-              data-thema={foto.thema || ''}
+              data-thema={foto.themas.join(' ')}
               data-tooltip={tooltip}
             >
               <img

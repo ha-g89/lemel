@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import weergaveIcoon from '../assets/iconen/weergave.png'
 import Kruisje from './Kruisje.jsx'
+import './SchermInstellingen.css'
 
 /* Effecten die met een CSS-filter op de hele pagina werken.
    Elke schakelaar is aan/uit; meerdere mogen tegelijk aan staan. */
@@ -12,15 +12,13 @@ const EFFECTEN = [
 
 /**
  * Paasei: een "Display Properties"-achtig venstertje met een rijtje
- * knoppen die elk een effect op de hele pagina aan/uit zetten.
+ * knoppen die elk een effect op de hele pagina aan/uit zetten. Wordt
+ * geopend vanuit "instellingen" in het Start-menu (zie Navbar.jsx).
+ * @param {boolean}  open     staat het venster open
+ * @param {Function} onClose  sluit het venster
  */
-export default function SchermInstellingen() {
-  const [open, zetOpen] = useState(false)
+export default function SchermInstellingen({ open, onClose }) {
   const [effecten, zetEffecten] = useState(() => new Set())
-
-  function toggleVenster() {
-    zetOpen((o) => !o)
-  }
 
   function pasCssEffectenToe(nieuweSet) {
     const filters = []
@@ -41,15 +39,11 @@ export default function SchermInstellingen() {
   }
 
   return (
-    <>
-      <button type="button" id="scherminstellingen-icoon" onClick={toggleVenster}>
-        <img src={weergaveIcoon} alt="weergave-instellingen" />
-      </button>
-
-      <div id="scherminstellingen-venster" className={open ? 'open' : undefined}>
+    <div className={open ? 'scherminstellingen-overlay open' : 'scherminstellingen-overlay'} onClick={onClose}>
+      <div id="scherminstellingen-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk">
           <span>paasei</span>
-          <span className="sluitknop" onClick={toggleVenster}>
+          <span className="sluitknop" onClick={onClose}>
             <Kruisje />
           </span>
         </div>
@@ -72,12 +66,12 @@ export default function SchermInstellingen() {
           </fieldset>
 
           <div className="loze-knoppenrij">
-            <button type="button" className="loze-knop ok-knop" onClick={toggleVenster}>
+            <button type="button" className="loze-knop ok-knop" onClick={onClose}>
               <span>OK</span>
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -19,4 +19,5 @@ export const LENS_NAAM = {
 
 export const THEMA_NAAM = {
   autos: "auto's",
+  jp26: 'jp26',
 }

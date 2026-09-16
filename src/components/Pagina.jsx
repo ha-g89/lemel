@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
+import SchermInstellingen from './SchermInstellingen.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
-import spelIcoon from '../assets/iconen/spel.png'
+import naarStartIcoon from '../assets/iconen/naarstart.png'
 
 /**
  * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst.
@@ -20,6 +21,7 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
   const [bsod, zetBsod] = useState(false)
+  const [instellingenOpen, zetInstellingenOpen] = useState(false)
 
   useEffect(() => {
     document.title = titel
@@ -57,6 +59,10 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
+      <Link className="titel-link" to="/">
+        <img className="titel" src={logo} alt="le mel" />
+      </Link>
+
       <button
         type="button"
         id="naar-start-knop"
@@ -65,12 +71,9 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
           window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
         }
       >
-        <img src={spelIcoon} alt="naar start" />
+        <img src={naarStartIcoon} alt="" />
+        <span>naar start</span>
       </button>
-
-      <Link className="titel-link" to="/">
-        <img className="titel" src={logo} alt="le mel" />
-      </Link>
 
       {children}
 
@@ -81,7 +84,10 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
         onToggleMenu={() => zetMenuOpen((o) => !o)}
         onSluitMenu={() => zetMenuOpen(false)}
         opAfsluiten={() => zetAfgesloten(true)}
+        onOpenInstellingen={() => zetInstellingenOpen(true)}
       />
+
+      <SchermInstellingen open={instellingenOpen} onClose={() => zetInstellingenOpen(false)} />
 
       <div className="footer" id="contact">
         <a

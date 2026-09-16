@@ -1,4 +1,4 @@
-import { lensVan, themaVan, schoneNaam, naamVarianten } from '../lib/fotonamen.js'
+import { lensVan, themasVan, schoneNaam } from '../lib/fotonamen.js'
 
 /* ============================================================
    FOTO'S — zet hier de bestandsnamen (zonder extensie) uit de map
@@ -112,32 +112,26 @@ const bestanden = import.meta.glob('../assets/kluis/*.{jpg,JPG,jpeg,JPEG,png,PNG
   import: 'default',
 })
 
-const perNaam = {}
+/* Geïndexeerd op de kale naam (zonder lens-/themacode(s)), zodat een
+   foto in FOTOS zo simpel mogelijk kan blijven staan (bv. 'MCA_1900')
+   terwijl het echte bestand er ook nog een lenscode en/of één of
+   meerdere themacodes achteraan kan hebben staan. */
+const perKaleNaam = {}
 for (const pad in bestanden) {
   const bestandsnaam = pad.split('/').pop()
   const naam = bestandsnaam.replace(/\.[^.]+$/, '')
-  perNaam[naam.toLowerCase()] = { naam, url: bestanden[pad] }
-}
-
-/* Zoekt voor elke opgegeven naam het echte bestand: eerst zoals opgegeven,
-   daarna zonder code en met elke lens-/themacode erachter. */
-function zoekBestand(basis) {
-  for (const variant of naamVarianten(basis)) {
-    const hit = perNaam[variant.toLowerCase()]
-    if (hit) return hit
-  }
-  return null
+  perKaleNaam[schoneNaam(naam).toLowerCase()] = { naam, url: bestanden[pad] }
 }
 
 export const FOTOLIJST = FOTOS.map((basis) => {
-  const hit = zoekBestand(basis)
+  const hit = perKaleNaam[schoneNaam(basis).toLowerCase()]
   const bestand = hit ? hit.naam : basis
   return {
     basis,
     bestand,
     url: hit ? hit.url : null,
     lens: lensVan(bestand),
-    thema: themaVan(bestand),
+    themas: themasVan(bestand),
     naam: schoneNaam(bestand),
   }
 })

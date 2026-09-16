@@ -25,96 +25,23 @@ function plaatsBalk() {
   balk.style.width = Math.round(doekRect.width) + 'px'
 }
 
-const ICOON_MARGE = 20 /* afstand tussen het icoontje en de taakbalk zodra die eronder komt, en tussen het icoontje en de fotogrid */
-
-/* een icoontje (paasei-icoon of de "naar start"-knop) naast het doek
-   zetten (niet erover heen) aan de gevraagde kant, op de natuurlijke
-   hoogte naast de bovenkant van de fotogrid. De (document-)hoogte wordt
-   ook onthouden: dat is waar het paasei-icoon vandaan begint mee te
-   scrollen (zie plaatsIcoonVerticaal) */
-function plaatsIcoonHorizontaal(icoonId, kant, vensterId) {
-  const icoon = document.getElementById(icoonId)
-  const venster = vensterId ? document.getElementById(vensterId) : null
-  const vlak = doek()
-  if (!icoon || !vlak) return
-
-  const doekRect = vlak.getBoundingClientRect()
-  const positie =
-    kant === 'links'
-      ? Math.round(doekRect.left - ICOON_MARGE - icoon.offsetWidth)
-      : Math.round(doekRect.right + ICOON_MARGE)
-  const natuurlijkeTop = Math.round(doekRect.top + window.scrollY)
-  icoon.dataset.natuurlijkeTop = natuurlijkeTop
-
-  icoon.style.left = positie + 'px'
-  icoon.style.top = natuurlijkeTop + 'px'
-  if (venster) venster.style.left = positie + icoon.offsetWidth - 260 + 'px'
-}
-
-/* het icoontje staat op zijn natuurlijke plek naast de bovenkant van de
-   fotogrid totdat je daaraan voorbij scrollt (nooit hogerop, dus nooit
-   over de foto's heen); daarna blijft het op een vaste afstand van de
-   bovenkant van het scherm meescrollen, totdat de taakbalk eronder dat
-   punt zou inhalen. Vanaf dat moment blijft het vlak boven de taakbalk
-   hangen in plaats van erdoorheen te schuiven */
-function plaatsIcoonVerticaal(icoonId, vensterId) {
-  const icoon = document.getElementById(icoonId)
-  const venster = vensterId ? document.getElementById(vensterId) : null
-  if (!icoon) return
-
-  const natuurlijkeTop = parseFloat(icoon.dataset.natuurlijkeTop) || 0
-  let top = Math.max(natuurlijkeTop, window.scrollY + ICOON_MARGE)
-
-  const balk = document.querySelector('.taakbalk')
-  if (balk) {
-    const grens = balk.getBoundingClientRect().top + window.scrollY - icoon.offsetHeight - ICOON_MARGE
-    top = Math.min(top, grens)
-  }
-
-  icoon.style.top = Math.round(top) + 'px'
-  if (venster) venster.style.top = Math.round(top) + icoon.offsetHeight + 8 + 'px'
-}
-
 /**
  * Houdt de taakbalk even breed als het doek (de fotogrid, databox of
- * tabel) en laat het paasei-icoontje meescrollen totdat de taakbalk
- * eronder er tegenaan komt.
+ * tabel) en er links mee uitgelijnd.
  *
  * @param {object} opties
  * @param {Array}  opties.deps  opnieuw uitlijnen als deze waarden veranderen
  */
 export function useMenuLayout({ deps = [] } = {}) {
   useEffect(() => {
-    function plaatsAlles() {
-      plaatsBalk()
-      plaatsIcoonHorizontaal('scherminstellingen-icoon', 'rechts', 'scherminstellingen-venster')
-      plaatsIcoonVerticaal('scherminstellingen-icoon', 'scherminstellingen-venster')
-      plaatsIcoonHorizontaal('naar-start-knop', 'links')
-      plaatsIcoonVerticaal('naar-start-knop')
-    }
-    plaatsAlles()
+    plaatsBalk()
 
-    /* op elke scroll-tick herplaatsen kan een frame achterlopen op de
-       paint; één keer per animatieframe is genoeg */
-    let aangevraagd = null
-    const opScroll = () => {
-      if (aangevraagd !== null) return
-      aangevraagd = requestAnimationFrame(() => {
-        aangevraagd = null
-        plaatsIcoonVerticaal('scherminstellingen-icoon', 'scherminstellingen-venster')
-        plaatsIcoonVerticaal('naar-start-knop')
-      })
-    }
-
-    window.addEventListener('load', plaatsAlles)
-    window.addEventListener('resize', plaatsAlles)
-    window.addEventListener('scroll', opScroll, { passive: true })
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(plaatsAlles)
+    window.addEventListener('load', plaatsBalk)
+    window.addEventListener('resize', plaatsBalk)
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(plaatsBalk)
     return () => {
-      window.removeEventListener('load', plaatsAlles)
-      window.removeEventListener('resize', plaatsAlles)
-      window.removeEventListener('scroll', opScroll)
-      if (aangevraagd !== null) cancelAnimationFrame(aangevraagd)
+      window.removeEventListener('load', plaatsBalk)
+      window.removeEventListener('resize', plaatsBalk)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
