@@ -70,8 +70,13 @@ table {
     gap: 4px;
     padding: 2px 3px;
     background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    box-shadow: inset 0 2px 0 #DFDFDF;
+    border-top: 2px solid #D4D4D4;
+    border-left: 2px solid #D4D4D4;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset 1px 1px 0 #DFDFDF,
+        inset -1px -1px 0 #808080;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
 }
@@ -79,7 +84,7 @@ table {
     display: flex;
     align-items: center;
     gap: 4px;
-    height: 22px;
+    height: 20px;
     box-sizing: border-box;
     padding: 0 7px 0 5px;
     margin: 0;
@@ -130,7 +135,7 @@ table {
     flex: 0 1 auto;
     min-width: 0;
     max-width: 220px;
-    height: 22px;
+    height: 20px;
     padding: 0 8px;
     margin: 0;
     font-family: inherit;
@@ -174,7 +179,7 @@ table {
     display: flex;
     align-items: center;
     gap: 6px;
-    height: 22px;
+    height: 20px;
     padding: 0 8px;
     color: #000000;
     border-top: 1px solid #808080;
@@ -200,6 +205,9 @@ table {
     flex-shrink: 0;
     object-fit: contain;
     image-rendering: pixelated;
+}
+#klok {
+    font-size: 10px;
 }
 
 /* ---- navigatiemenu (Start-menu, klapt open boven de taakbalk) ---- */
@@ -357,6 +365,12 @@ table {
        schuift de tekst ernaast uit lijn met de rest) */
     transform: scale(0.78);
 }
+.navbar a img.weergave-icoon {
+    /* weergave.png (paasei: scherminstellingen) oogt door zijn ijlere
+       tekening kleiner dan de rest ondanks dezelfde canvasgrootte;
+       visueel iets vergroten om het gelijk te trekken */
+    transform: scale(1.3);
+}
 .navbar a:hover {
     text-decoration: none;
 }
@@ -479,8 +493,8 @@ h2 {
     white-space: nowrap;
     cursor: pointer;
     background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
+    border-top: 2px solid #D4D4D4;
+    border-left: 2px solid #D4D4D4;
     border-right: 2px solid #000000;
     border-bottom: 2px solid #000000;
     box-shadow:
@@ -497,8 +511,8 @@ h2 {
     background-color: #D4D4D4;
     border-top: 2px solid #000000;
     border-left: 2px solid #000000;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
+    border-right: 2px solid #D4D4D4;
+    border-bottom: 2px solid #D4D4D4;
     box-shadow:
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;

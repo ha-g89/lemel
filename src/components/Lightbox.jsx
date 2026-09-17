@@ -1,10 +1,12 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { LENS_NAAM } from '../data/lenzen.js'
+import { VERHAAL } from '../data/verhalen.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import ebayLogo from '../assets/iconen/ebay.png'
 import Kruisje from './Kruisje.jsx'
 import Streepje from './Streepje.jsx'
 import Vergroten from './Vergroten.jsx'
+import Vraagteken from './Vraagteken.jsx'
 
 /**
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft
@@ -19,6 +21,7 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
   /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
   const [laadprofiel, zetLaadprofiel] = useState(null)
   const [gemaximaliseerd, zetGemaximaliseerd] = useState(false)
+  const [verhaalOpen, zetVerhaalOpen] = useState(false)
   useLayoutEffect(() => {
     const varianten = ['a', 'b', 'c']
     // eslint-disable-next-line react-hooks/set-state-in-effect -- willekeurig per keer openen, mag geen render-pure berekening zijn
@@ -29,6 +32,7 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
   }, [])
 
   const lensnaam = foto.lens ? LENS_NAAM[foto.lens] : null
+  const verhaal = foto.basis ? VERHAAL[foto.basis] : null
 
   return (
     <div
@@ -45,6 +49,15 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
           {foto.naam}.jpg{lensnaam ? '  —  ' + lensnaam : ''}
         </span>
         <span className="lightbox-knoppen">
+          {verhaal && (
+            <span
+              id="lightbox-info"
+              title="verhaal achter deze foto"
+              onClick={() => zetVerhaalOpen((o) => !o)}
+            >
+              <Vraagteken />
+            </span>
+          )}
           <span id="lightbox-min" onClick={onMinimaliseer}>
             <Streepje />
           </span>
@@ -58,6 +71,17 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
       </div>
       <div id="lightbox-vlak">
         <img id="lightbox-img" src={foto.url} alt="" />
+        {verhaal && verhaalOpen && (
+          <div id="lightbox-verhaal-venster" onClick={(e) => e.stopPropagation()}>
+            <div id="lightbox-verhaal-titelbalk">
+              <span>verhaal.txt</span>
+              <span id="lightbox-verhaal-sluit" onClick={() => zetVerhaalOpen(false)}>
+                <Kruisje />
+              </span>
+            </div>
+            <p id="lightbox-verhaal-tekst">{verhaal}</p>
+          </div>
+        )}
       </div>
       {lensnaam && (
         <div id="lightbox-onder">

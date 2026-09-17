@@ -4,8 +4,8 @@ export default function Kruisje() {
   return (
     <svg
       viewBox="0 0 10 10"
-      width="14"
-      height="14"
+      width="10"
+      height="10"
       xmlns="http://www.w3.org/2000/svg"
       stroke="#000000"
       strokeWidth="1.2"

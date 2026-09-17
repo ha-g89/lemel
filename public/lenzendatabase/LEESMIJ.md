@@ -29,7 +29,16 @@ Gevuld uit `rugzak.html` en `kijklijst.html`.
 
 ## Nu in de database
 
-243 lenzen, waarvan 7 in bezit en 1 op de kijklijst.
+254 lenzen, waarvan 7 in bezit en 1 op de kijklijst.
+
+Aangevuld met 11 Voigtländer-lenzen in Nikon Z-vatting (moderne, native manual-focus
+lenzen voor Z-mount, niet vintage): de Nokton-lijn (28mm f/1.5, 40mm f/1.2, 50mm f/1.0,
+75mm f/1.5), de APO-Lanthar-lijn (28mm f/2, 35mm f/2, 50mm f/2 II, 65mm f/2 macro), de
+Septon 40mm f/2, de D 35mm f/2 Macro APO-Ultron (APS-C) en de Super Wide Heliar 15mm
+f/4.5. Overgenomen van voigtlaender.de/z-mount. De opbouwkolommen (elementen, groepen,
+gewicht, filtermaat, min. scherpstelafstand, lamellen) staan net als bij de rest van de
+tabel nog leeg tot een aparte specbron gecheckt is; alleen bouwjaar is gezet waar een
+concrete releasedatum bevestigd was (Septon 40mm f/2 en APO-Lanthar 28mm f/2, beide 2026).
 
 Aangevuld met de Nikkor-N-familie: de enige lenzen die ooit de letter "N" droegen
 (novem, 9 elementen) — Nikkor-N Auto 24mm f/2.8 (1967-1972, single-coated), Nikkor-N.C

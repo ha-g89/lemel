@@ -112,7 +112,7 @@ export default function Navbar({
                     if (onOpenInstellingen) onOpenInstellingen()
                   }}
                 >
-                  <img src={weergaveIcoon} alt="" />
+                  <img src={weergaveIcoon} alt="" className="weergave-icoon" />
                   <span>s<u>c</u>herminstellingen</span>
                 </a>
               </div>
