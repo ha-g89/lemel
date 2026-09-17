@@ -6,7 +6,7 @@ import BSOD from './BSOD.jsx'
 import SchermInstellingen from './SchermInstellingen.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
-import naarStartIcoon from '../assets/iconen/naarstart.png'
+import naarStartIcoon from '../assets/iconen/boom.png'
 
 /**
  * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst.
