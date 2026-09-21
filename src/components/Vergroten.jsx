@@ -11,6 +11,7 @@ export default function Vergroten({ hersteld = false }) {
         stroke="#000000"
         strokeWidth="1"
         fill="none"
+        shapeRendering="crispEdges"
       >
         <rect x="3" y="1" width="6" height="6" />
         <line x1="3" y1="3" x2="9" y2="3" />
@@ -28,6 +29,7 @@ export default function Vergroten({ hersteld = false }) {
       stroke="#000000"
       strokeWidth="1.2"
       fill="none"
+      shapeRendering="crispEdges"
     >
       <rect x="1" y="1" width="8" height="8" />
       <line x1="1" y1="3" x2="9" y2="3" />

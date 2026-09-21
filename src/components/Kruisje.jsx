@@ -10,6 +10,7 @@ export default function Kruisje() {
       stroke="#000000"
       strokeWidth="1.2"
       strokeLinecap="square"
+      shapeRendering="crispEdges"
     >
       <line x1="1" y1="1" x2="9" y2="9" />
       <line x1="9" y1="1" x2="1" y2="9" />

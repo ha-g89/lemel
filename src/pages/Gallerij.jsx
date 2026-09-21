@@ -23,7 +23,8 @@ export default function Gallerij() {
     if (!filterGeldig) return true
     return lens ? foto.lens === lens : foto.themas.includes(thema)
   }
-  const aantal = FOTOLIJST.filter(past).length
+  const zichtbareFotos = FOTOLIJST.filter(past)
+  const aantal = zichtbareFotos.length
   const filternaam = lens ? LENS_NAAM[lens] : THEMA_NAAM[thema]
 
   /* bij een filter alles direct laden, anders pas als de foto in beeld komt */
@@ -50,6 +51,17 @@ export default function Gallerij() {
   }, [])
   const minimaliseerAlles = useCallback(() => {
     zetVensters((lijst) => lijst.map((v) => ({ ...v, geminimaliseerd: true })))
+  }, [])
+  /* wisselt een open venster naar een andere foto (vorige/volgende), zonder
+     het venster zelf te sluiten; doet niets als die foto al in een ander
+     venster open staat */
+  const navigeerLightbox = useCallback((huidigeBasis, nieuweFoto) => {
+    zetVensters((lijst) => {
+      if (lijst.some((v) => v.basis === nieuweFoto.basis && v.basis !== huidigeBasis)) return lijst
+      return lijst.map((v) =>
+        v.basis === huidigeBasis ? { basis: nieuweFoto.basis, foto: nieuweFoto, geminimaliseerd: false } : v
+      )
+    })
   }, [])
 
   const taakbalkVensters = vensters.map((v) => ({
@@ -101,9 +113,11 @@ export default function Gallerij() {
 
       <Lightbox
         vensters={vensters}
+        fotolijst={zichtbareFotos}
         onSluit={sluitLightbox}
         onMinimaliseer={wisselLightbox}
         onMinimaliseerAlles={minimaliseerAlles}
+        onNavigeer={navigeerLightbox}
       />
 
       {contextMenu && (

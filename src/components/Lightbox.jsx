@@ -16,8 +16,19 @@ import Vraagteken from './Vraagteken.jsx'
  * @param {boolean}  geminimaliseerd niet zichtbaar, maar wel nog gemount
  * @param {Function} onSluit         sluit dit venster helemaal (kruisje)
  * @param {Function} onMinimaliseer  verberg dit venster (streepje), blijft in de taakbalk
+ * @param {object}   [vorigeFoto]    vorige foto in de (gefilterde) lijst, of undefined bij de eerste
+ * @param {object}   [volgendeFoto]  volgende foto in de (gefilterde) lijst, of undefined bij de laatste
+ * @param {Function} onNavigeer      (nieuweFoto) => void, wisselt dit venster naar een andere foto
  */
-function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
+function LightboxVenster({
+  foto,
+  geminimaliseerd,
+  onSluit,
+  onMinimaliseer,
+  vorigeFoto,
+  volgendeFoto,
+  onNavigeer,
+}) {
   /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
   const [laadprofiel, zetLaadprofiel] = useState(null)
   const [gemaximaliseerd, zetGemaximaliseerd] = useState(false)
@@ -83,11 +94,27 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
           </div>
         )}
       </div>
-      {lensnaam && (
+      {(lensnaam || vorigeFoto || volgendeFoto) && (
         <div id="lightbox-onder">
-          <a id="lightbox-ebay" href={ebayZoeklink(lensnaam)} target="_blank" rel="noopener noreferrer">
-            <img src={ebayLogo} alt="eBay" />
-          </a>
+          {(vorigeFoto || volgendeFoto) && (
+            <span className="lightbox-navigatie">
+              {vorigeFoto && (
+                <span id="lightbox-vorige" onClick={() => onNavigeer(vorigeFoto)}>
+                  vorige
+                </span>
+              )}
+              {volgendeFoto && (
+                <span id="lightbox-volgende" onClick={() => onNavigeer(volgendeFoto)}>
+                  volgende
+                </span>
+              )}
+            </span>
+          )}
+          {lensnaam && (
+            <a id="lightbox-ebay" href={ebayZoeklink(lensnaam)} target="_blank" rel="noopener noreferrer">
+              <img src={ebayLogo} alt="eBay" />
+            </a>
+          )}
         </div>
       )}
     </div>
@@ -99,11 +126,20 @@ function LightboxVenster({ foto, geminimaliseerd, onSluit, onMinimaliseer }) {
  * Alle vensters (ook geminimaliseerde) blijven hier gemount zodat hun state
  * bewaard blijft; de overlay zelf verbergt zich pas als er niets zichtbaar is.
  * @param {{ basis: string, foto: object, geminimaliseerd: boolean }[]} vensters
+ * @param {object[]} fotolijst          de (gefilterde) fotolijst waarbinnen vorige/volgende bladert
  * @param {Function} onSluit             sluit één venster helemaal (basis) => void
  * @param {Function} onMinimaliseer      verberg één venster (streepje) (basis) => void
  * @param {Function} onMinimaliseerAlles verberg alle zichtbare vensters, blijven in de taakbalk
+ * @param {Function} onNavigeer          (basis, nieuweFoto) => void, wisselt een venster naar een andere foto
  */
-export default function Lightbox({ vensters, onSluit, onMinimaliseer, onMinimaliseerAlles }) {
+export default function Lightbox({
+  vensters,
+  fotolijst,
+  onSluit,
+  onMinimaliseer,
+  onMinimaliseerAlles,
+  onNavigeer,
+}) {
   const zichtbaar = vensters.filter((v) => !v.geminimaliseerd)
 
   useEffect(() => {
@@ -123,15 +159,21 @@ export default function Lightbox({ vensters, onSluit, onMinimaliseer, onMinimali
 
   return (
     <div id="lightbox-overlay" className={klassen.join(' ') || undefined} onClick={onMinimaliseerAlles}>
-      {vensters.map((v) => (
-        <LightboxVenster
-          key={v.basis}
-          foto={v.foto}
-          geminimaliseerd={v.geminimaliseerd}
-          onSluit={() => onSluit(v.basis)}
-          onMinimaliseer={() => onMinimaliseer(v.basis)}
-        />
-      ))}
+      {vensters.map((v) => {
+        const index = fotolijst.findIndex((f) => f.basis === v.basis)
+        return (
+          <LightboxVenster
+            key={v.basis}
+            foto={v.foto}
+            geminimaliseerd={v.geminimaliseerd}
+            onSluit={() => onSluit(v.basis)}
+            onMinimaliseer={() => onMinimaliseer(v.basis)}
+            vorigeFoto={index > 0 ? fotolijst[index - 1] : undefined}
+            volgendeFoto={index !== -1 && index < fotolijst.length - 1 ? fotolijst[index + 1] : undefined}
+            onNavigeer={(nieuweFoto) => onNavigeer(v.basis, nieuweFoto)}
+          />
+        )
+      })}
     </div>
   )
 }

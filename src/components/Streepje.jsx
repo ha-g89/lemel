@@ -10,6 +10,7 @@ export default function Streepje() {
       stroke="#000000"
       strokeWidth="1.2"
       strokeLinecap="square"
+      shapeRendering="crispEdges"
     >
       <line x1="1" y1="8" x2="9" y2="8" />
     </svg>
