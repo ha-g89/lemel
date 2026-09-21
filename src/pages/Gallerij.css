@@ -328,52 +328,13 @@
     right: 12px;
     max-width: 360px;
     margin: 0 auto;
-    background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    box-shadow:
-        inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
     z-index: 5;
-}
-#lightbox-verhaal-titelbalk {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
-    color: #FFFFFF;
-    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 3px 3px 3px 6px;
-}
-#lightbox-verhaal-sluit {
-    width: 15px;
-    height: 14px;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #C0C0C0;
-    cursor: pointer;
-    border-top: 1px solid #FFFFFF;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    box-shadow:
-        inset -1px -1px 0 #808080,
-        inset 1px 1px 0 #DFDFDF;
-}
-#lightbox-verhaal-sluit svg {
-    width: 8px;
-    height: 8px;
 }
 #lightbox-verhaal-tekst {
     margin: 0;
-    padding: 10px 12px;
+    padding: 6px 8px;
     text-align: left;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 12px;

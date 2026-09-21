@@ -84,12 +84,6 @@ function LightboxVenster({
         <img id="lightbox-img" src={foto.url} alt="" />
         {verhaal && verhaalOpen && (
           <div id="lightbox-verhaal-venster" onClick={(e) => e.stopPropagation()}>
-            <div id="lightbox-verhaal-titelbalk">
-              <span>verhaal.txt</span>
-              <span id="lightbox-verhaal-sluit" onClick={() => zetVerhaalOpen(false)}>
-                <Kruisje />
-              </span>
-            </div>
             <p id="lightbox-verhaal-tekst">{verhaal}</p>
           </div>
         )}
