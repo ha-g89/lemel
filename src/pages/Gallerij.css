@@ -275,6 +275,7 @@
     font-weight: bold;
     padding: 3px 3px 3px 5px;
     margin-bottom: 3px;
+    touch-action: none;
 }
 .lightbox-knoppen {
     display: flex;

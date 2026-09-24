@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { LENS_NAAM } from '../data/lenzen.js'
 import { VERHAAL } from '../data/verhalen.js'
 import { ebayZoeklink } from '../lib/ebay.js'
@@ -19,6 +19,8 @@ import Vraagteken from './Vraagteken.jsx'
  * @param {object}   [vorigeFoto]    vorige foto in de (gefilterde) lijst, of undefined bij de eerste
  * @param {object}   [volgendeFoto]  volgende foto in de (gefilterde) lijst, of undefined bij de laatste
  * @param {Function} onNavigeer      (nieuweFoto) => void, wisselt dit venster naar een andere foto
+ * @param {number}   [zIndex]        stapelvolgorde t.o.v. andere vensters
+ * @param {Function} [onVoorgrond]   breng dit venster naar voren (bij slepen/klikken)
  */
 function LightboxVenster({
   foto,
@@ -28,11 +30,35 @@ function LightboxVenster({
   vorigeFoto,
   volgendeFoto,
   onNavigeer,
+  zIndex,
+  onVoorgrond,
 }) {
   /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
   const [laadprofiel, zetLaadprofiel] = useState(null)
   const [gemaximaliseerd, zetGemaximaliseerd] = useState(false)
   const [verhaalOpen, zetVerhaalOpen] = useState(false)
+  /* verschuiving t.o.v. de door flexbox gecentreerde basispositie */
+  const [positie, zetPositie] = useState({ x: 0, y: 0 })
+  const sleepRef = useRef(null)
+
+  function opSleepStart(e) {
+    if (gemaximaliseerd || e.button !== 0) return
+    onVoorgrond?.()
+    /* klik op een titelbalkknop: alleen naar voren halen, niet slepen (zou anders
+       de click van die knop laten "verdwijnen" doordat pointer capture 'm omleidt) */
+    if (e.target.closest('.lightbox-knoppen')) return
+    sleepRef.current = { startX: e.clientX, startY: e.clientY, vanaf: positie }
+    e.currentTarget.setPointerCapture(e.pointerId)
+  }
+  function opSleepBeweeg(e) {
+    if (!sleepRef.current) return
+    const { startX, startY, vanaf } = sleepRef.current
+    zetPositie({ x: vanaf.x + (e.clientX - startX), y: vanaf.y + (e.clientY - startY) })
+  }
+  function opSleepEind(e) {
+    sleepRef.current = null
+    e.currentTarget.releasePointerCapture(e.pointerId)
+  }
   useLayoutEffect(() => {
     const varianten = ['a', 'b', 'c']
     // eslint-disable-next-line react-hooks/set-state-in-effect -- willekeurig per keer openen, mag geen render-pure berekening zijn
@@ -52,10 +78,21 @@ function LightboxVenster({
         (geminimaliseerd ? 'verborgen' : laadprofiel?.klasse || '') +
         (gemaximaliseerd ? ' gemaximaliseerd' : '')
       }
-      style={!geminimaliseerd && laadprofiel ? { animationDuration: laadprofiel.duur } : undefined}
+      style={{
+        ...(!geminimaliseerd && laadprofiel ? { animationDuration: laadprofiel.duur } : undefined),
+        ...(!gemaximaliseerd && (positie.x || positie.y)
+          ? { transform: `translate(${positie.x}px, ${positie.y}px)` }
+          : undefined),
+        zIndex,
+      }}
       onClick={(e) => e.stopPropagation()}
     >
-      <div id="lightbox-titelbalk">
+      <div
+        id="lightbox-titelbalk"
+        onPointerDown={opSleepStart}
+        onPointerMove={opSleepBeweeg}
+        onPointerUp={opSleepEind}
+      >
         <span id="lightbox-naam">
           {foto.naam}.jpg{lensnaam ? '  —  ' + lensnaam : ''}
         </span>
@@ -136,6 +173,14 @@ export default function Lightbox({
 }) {
   const zichtbaar = vensters.filter((v) => !v.geminimaliseerd)
 
+  /* stapelvolgorde losstaand van de openvolgorde, bijgewerkt zodra een venster wordt versleept of aangeklikt */
+  const [voorgrond, zetVoorgrond] = useState({})
+  const zTeller = useRef(10)
+  function naarVoorgrond(basis) {
+    zTeller.current += 1
+    zetVoorgrond((v) => ({ ...v, [basis]: zTeller.current }))
+  }
+
   useEffect(() => {
     function opToets(e) {
       if (e.key !== 'Escape' || !zichtbaar.length) return
@@ -165,6 +210,8 @@ export default function Lightbox({
             vorigeFoto={index > 0 ? fotolijst[index - 1] : undefined}
             volgendeFoto={index !== -1 && index < fotolijst.length - 1 ? fotolijst[index + 1] : undefined}
             onNavigeer={(nieuweFoto) => onNavigeer(v.basis, nieuweFoto)}
+            zIndex={voorgrond[v.basis]}
+            onVoorgrond={() => naarVoorgrond(v.basis)}
           />
         )
       })}
