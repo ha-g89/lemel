@@ -6,7 +6,7 @@
    ============================================================ */
 export const VERHAAL = {
   MCA_1429:
-    'Daikoku. De autodroom van elke liefhebber. Op dit specifieke plaatje kun je de legendarische Honda NSX bewonderen. Het model dat is getest door Ayrton Senna zelf. Dit exemplaar zul je niet veel zien in Nederland. Wat een schoonheid.',
+    'Daikoku. De autodroom van elke autoliefhebber. Op dit specifieke plaatje kun je de legendarische Honda NSX bewonderen. Het model dat is getest door Ayrton Senna zelf. Dit exemplaar zul je niet veel zien in Nederland. Wat een schoonheid.',
   MCA_0585:
     'Dit beeldhouwwerk kwam ik tegen in een zijpaadje ergens in de buurt van het park rond Kanazawa kasteel. Na enig google werk vind ik daarover het volgende: De Hakuchouro-wandelroute staat ook wel bekend als het "pad van water, groen en bezinning". Langs deze route staan in totaal zo\'n twintig sculpturen van lokale kunstenaars, waaronder \'Een kleine wens\', waardoor de wandeling aanvoelt als een bezoek aan een openluchtmuseum.',
   MCA_0406:
