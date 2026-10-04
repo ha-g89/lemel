@@ -537,6 +537,13 @@ h2 {
     color: #666666;
     margin-top: 8px;
 }
+.versie {
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9px;
+    color: #999999;
+    margin-top: 3px;
+    padding-bottom: 6px;
+}
 
 /* ---- thema: titelbalk van elk venster (lightbox, info, speler, kladblok,
    eigenschappen, scherminstellingen). Nieuw venster? geef de titelbalk de

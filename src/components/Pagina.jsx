@@ -8,6 +8,15 @@ import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
 import naarStartIcoon from '../assets/iconen/boom.png'
 
+/* versie in de voettekst: commitcode + builddatum, ingevuld door
+   vite.config.js bij elke build (zie commitCode daar) */
+const VERSIE = import.meta.env.VITE_VERSIE
+const BUILDDATUM = new Date(import.meta.env.VITE_BUILDDATUM).toLocaleDateString('nl-NL', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+})
+
 /**
  * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst.
  *
@@ -98,7 +107,10 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
         >
           <img src={instagramIcoon} alt="Instagram" />
         </a>
-        <div className="copyright">&copy; 2026 mel cayci &mdash; foto's niet gebruiken zonder toestemming</div>
+        <div className="copyright">&copy; 2026 mel cayci &mdash; foto's niet gebruiken zonder toestemming please</div>
+        <div className="versie" title="commitcode van deze versie op github">
+          versie {VERSIE} &middot; {BUILDDATUM}
+        </div>
       </div>
     </div>
   )
