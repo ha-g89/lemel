@@ -39,45 +39,6 @@
     cursor: pointer;
     text-align: left;
 }
-/* speelknop bij het favo liedje, net als de titelbalkknopjes van de lightbox;
-   iets minder padding in die cel zodat de knop de rij niet hoger maakt */
-.wrapper.database table.datatable td.artiest-kolom {
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-.infoknop {
-    width: 17px;
-    height: 15px;
-    padding: 0;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #C0C0C0;
-    cursor: pointer;
-    border-top: 1px solid #FFFFFF;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    border-radius: 0;
-    box-shadow:
-        inset -1px -1px 0 #808080,
-        inset 1px 1px 0 #DFDFDF;
-}
-.infoknop:active {
-    border-top: 1px solid #000000;
-    border-left: 1px solid #000000;
-    border-right: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    box-shadow:
-        inset 1px 1px 0 #808080,
-        inset -1px -1px 0 #DFDFDF;
-    background-color: #D4D4D4;
-}
-.infoknop:active svg {
-    transform: translate(1px, 1px);
-}
 
 /* info-venster over de artiest (stijl komt van .eigenschappen-venster) */
 .eigenschappen-venster.artiest-venster {
@@ -118,17 +79,6 @@
     color: #05430a;
 }
 /* titelbalk en kruisje even groot als bij de lightbox-vensters van de gallerij */
-.eigenschappen-venster.artiest-venster .titelbalk {
-    height: auto;
-    padding: 3px 3px 3px 5px;
-}
-.eigenschappen-venster.artiest-venster .titelbalk .sluitknop {
-    width: 17px;
-    height: 15px;
-}
-.eigenschappen-venster.artiest-venster .titelbalk .sluitknop:active svg {
-    transform: translate(1px, 1px);
-}
 
 /* favo liedje: speelknop links van de titel */
 .liedje-cel {
@@ -195,6 +145,14 @@
     gap: 12px;
     padding: 3px 6px;
 }
+/* ingedrukte rand om het blad; de zwarte binnenlijn is een echte border van
+   het blad zelf, zodat de schuifbalk eronder begint en de lijn doorloopt */
+.kladblok-rand {
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
 .kladblok-blad {
     height: 260px;
     max-height: 60vh;
@@ -202,11 +160,8 @@
     padding: 4px 6px;
     box-sizing: border-box;
     background-color: #FFFFFF;
-    border-top: 2px solid #808080;
-    border-left: 2px solid #808080;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
-    box-shadow: inset 1px 1px 0 #000000;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
     font-family: "Courier New", Courier, monospace;
     font-size: 12px;
     line-height: 1.45;

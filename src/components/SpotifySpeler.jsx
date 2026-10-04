@@ -124,7 +124,7 @@ export default function SpotifySpeler({ r, onSluiten }) {
       style={positie.x || positie.y ? { transform: `translate(${positie.x}px, ${positie.y}px)` } : undefined}
     >
       <div
-        className="titelbalk"
+        className="titelbalk venster-titelbalk"
         onPointerDown={opSleepStart}
         onPointerMove={opSleepBeweeg}
         onPointerUp={opSleepEind}

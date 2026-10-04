@@ -159,7 +159,7 @@ export default function Concerten() {
                   </td>
                   <td>{r.locatie || <span className="geen-data">&mdash;</span>}</td>
                   <td>{r.stad || <span className="geen-data">&mdash;</span>}</td>
-                  <td className="artiest-kolom">
+                  <td className="knop-kolom">
                     {r.spotify ? (
                       <span className="liedje-cel">
                         <button

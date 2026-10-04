@@ -41,7 +41,7 @@ export default function SchermInstellingen({ open, onClose }) {
   return (
     <div className={open ? 'scherminstellingen-overlay open' : 'scherminstellingen-overlay'} onClick={onClose}>
       <div id="scherminstellingen-venster" onClick={(e) => e.stopPropagation()}>
-        <div className="titelbalk">
+        <div className="titelbalk venster-titelbalk">
           <span>paasei</span>
           <span className="sluitknop" onClick={onClose}>
             <Kruisje />

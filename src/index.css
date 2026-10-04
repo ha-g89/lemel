@@ -537,3 +537,20 @@ h2 {
     color: #666666;
     margin-top: 8px;
 }
+
+/* ---- thema: titelbalk van elk venster (lightbox, info, speler, kladblok,
+   eigenschappen, scherminstellingen). Nieuw venster? geef de titelbalk de
+   klasse venster-titelbalk; afmetingen en padding regelt elk venster zelf ---- */
+.venster-titelbalk {
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
+        linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    background-size: 50px 50px, 100% 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: overlay, normal;
+    color: #FFFFFF;
+    font-weight: bold;
+    /* donkergroene schaduw: witte titel krijgt diepte en blijft leesbaar op
+       het felgroene rechterdeel van de balk */
+    text-shadow: 1px 1px 0 #022b05;
+}

@@ -3,6 +3,8 @@ import Pagina from '../components/Pagina.jsx'
 import Contextmenu from '../components/Contextmenu.jsx'
 import LensEigenschappen from '../components/LensEigenschappen.jsx'
 import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
+import Vraagteken from '../components/Vraagteken.jsx'
+import StatusIcoon from '../components/StatusIcoon.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { laadLenzen, euro, vergelijk } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
@@ -19,27 +21,42 @@ const KOLOMMEN = [
   ['status', 'status'],
 ]
 
+const STATUS_LABEL = { owned: 'in bezit', wanted: 'kijklijst', sold: 'verkocht' }
+
 function StatusBadge({ status }) {
-  if (status === 'owned') return <span className="status-owned">in bezit</span>
-  if (status === 'wanted') return <span className="status-wanted">kijklijst</span>
-  if (status === 'sold') return <span className="status-sold">verkocht</span>
-  return null
+  if (!STATUS_LABEL[status]) return null
+  return (
+    <span className={'status-' + status}>
+      <StatusIcoon status={status} />
+      {STATUS_LABEL[status]}
+    </span>
+  )
 }
 
-function Rij({ r, onContextMenu }) {
+function Rij({ r, onContextMenu, onEigenschappen }) {
   const naam = r.maker + ' ' + r.model
   const focal = r.focal_mm ? Math.round(r.focal_mm) + 'mm' : ''
   const fstop = r.aperture_max ? 'f/' + r.aperture_max : ''
   const prijs = euro(r.laatste_prijs, r.laatste_valuta)
   const prijslink = r.prijsurl || ebayZoeklink(naam)
+  /* modelnaam gaat altijd naar ebay: de advertentie zelf als de laatste prijs
+     van ebay komt, anders een zoekopdracht op deze lens (de prijs kan ook van
+     bv. pentaxforums komen, en daar hoort de modellink niet heen) */
+  const ebaylink =
+    r.prijsurl && String(r.prijsbron || '').startsWith('ebay') ? r.prijsurl : ebayZoeklink(naam)
 
   return (
     <tr onContextMenu={onContextMenu}>
       <td>{r.maker || ''}</td>
-      <td>
-        <a href={prijslink} target="_blank" rel="noopener noreferrer">
-          {r.model || ''}
-        </a>
+      <td className="knop-kolom">
+        <span className="model-cel">
+          <a href={ebaylink} target="_blank" rel="noopener noreferrer">
+            {r.model || ''}
+          </a>
+          <button type="button" className="infoknop" title="eigenschappen" onClick={onEigenschappen}>
+            <Vraagteken />
+          </button>
+        </span>
       </td>
       <td>{r.mount || ''}</td>
       <td>{focal}</td>
@@ -231,6 +248,7 @@ export default function Lenzendatabase() {
                     e.preventDefault()
                     zetContextMenu({ x: e.clientX, y: e.clientY, r })
                   }}
+                  onEigenschappen={() => zetEigenschappenRij(r)}
                 />
               ))}
             </tbody>

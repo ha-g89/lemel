@@ -135,6 +135,8 @@
 .wrapper.database table.datatable th {
     background: transparent;
     color: #FFFFFF;
+    /* zelfde diepte als de titelbalken van de vensters (zie .venster-titelbalk) */
+    text-shadow: 1px 1px 0 #022b05;
     font-weight: normal;
     cursor: pointer;
     user-select: none;
@@ -147,6 +149,12 @@
 .wrapper.database table.datatable th .pijltje {
     font-size: 9px;
     opacity: 0.8;
+}
+/* courier new op 11px is zo dun dat zwart grijs oogt; een dun randje in de
+   eigen tekstkleur maakt het diep zwart (links blijven groen). geldt voor
+   elke databasetabel (lenzen en concerten) */
+.wrapper.database table.datatable tbody td {
+    -webkit-text-stroke: 0.4px currentColor;
 }
 .wrapper.database table.datatable tbody tr:nth-child(even) {
     background-color: #EAF3EA;
@@ -164,27 +172,88 @@
 .wrapper.database table.datatable td a:visited {
     color: #05430a;
 }
-.status-owned {
+/* statuslabels: allemaal even groot (zelfde breedte, rand en hoogte),
+   alleen de kleur verschilt */
+.status-owned,
+.status-wanted,
+.status-sold {
     display: inline-block;
+    box-sizing: border-box;
+    min-width: 72px;
     padding: 1px 5px;
     font-size: 9px;
+    text-align: center;
+    border: 1px solid transparent;
+}
+/* pixelicoontje vóór de statustekst (kroon, oog, munten) */
+.status-owned .status-icoon,
+.status-wanted .status-icoon,
+.status-sold .status-icoon {
+    margin-right: 4px;
+    vertical-align: 0;
+    -webkit-text-stroke: 0;
+}
+.status-owned {
     background-color: #05430a;
+    border-color: #05430a;
     color: #FFFFFF;
 }
 .status-wanted {
-    display: inline-block;
-    padding: 1px 5px;
-    font-size: 9px;
     background-color: #C0C0C0;
+    border-color: #808080;
     color: #000000;
-    border: 1px solid #808080;
 }
 .status-sold {
-    display: inline-block;
-    padding: 1px 5px;
-    font-size: 9px;
     background-color: #888888;
+    border-color: #888888;
     color: #FFFFFF;
+}
+/* klein grijs knopje in een tabelcel (▶ bij het favo liedje, ? bij een lens),
+   net als de titelbalkknopjes van de lightbox; iets minder padding in die
+   cel zodat de knop de rij niet hoger maakt */
+.wrapper.database table.datatable td.knop-kolom {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.infoknop {
+    width: 17px;
+    height: 15px;
+    padding: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C0C0C0;
+    cursor: pointer;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-radius: 0;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.infoknop:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+    background-color: #D4D4D4;
+}
+.infoknop:active svg {
+    transform: translate(1px, 1px);
+}
+/* modelnaam links, (?) rechts in de cel: alle knopjes recht onder elkaar */
+.model-cel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 .geen-data {
     color: #999999;
@@ -225,17 +294,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 22px;
-    padding: 2px 4px 2px 5px;
+    /* zelfde maat als de lightbox-titelbalk van de gallerij: 15px knopjes
+       + 3px padding */
+    padding: 3px 3px 3px 5px;
     margin-bottom: 6px;
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"),
-        linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
-    background-size: 50px 50px, 100% 100%;
-    background-repeat: repeat, no-repeat;
-    background-blend-mode: overlay, normal;
-    color: #FFFFFF;
-    font-weight: bold;
 }
 .eigenschappen-venster .titelbalk-icoon {
     width: 14px;
@@ -252,8 +314,8 @@
     white-space: nowrap;
 }
 .eigenschappen-venster .titelbalk .sluitknop {
-    width: 22px;
-    height: 20px;
+    width: 17px;
+    height: 15px;
     flex-shrink: 0;
     box-sizing: border-box;
     display: flex;
@@ -278,6 +340,9 @@
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
     background-color: #D4D4D4;
+}
+.eigenschappen-venster .titelbalk .sluitknop:active svg {
+    transform: translate(1px, 1px);
 }
 .eigenschappen-venster fieldset {
     margin: 0 0 8px 0;

@@ -19,21 +19,23 @@ export default function Leesmij({ tekst, onSluiten }) {
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
       <div className="eigenschappen-venster artiest-venster kladblok-venster" onClick={(e) => e.stopPropagation()}>
-        <div className="titelbalk">
+        <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={leesmijIcoon} alt="" />
-          <span className="titelbalk-tekst">leesmij.txt - Kladblok</span>
+          <span className="titelbalk-tekst">leesmij.txt - kladblok</span>
           <span className="sluitknop" onClick={onSluiten}>
             <Kruisje />
           </span>
         </div>
         {/* alleen voor de sier, zoals het menu van het echte kladblok */}
         <div className="kladblok-menu" aria-hidden="true">
-          <span><u>B</u>estand</span>
-          <span><u>B</u>ewerken</span>
-          <span><u>Z</u>oeken</span>
-          <span><u>H</u>elp</span>
+          <span><u>b</u>estand</span>
+          <span><u>b</u>ewerken</span>
+          <span><u>z</u>oeken</span>
+          <span><u>h</u>elp</span>
         </div>
-        <div className="kladblok-blad">{tekst}</div>
+        <div className="kladblok-rand">
+          <div className="kladblok-blad">{tekst}</div>
+        </div>
       </div>
     </div>
   )

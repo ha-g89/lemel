@@ -35,7 +35,7 @@ export default function LensEigenschappen({ r, onSluiten }) {
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
       <div className="eigenschappen-venster" onClick={(e) => e.stopPropagation()}>
-        <div className="titelbalk">
+        <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={databaseIcoon} alt="" />
           <span className="titelbalk-tekst">eigenschappen: {r.model}</span>
           <span className="sluitknop" onClick={onSluiten}>

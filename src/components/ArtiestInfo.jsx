@@ -48,7 +48,7 @@ export default function ArtiestInfo({ r, onSluiten }) {
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
       <div className="eigenschappen-venster artiest-venster" onClick={(e) => e.stopPropagation()}>
-        <div className="titelbalk">
+        <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={concertIcoon} alt="" />
           <span className="titelbalk-tekst">{r.artiest}</span>
           <span className="sluitknop" onClick={onSluiten}>

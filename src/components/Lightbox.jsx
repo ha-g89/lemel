@@ -89,6 +89,7 @@ function LightboxVenster({
     >
       <div
         id="lightbox-titelbalk"
+        className="venster-titelbalk"
         onPointerDown={opSleepStart}
         onPointerMove={opSleepBeweeg}
         onPointerUp={opSleepEind}
