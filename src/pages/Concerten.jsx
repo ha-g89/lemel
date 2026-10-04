@@ -4,7 +4,10 @@ import ArtiestInfo from '../components/ArtiestInfo.jsx'
 import Afspelen from '../components/Afspelen.jsx'
 import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
-import { CONCERTEN } from '../data/concerten.js'
+import { CONCERTEN, LEESMIJ } from '../data/concerten.js'
+import Leesmij from '../components/Leesmij.jsx'
+import leesmijIcoon from '../assets/iconen/leesmij.png'
+import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import './Lenzendatabase.css'
 import './Concerten.css'
 
@@ -53,6 +56,7 @@ export default function Concerten() {
   const [sortering, zetSortering] = useState({ kolom: 'datum', omhoog: false })
   const [infoRij, zetInfoRij] = useState(null)
   const [speelRij, zetSpeelRij] = useState(null)
+  const [leesmijOpen, zetLeesmijOpen] = useState(false)
 
   const rijen = useMemo(() => {
     const term = zoekterm.trim().toLowerCase()
@@ -89,7 +93,7 @@ export default function Concerten() {
 
   return (
     <Pagina titel="le mel — concerten" klasse="database">
-      <div className="databox" data-doek>
+      <div className="databox concertenbox" data-doek>
         <div id="filterpaneel">
           <label>
             zoek{' '}
@@ -183,9 +187,20 @@ export default function Concerten() {
             </tbody>
           </table>
         </div>
+
+        <div className="leesmij-plek">
+          <DesktopIcoon
+            icoon={leesmijIcoon}
+            naam="leesmij.txt"
+            onOpen={() => zetLeesmijOpen(true)}
+            sleepbaar
+            opslagSleutel="lemel-leesmij-plek"
+          />
+        </div>
       </div>
 
       {infoRij && <ArtiestInfo r={infoRij} onSluiten={() => zetInfoRij(null)} />}
+      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
       {speelRij && <SpotifySpeler r={speelRij} onSluiten={() => zetSpeelRij(null)} />}
     </Pagina>
   )

@@ -229,3 +229,8 @@ export const CONCERTEN = [
     spotify: 'https://open.spotify.com/track/2MqtHEaoMmfVMe3gjg7rQz',
   },
 ]
+
+/* tekst van leesmij.txt (rechtsboven in de filterbalk): de gedachte achter
+   deze pagina. witregels en enters blijven gewoon staan. */
+export const LEESMIJ = `welkom op mijn concerten-pagina. hierop houd ik mijn concerten bij die ik wil bezoeken, en waar ik al ben geweest. ik heb altijd al een 'gouden lijst' willen bijhouden met de artiesten en nummers die ik altijd overal en op elk moment van mijn leven kan beluisteren. dit zijn nummers die niet alleen mijn jonge, maar ook volwassen jaren hebben overleefd. deze lijst zal tot mijn laatste adem bij worden gehouden.  - mel`
+

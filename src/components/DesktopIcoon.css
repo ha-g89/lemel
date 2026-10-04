@@ -1,0 +1,60 @@
+/* ---- windows-95-bureaubladicoon (zie DesktopIcoon.jsx) ---- */
+.desktop-icoon {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 76px;
+    padding: 2px;
+    border: 0;
+    background: none;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    cursor: default;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+.desktop-icoon:focus {
+    outline: none;
+}
+.desktop-icoon-plaatje {
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+.desktop-icoon-plaatje img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+}
+/* geselecteerd: het icoon krijgt een blauwe waas over precies zijn eigen
+   vorm (mask), zoals in windows 95 */
+.desktop-icoon-plaatje::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #000080;
+    opacity: 0;
+    -webkit-mask: var(--icoon) center / 32px 32px no-repeat;
+    mask: var(--icoon) center / 32px 32px no-repeat;
+}
+.desktop-icoon.geselecteerd .desktop-icoon-plaatje::after {
+    opacity: 0.5;
+}
+.desktop-icoon-naam {
+    padding: 1px 2px;
+    border: 1px dotted transparent;
+    line-height: 1.2;
+}
+.desktop-icoon.geselecteerd .desktop-icoon-naam {
+    background-color: #000080;
+    color: #FFFFFF;
+    border-color: #FFFF00;
+}
+.desktop-icoon.sleepbaar {
+    position: absolute;
+    touch-action: none;
+}

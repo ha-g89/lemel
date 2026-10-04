@@ -168,3 +168,49 @@
 .spotify-venster .titelbalk .sluitknop {
     cursor: pointer;
 }
+
+/* ---- leesmij.txt ---- */
+/* strook tussen de tabel en de taakbalk, zo breed als de tabel: hierbinnen
+   kun je het leesmij-icoon verslepen */
+.databox.concertenbox {
+    margin-bottom: 0;
+}
+.leesmij-plek {
+    position: relative;
+    height: 140px;
+    margin-top: 4px;
+    /* de taakbalk heeft 40px margin-top; zo loopt de strook door tot 4px
+       boven de taakbalk in plaats van daar een lege band te laten */
+    margin-bottom: -36px;
+}
+.eigenschappen-venster.kladblok-venster {
+    width: 440px;
+    padding: 3px;
+}
+.kladblok-venster .titelbalk {
+    margin-bottom: 0;
+}
+.kladblok-menu {
+    display: flex;
+    gap: 12px;
+    padding: 3px 6px;
+}
+.kladblok-blad {
+    height: 260px;
+    max-height: 60vh;
+    overflow-y: scroll;
+    padding: 4px 6px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    box-shadow: inset 1px 1px 0 #000000;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    text-align: left;
+    user-select: text;
+}
