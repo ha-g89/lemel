@@ -1,11 +1,12 @@
 import { useMemo, useRef, useState } from 'react'
 import Pagina from '../components/Pagina.jsx'
 import WikiInfo from '../components/WikiInfo.jsx'
+import DagInfo from '../components/DagInfo.jsx'
 import Afspelen from '../components/Afspelen.jsx'
 import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
-import { CONCERTEN, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
+import { CONCERTEN, DAG_NIEUWS, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
@@ -72,6 +73,7 @@ export default function Concerten() {
   const [filter, zetFilter] = useState('')
   const [sortering, zetSortering] = useState({ kolom: 'datum', omhoog: false })
   const [info, zetInfo] = useState(null) /* { titel, wiki } */
+  const [dagInfo, zetDagInfo] = useState(null) /* datum 'jjjj-mm-dd' */
   const [speelRij, zetSpeelRij] = useState(null)
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
 
@@ -163,7 +165,22 @@ export default function Concerten() {
               )}
               {rijen.map((r) => (
                 <tr key={r.artiest + r.datum + r.locatie}>
-                  <td>{datumNL(r.datum) || <span className="geen-data">&mdash;</span>}</td>
+                  <td>
+                    {!r.datum ? (
+                      <span className="geen-data">&mdash;</span>
+                    ) : DAG_NIEUWS[r.datum] ? (
+                      <button
+                        type="button"
+                        className="info-link"
+                        title="wat gebeurde er die dag in de wereld?"
+                        onClick={() => zetDagInfo(r.datum)}
+                      >
+                        {datumNL(r.datum)}
+                      </button>
+                    ) : (
+                      datumNL(r.datum)
+                    )}
+                  </td>
                   <td>
                     <InfoLink tekst={r.artiest} wiki={r.wiki} onOpen={zetInfo} />
                   </td>
@@ -216,6 +233,7 @@ export default function Concerten() {
       </div>
 
       {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
+      {dagInfo && <DagInfo datum={dagInfo} nieuws={DAG_NIEUWS[dagInfo]} onSluiten={() => zetDagInfo(null)} />}
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
       {speelRij && <SpotifySpeler r={speelRij} onSluiten={() => zetSpeelRij(null)} />}
     </Pagina>

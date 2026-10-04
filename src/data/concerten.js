@@ -285,6 +285,50 @@ export const LOCATIE_WIKI = {
   'pitch festival': 'Westergasfabriek',
 }
 
+/* wat er op een concertdatum in de wereld gebeurde (klik op de datum).
+   bron: wikipedia, portal:current events van die dag. sleutel = datum
+   zoals in CONCERTEN; datums zonder tekst blijven gewone tekst. */
+export const DAG_NIEUWS = {
+  '2012-07-06': {
+    kop: 'louis van gaal wordt voor de tweede keer bondscoach van oranje, als opvolger van bert van marwijk.',
+    ook: [
+      'andy murray haalt als eerste brit in 74 jaar de finale van wimbledon.',
+      'het roemeense parlement zet president traian băsescu voor de tweede keer uit zijn ambt.',
+    ],
+  },
+  '2017-07-01': {
+    kop: 'wereldleiders nemen in straatsburg afscheid van de duitse oud-bondskanselier helmut kohl.',
+    ook: [
+      'vasco rossi speelt in modena voor 220.000 betalende bezoekers: het grootste concert met kaartjes ooit.',
+      'canada viert zijn 150ste verjaardag.',
+    ],
+  },
+  '2018-12-09': {
+    kop: 'armenië houdt vervroegde verkiezingen, de eerste sinds de fluwelen revolutie.',
+    ook: [
+      'in noord-italië wordt voor het eerst sinds 1471 weer een bever gezien.',
+      'river plate wint de copa libertadores van aartsrivaal boca juniors, in madrid.',
+    ],
+  },
+  '2025-02-04': {
+    kop: "donald trump kondigt aan dat de vs gaza 'voor lange tijd in bezit' willen nemen.",
+    ook: [
+      'de aga khan iv, geestelijk leider van de ismaïlieten, overlijdt op 88-jarige leeftijd.',
+      'de eu en moldavië sluiten een energiedeal waarmee moldavië op het europese stroomnet komt.',
+    ],
+  },
+  '2025-09-29': {
+    kop: 'de vs presenteren een vredesplan van twintig punten voor gaza, en israël stemt ermee in.',
+    ook: [
+      "het nederlandse vrachtschip minervagracht wordt in de rode zee geraakt door een raket van de houthi's.",
+      'gamebedrijf ea wordt overgenomen door een groep investeerders.',
+    ],
+  },
+  '2027-02-19': {
+    kop: 'dit is nog niet gebeurd. grote kans dat bullet for my valentine in afas live het belangrijkste nieuws van de dag wordt.',
+  },
+}
+
 /* tekst van leesmij.txt (bureaubladicoon onder de tabel): de gedachte achter
    deze pagina. witregels en enters blijven gewoon staan. */
 export const LEESMIJ = `welkom op mijn concerten-pagina. hierop houd ik mijn concerten bij die ik wil bezoeken, en waar ik al ben geweest. ik heb altijd al een 'gouden lijst' willen bijhouden met de artiesten en nummers die ik altijd overal en op elk moment van mijn leven kan beluisteren. dit zijn nummers die niet alleen mijn jonge, maar ook volwassen jaren hebben overleefd. deze lijst zal tot mijn laatste adem bij worden gehouden.  - mel`
