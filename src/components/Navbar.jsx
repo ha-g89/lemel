@@ -8,6 +8,7 @@ import jp26Icoon from '../assets/iconen/jp26.png'
 // import rugzakIcoon from '../assets/iconen/rugzak.png'
 // import verkochtIcoon from '../assets/iconen/verkocht.png'
 import databaseIcoon from '../assets/iconen/database.png'
+import concertIcoon from '../assets/iconen/concert.png'
 import homeIcoon from '../assets/iconen/home.png'
 import afsluitenIcoon from '../assets/iconen/afsluiten.png'
 import settingIcoon from '../assets/iconen/setting.png'
@@ -83,6 +84,10 @@ export default function Navbar({
         <NavLink to="/lenzendatabase" className={actief} onClick={onSluitMenu}>
           <img src={databaseIcoon} alt="" />
           <span><u>d</u>atabase</span>
+        </NavLink>
+        <NavLink to="/concerten" className={actief} onClick={onSluitMenu}>
+          <img src={concertIcoon} alt="" />
+          <span><u>c</u>oncerten</span>
         </NavLink>
         {opAfsluiten && (
           <>

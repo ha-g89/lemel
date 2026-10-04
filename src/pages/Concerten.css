@@ -1,0 +1,170 @@
+/* ---- concerten-specifiek (de rest komt uit Lenzendatabase.css) ---- */
+.wrapper.database table.datatable th.vinkkolom,
+.wrapper.database table.datatable td.vinkkolom {
+    text-align: center;
+    width: 1%;
+}
+/* Windows-95-vinkvakje: wit, ingedrukt randje */
+.vinkvak {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #000000,
+        inset -1px -1px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 11px;
+    text-align: center;
+    color: #05430a;
+    vertical-align: middle;
+}
+
+/* artiestnaam als link (net als de modellen in de lenzendatabase): opent
+   het info-venster met wikipedia-uitleg */
+.artiest-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: #05430a;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: left;
+}
+/* speelknop bij het favo liedje, net als de titelbalkknopjes van de lightbox;
+   iets minder padding in die cel zodat de knop de rij niet hoger maakt */
+.wrapper.database table.datatable td.artiest-kolom {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.infoknop {
+    width: 17px;
+    height: 15px;
+    padding: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C0C0C0;
+    cursor: pointer;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-radius: 0;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.infoknop:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+    background-color: #D4D4D4;
+}
+.infoknop:active svg {
+    transform: translate(1px, 1px);
+}
+
+/* info-venster over de artiest (stijl komt van .eigenschappen-venster) */
+.eigenschappen-venster.artiest-venster {
+    width: 380px;
+}
+.artiest-laden {
+    margin: 8px 4px;
+}
+.artiest-foto {
+    float: left;
+    margin: 0 10px 6px 0;
+    padding: 2px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+.artiest-foto img {
+    display: block;
+    width: 120px;
+    height: auto;
+}
+.artiest-omschrijving {
+    margin: 0 0 6px 0;
+    font-weight: bold;
+}
+.artiest-tekst {
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+}
+/* "lees verder op wikipedia": gecentreerd onder de tekst én de foto */
+.artiest-verder {
+    display: block;
+    clear: both;
+    padding-top: 6px;
+    text-align: center;
+    color: #05430a;
+}
+/* titelbalk en kruisje even groot als bij de lightbox-vensters van de gallerij */
+.eigenschappen-venster.artiest-venster .titelbalk {
+    height: auto;
+    padding: 3px 3px 3px 5px;
+}
+.eigenschappen-venster.artiest-venster .titelbalk .sluitknop {
+    width: 17px;
+    height: 15px;
+}
+.eigenschappen-venster.artiest-venster .titelbalk .sluitknop:active svg {
+    transform: translate(1px, 1px);
+}
+
+/* favo liedje: speelknop links van de titel */
+.liedje-cel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+/* zwevende spotify-speler rechtsonder, boven de taakbalk */
+.eigenschappen-venster.spotify-venster {
+    position: fixed;
+    right: 16px;
+    bottom: 44px;
+    z-index: 1500;
+    width: 340px;
+    max-width: calc(100vw - 32px);
+}
+.eigenschappen-venster.spotify-venster {
+    overflow: hidden;
+}
+/* ingedrukt vak om de speler, met dezelfde donkergrijze kleur als de
+   spotify-kaart (theme=0): zo vallen de ronde hoekjes van spotify weg */
+.spotify-vak {
+    background-color: #1C1C1C;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+.spotify-vak iframe {
+    display: block;
+    border: 0;
+}
+.spotify-venster .titelbalk {
+    touch-action: none;
+    user-select: none;
+}
+.spotify-venster .titelbalk .sluitknop {
+    cursor: pointer;
+}
