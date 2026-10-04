@@ -498,6 +498,37 @@ h2 {
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
 }
+/* glimeffect: om de paar seconden schuift er een zachte lichtstreep schuin
+   over de knop (eerste 27% van de cyclus van 4s, daarna rust). subtiel gehouden */
+.naar-start-knop {
+    position: relative;
+    overflow: hidden;
+}
+.naar-start-knop::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-150%) rotate(20deg);
+    animation: naar-start-glim 4s ease-in-out 1.5s infinite;
+    pointer-events: none;
+}
+@keyframes naar-start-glim {
+    0% { transform: translateX(-150%) rotate(20deg); }
+    27% { transform: translateX(350%) rotate(20deg); }
+    100% { transform: translateX(350%) rotate(20deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .naar-start-knop::after { animation: none; display: none; }
+}
 .naar-start-knop img {
     width: 11px;
     height: 11px;
