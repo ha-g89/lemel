@@ -29,6 +29,17 @@ export const CONCERTEN = [
     spotify: 'https://open.spotify.com/track/3MKUlY8nM0I4O7xaYcLdST',
   },
   {
+    artiest: 'the weeknd',
+    locatie: 'pitch festival',
+    stad: 'amsterdam',
+    datum: '2012-07-06',
+    geweest: true,
+    wil: false,
+    wiki: 'The Weeknd',
+    liedje: 'heartless',
+    spotify: 'https://open.spotify.com/track/6bnF93Rx87YqUBLSgjiMU8',
+  },
+  {
     artiest: 'papa roach',
     locatie: 'afas live',
     stad: 'amsterdam',
@@ -228,9 +239,53 @@ export const CONCERTEN = [
     liedje: 'the recap',
     spotify: 'https://open.spotify.com/track/2MqtHEaoMmfVMe3gjg7rQz',
   },
+  {
+    artiest: 'coldplay',
+    locatie: '',
+    stad: '',
+    datum: '',
+    geweest: false,
+    wil: true,
+    wiki: 'Coldplay',
+    liedje: 'viva la vida',
+    spotify: 'https://open.spotify.com/track/1mea3bSkSGXuIRvnydlB5b',
+  },
+  {
+    artiest: 'sef',
+    locatie: '',
+    stad: '',
+    datum: '',
+    geweest: false,
+    wil: true,
+    wiki: 'Sef (rapper)',
+    liedje: 'de leven',
+    spotify: 'https://open.spotify.com/track/6bO3Bdcna0RoBTIdm5j3Wm',
+  },
+  {
+    artiest: 'flinke namen',
+    locatie: '',
+    stad: '',
+    datum: '',
+    geweest: false,
+    wil: true,
+    wiki: 'Flinke Namen',
+    liedje: 'wolken',
+    spotify: 'https://open.spotify.com/track/0onMpCJYPxkphLfHjPEaLr',
+  },
 ]
 
-/* tekst van leesmij.txt (rechtsboven in de filterbalk): de gedachte achter
+/* wikipedia-artikel per locatie (sleutel = locatie zoals in de tabel);
+   geeft de locatie een onderstreepte link met een info-venster. pitch
+   festival heeft geen eigen artikel, dus daar de westergasfabriek, waar
+   het festival werd gehouden. */
+export const LOCATIE_WIKI = {
+  'afas live': 'AFAS Live',
+  paradiso: 'Paradiso (Amsterdam)',
+  spoorzone: 'Spoorzone (Tilburg)',
+  'pitch festival': 'Westergasfabriek',
+}
+
+/* tekst van leesmij.txt (bureaubladicoon onder de tabel): de gedachte achter
    deze pagina. witregels en enters blijven gewoon staan. */
 export const LEESMIJ = `welkom op mijn concerten-pagina. hierop houd ik mijn concerten bij die ik wil bezoeken, en waar ik al ben geweest. ik heb altijd al een 'gouden lijst' willen bijhouden met de artiesten en nummers die ik altijd overal en op elk moment van mijn leven kan beluisteren. dit zijn nummers die niet alleen mijn jonge, maar ook volwassen jaren hebben overleefd. deze lijst zal tot mijn laatste adem bij worden gehouden.  - mel`
 

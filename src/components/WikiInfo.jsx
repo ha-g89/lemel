@@ -18,24 +18,26 @@ async function laadWiki(titel) {
 }
 
 /**
- * Info-venster bij een artiest uit de concertentabel (het (?)-knopje),
- * in dezelfde stijl als het eigenschappen-venster van de lenzendatabase.
- * @param {object}   r         één concert ({ artiest, wiki })
+ * Info-venster met wikipedia-uitleg en foto, bij een artiest of venue uit
+ * de concertentabel, in dezelfde stijl als het eigenschappen-venster van
+ * de lenzendatabase.
+ * @param {string}   titel     tekst in de titelbalk (artiest- of venuenaam)
+ * @param {string}   wiki      titel van het wikipedia-artikel
  * @param {Function} onSluiten sluit het venster
  */
-export default function ArtiestInfo({ r, onSluiten }) {
+export default function WikiInfo({ titel, wiki: wikiTitel, onSluiten }) {
   const [wiki, zetWiki] = useState(null)
   const [fout, zetFout] = useState(null)
 
   useEffect(() => {
     let actief = true
-    laadWiki(r.wiki)
+    laadWiki(wikiTitel)
       .then((data) => actief && zetWiki(data))
       .catch((err) => actief && zetFout(err.message))
     return () => {
       actief = false
     }
-  }, [r.wiki])
+  }, [wikiTitel])
 
   useEffect(() => {
     function opToets(e) {
@@ -50,7 +52,7 @@ export default function ArtiestInfo({ r, onSluiten }) {
       <div className="eigenschappen-venster artiest-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={concertIcoon} alt="" />
-          <span className="titelbalk-tekst">{r.artiest}</span>
+          <span className="titelbalk-tekst">{titel}</span>
           <span className="sluitknop" onClick={onSluiten}>
             <Kruisje />
           </span>

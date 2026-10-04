@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Pagina from '../components/Pagina.jsx'
-import ArtiestInfo from '../components/ArtiestInfo.jsx'
+import WikiInfo from '../components/WikiInfo.jsx'
 import Afspelen from '../components/Afspelen.jsx'
 import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
-import { CONCERTEN, LEESMIJ } from '../data/concerten.js'
+import { useTeBreed } from '../hooks/useTeBreed.js'
+import { CONCERTEN, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
@@ -46,6 +47,22 @@ function Vinkje({ aan, label }) {
   )
 }
 
+/* naam als onderstreepte link die het wikipedia-infovenster opent; zonder
+   wikipedia-artikel gewoon platte tekst */
+function InfoLink({ tekst, wiki, onOpen }) {
+  if (!wiki) return tekst
+  return (
+    <button
+      type="button"
+      className="info-link"
+      title={'info over ' + tekst}
+      onClick={() => onOpen({ titel: tekst, wiki })}
+    >
+      {tekst}
+    </button>
+  )
+}
+
 /**
  * Tabel van concerten waar ik ben geweest en waar ik nog heen wil,
  * in dezelfde stijl als de lenzendatabase.
@@ -54,7 +71,7 @@ export default function Concerten() {
   const [zoekterm, zetZoekterm] = useState('')
   const [filter, zetFilter] = useState('')
   const [sortering, zetSortering] = useState({ kolom: 'datum', omhoog: false })
-  const [infoRij, zetInfoRij] = useState(null)
+  const [info, zetInfo] = useState(null) /* { titel, wiki } */
   const [speelRij, zetSpeelRij] = useState(null)
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
 
@@ -88,6 +105,10 @@ export default function Concerten() {
 
   useMenuLayout()
 
+  /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
+  const omhulselRef = useRef(null)
+  const teBreed = useTeBreed(omhulselRef)
+
   const aantalGeweest = CONCERTEN.filter((r) => r.geweest).length
   const aantalWil = CONCERTEN.filter((r) => r.wil).length
 
@@ -118,7 +139,7 @@ export default function Concerten() {
           </span>
         </div>
 
-        <div className="tabel-omhulsel">
+        <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="concertentabel">
             <thead>
               <tr>
@@ -144,20 +165,15 @@ export default function Concerten() {
                 <tr key={r.artiest + r.datum + r.locatie}>
                   <td>{datumNL(r.datum) || <span className="geen-data">&mdash;</span>}</td>
                   <td>
-                    {r.wiki ? (
-                      <button
-                        type="button"
-                        className="artiest-link"
-                        title={'info over ' + r.artiest}
-                        onClick={() => zetInfoRij(r)}
-                      >
-                        {r.artiest}
-                      </button>
+                    <InfoLink tekst={r.artiest} wiki={r.wiki} onOpen={zetInfo} />
+                  </td>
+                  <td>
+                    {r.locatie ? (
+                      <InfoLink tekst={r.locatie} wiki={LOCATIE_WIKI[r.locatie]} onOpen={zetInfo} />
                     ) : (
-                      r.artiest
+                      <span className="geen-data">&mdash;</span>
                     )}
                   </td>
-                  <td>{r.locatie || <span className="geen-data">&mdash;</span>}</td>
                   <td>{r.stad || <span className="geen-data">&mdash;</span>}</td>
                   <td className="knop-kolom">
                     {r.spotify ? (
@@ -199,7 +215,7 @@ export default function Concerten() {
         </div>
       </div>
 
-      {infoRij && <ArtiestInfo r={infoRij} onSluiten={() => zetInfoRij(null)} />}
+      {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
       {speelRij && <SpotifySpeler r={speelRij} onSluiten={() => zetSpeelRij(null)} />}
     </Pagina>

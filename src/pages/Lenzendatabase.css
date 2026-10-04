@@ -102,6 +102,14 @@
     font-weight: normal;
     color: #05430a;
 }
+/* past de tabel niet in de breedte, dan krijgt hij een eigen schuifvenster
+   van maximaal schermhoogte (zoals een lijst in verkenner): de horizontale
+   schuifbalk staat dan altijd in beeld i.p.v. helemaal onderaan de tabel.
+   de kopregel blijft bovenin plakken (th is sticky). */
+.tabel-omhulsel.te-breed {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+}
 .tabel-omhulsel {
     width: 100%;
     box-sizing: border-box;
@@ -140,8 +148,13 @@
     font-weight: normal;
     cursor: pointer;
     user-select: none;
+}
+/* de hele kopregel plakt bovenin het schuifvenster (met zijn verloop erbij;
+   losse th's plakken zou de rijen door de doorzichtige cellen laten zien) */
+.wrapper.database table.datatable thead {
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 .wrapper.database table.datatable th:hover {
     text-decoration: underline;

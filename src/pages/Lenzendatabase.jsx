@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Pagina from '../components/Pagina.jsx'
 import Contextmenu from '../components/Contextmenu.jsx'
 import LensEigenschappen from '../components/LensEigenschappen.jsx'
@@ -6,6 +6,7 @@ import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
 import Vraagteken from '../components/Vraagteken.jsx'
 import StatusIcoon from '../components/StatusIcoon.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useTeBreed } from '../hooks/useTeBreed.js'
 import { laadLenzen, euro, vergelijk } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import './Lenzendatabase.css'
@@ -167,6 +168,10 @@ export default function Lenzendatabase() {
   /* het menu opnieuw uitlijnen zodra de tabel er staat */
   useMenuLayout({ metRuimte: false, deps: [geladen] })
 
+  /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
+  const omhulselRef = useRef(null)
+  const teBreed = useTeBreed(omhulselRef)
+
   return (
     <Pagina titel="le mel — lenzen" klasse="database">
       <div className="databox" data-doek>
@@ -223,7 +228,7 @@ export default function Lenzendatabase() {
           </div>
         )}
 
-        <div className="tabel-omhulsel">
+        <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="lenzentabel">
             <thead>
               <tr>

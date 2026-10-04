@@ -27,9 +27,9 @@
     vertical-align: middle;
 }
 
-/* artiestnaam als link (net als de modellen in de lenzendatabase): opent
-   het info-venster met wikipedia-uitleg */
-.artiest-link {
+/* artiest- of venuenaam als link (net als de modellen in de lenzendatabase):
+   opent het info-venster met wikipedia-uitleg */
+.info-link {
     padding: 0;
     border: 0;
     background: none;
@@ -38,6 +38,11 @@
     text-decoration: underline;
     cursor: pointer;
     text-align: left;
+}
+/* toetsenbordfocus als windows-95-stippelrandje i.p.v. de ronde browserrand */
+.info-link:focus-visible {
+    outline: 1px dotted #000000;
+    outline-offset: 1px;
 }
 
 /* info-venster over de artiest (stijl komt van .eigenschappen-venster) */
