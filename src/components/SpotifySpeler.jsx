@@ -120,7 +120,7 @@ export default function SpotifySpeler({ r, onSluiten }) {
   return (
     <div
       ref={vensterRef}
-      className="eigenschappen-venster artiest-venster spotify-venster"
+      className="eigenschappen-venster info-venster spotify-venster"
       style={positie.x || positie.y ? { transform: `translate(${positie.x}px, ${positie.y}px)` } : undefined}
     >
       <div

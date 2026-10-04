@@ -448,11 +448,6 @@ h2 {
     font-size: 18px;
     line-height: 1.5;
 }
-#afsluitscherm-subtekst {
-    font-size: 13px;
-    opacity: 0.85;
-    margin-bottom: 0 !important;
-}
 
 /* ---- bsod (paasei: typ ergens op de site "bsod") ---- */
 #bsod {

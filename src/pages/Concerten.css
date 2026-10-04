@@ -45,14 +45,15 @@
     outline-offset: 1px;
 }
 
-/* info-venster over de artiest (stijl komt van .eigenschappen-venster) */
-.eigenschappen-venster.artiest-venster {
+/* info-vensters (artiest, venue, datum, kladblok, speler); de basisstijl
+   komt van .eigenschappen-venster in Lenzendatabase.css */
+.eigenschappen-venster.info-venster {
     width: 380px;
 }
-.artiest-laden {
+.info-laden {
     margin: 8px 4px;
 }
-.artiest-foto {
+.info-foto {
     float: left;
     margin: 0 10px 6px 0;
     padding: 2px;
@@ -62,21 +63,21 @@
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
 }
-.artiest-foto img {
+.info-foto img {
     display: block;
     width: 120px;
     height: auto;
 }
-.artiest-omschrijving {
+.info-omschrijving {
     margin: 0 0 6px 0;
     font-weight: bold;
 }
-.artiest-tekst {
+.info-tekst {
     margin: 0 0 8px 0;
     line-height: 1.5;
 }
 /* "lees verder op wikipedia": gecentreerd onder de tekst én de foto */
-.artiest-verder {
+.info-verder {
     display: block;
     clear: both;
     padding-top: 6px;

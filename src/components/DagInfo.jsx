@@ -35,7 +35,7 @@ export default function DagInfo({ datum, nieuws, onSluiten }) {
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
-      <div className="eigenschappen-venster artiest-venster" onClick={(e) => e.stopPropagation()}>
+      <div className="eigenschappen-venster info-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={concertIcoon} alt="" />
           <span className="titelbalk-tekst">{titel}</span>
@@ -45,11 +45,11 @@ export default function DagInfo({ datum, nieuws, onSluiten }) {
         </div>
         <div className="inhoud">
           <fieldset>
-            <p className="artiest-omschrijving">{geweest ? 'in het nieuws' : 'in het nieuws (straks)'}</p>
-            <p className="artiest-tekst">{nieuws.kop}</p>
+            <p className="info-omschrijving">{geweest ? 'in het nieuws' : 'in het nieuws (straks)'}</p>
+            <p className="info-tekst">{nieuws.kop}</p>
             {nieuws.ook?.length > 0 && (
               <>
-                <p className="artiest-omschrijving">ook die dag</p>
+                <p className="info-omschrijving">ook die dag</p>
                 <ul className="dag-ook">
                   {nieuws.ook.map((regel) => (
                     <li key={regel}>{regel}</li>
@@ -58,7 +58,7 @@ export default function DagInfo({ datum, nieuws, onSluiten }) {
               </>
             )}
             {geweest && (
-              <a className="artiest-verder" href={wikiLink(datum)} target="_blank" rel="noopener noreferrer">
+              <a className="info-verder" href={wikiLink(datum)} target="_blank" rel="noopener noreferrer">
                 al het nieuws van die dag op wikipedia
               </a>
             )}

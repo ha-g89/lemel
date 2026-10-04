@@ -272,6 +272,17 @@ export const CONCERTEN = [
     liedje: 'wolken',
     spotify: 'https://open.spotify.com/track/0onMpCJYPxkphLfHjPEaLr',
   },
+  {
+    artiest: 'dimension',
+    locatie: '',
+    stad: '',
+    datum: '',
+    geweest: false,
+    wil: true,
+    wiki: 'Dimension (musician)',
+    liedje: 'once in a lifetime',
+    spotify: 'https://open.spotify.com/track/4NZRpnuP4EZl6yohxQofP2',
+  },
 ]
 
 /* wikipedia-artikel per locatie (sleutel = locatie zoals in de tabel);

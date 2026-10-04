@@ -166,7 +166,7 @@ export default function Lenzendatabase() {
   const geladen = alleRijen !== null
 
   /* het menu opnieuw uitlijnen zodra de tabel er staat */
-  useMenuLayout({ metRuimte: false, deps: [geladen] })
+  useMenuLayout({ deps: [geladen] })
 
   /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
   const omhulselRef = useRef(null)

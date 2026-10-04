@@ -2,7 +2,7 @@ import initSqlJs from 'sql.js'
 import sqlWasmUrl from 'sql.js/dist/sql-wasm.wasm?url'
 
 /* de SQLite-database staat in public/lenzendatabase/lenzen.db */
-export const DB_PAD = 'lenzendatabase/lenzen.db'
+const DB_PAD = 'lenzendatabase/lenzen.db'
 
 const QUERY =
   'SELECT l.id, l.maker, l.model, l.mount, l.focal_mm, l.aperture_max, ' +

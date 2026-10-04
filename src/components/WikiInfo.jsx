@@ -49,7 +49,7 @@ export default function WikiInfo({ titel, wiki: wikiTitel, onSluiten }) {
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
-      <div className="eigenschappen-venster artiest-venster" onClick={(e) => e.stopPropagation()}>
+      <div className="eigenschappen-venster info-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={concertIcoon} alt="" />
           <span className="titelbalk-tekst">{titel}</span>
@@ -58,19 +58,19 @@ export default function WikiInfo({ titel, wiki: wikiTitel, onSluiten }) {
           </span>
         </div>
         <div className="inhoud">
-          {!wiki && !fout && <p className="artiest-laden">wikipedia wordt geladen…</p>}
-          {fout && <p className="artiest-laden">kon wikipedia niet laden: {fout}</p>}
+          {!wiki && !fout && <p className="info-laden">wikipedia wordt geladen…</p>}
+          {fout && <p className="info-laden">kon wikipedia niet laden: {fout}</p>}
           {wiki && (
             <fieldset>
               {wiki.thumbnail && (
-                <div className="artiest-foto">
+                <div className="info-foto">
                   <img src={wiki.thumbnail.source} alt={wiki.title} />
                 </div>
               )}
-              {wiki.description && <p className="artiest-omschrijving">{wiki.description}</p>}
-              <p className="artiest-tekst">{wiki.extract}</p>
+              {wiki.description && <p className="info-omschrijving">{wiki.description}</p>}
+              <p className="info-tekst">{wiki.extract}</p>
               <a
-                className="artiest-verder"
+                className="info-verder"
                 href={wiki.content_urls.desktop.page}
                 target="_blank"
                 rel="noopener noreferrer"

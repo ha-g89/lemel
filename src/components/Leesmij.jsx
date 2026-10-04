@@ -18,7 +18,7 @@ export default function Leesmij({ tekst, onSluiten }) {
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
-      <div className="eigenschappen-venster artiest-venster kladblok-venster" onClick={(e) => e.stopPropagation()}>
+      <div className="eigenschappen-venster info-venster kladblok-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={leesmijIcoon} alt="" />
           <span className="titelbalk-tekst">leesmij.txt - kladblok</span>

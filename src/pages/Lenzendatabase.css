@@ -159,10 +159,6 @@
 .wrapper.database table.datatable th:hover {
     text-decoration: underline;
 }
-.wrapper.database table.datatable th .pijltje {
-    font-size: 9px;
-    opacity: 0.8;
-}
 /* courier new op 11px is zo dun dat zwart grijs oogt; een dun randje in de
    eigen tekstkleur maakt het diep zwart (links blijven groen). geldt voor
    elke databasetabel (lenzen en concerten) */

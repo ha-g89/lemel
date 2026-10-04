@@ -1,8 +1,8 @@
 # le mel
 
-Fotosite met Windows-95-look, gebouwd in React + Vite. Eén-op-één nagebouwd
-van de oorspronkelijke HTML-pagina's (index, kijklijst, rugzak, verkocht,
-lenzendatabase).
+Fotosite met Windows-95-look, gebouwd in React + Vite. Begonnen als nabouw
+van de oorspronkelijke HTML-pagina's, daarna uitgebreid met onder meer de
+concertenpagina.
 
 ## Starten
 
@@ -17,13 +17,18 @@ npm run preview    # dist/ lokaal bekijken
 
 | route              | oud bestand           | wat                                          |
 |--------------------|-----------------------|----------------------------------------------|
-| `/`                | `index.html`          | gallerij, lightbox, paasei (pixel-slider)    |
+| `/`                | `index.html`          | gallerij met lightbox-vensters               |
 | `/?lens=<code>`    | `index.html?lens=`    | alleen foto's met die lens                   |
 | `/?thema=autos`    | `index.html?thema=`   | alleen foto's met dat thema                  |
-| `/kijklijst`       | `kijklijst.html`      | lenzen op de kijklijst                       |
-| `/rugzak`          | `rugzak.html`         | lenzen in bezit, met "bekijk" naar de gallerij |
-| `/verkocht`        | `verkocht.html`       | verkochte lenzen (nog leeg)                  |
 | `/lenzendatabase`  | `lenzendatabase.html` | doorzoekbare SQLite-database via sql.js      |
+| `/concerten`       | —                     | concerten met wikipedia-info, favo liedje (spotify) en leesmij.txt |
+
+De oude pagina's kijklijst, rugzak en verkocht zijn opgeheven: die info staat
+in de lenzendatabase (status in bezit / kijklijst / verkocht). Oude of
+onbekende adressen gaan naar de gallerij.
+
+Paaseieren: "scherminstellingen" onder instellingen in het Start-menu
+(grijstinten, negatief, sepia) en typ ergens op de site "bsod".
 
 ## Foto's toevoegen
 
@@ -52,11 +57,11 @@ De lenscodes staan in `src/data/lenzen.js`:
 | `pentax-m-135`| smc pentax-m 135mm f3.5            |
 | `pentax-200`  | smc pentax 200mm f4                |
 
-## Lijsten aanpassen
+## Concerten aanpassen
 
-- kijklijst: `src/data/kijklijst.js`
-- rugzak: `src/data/rugzak.js`
-- verkocht: `src/data/verkocht.js`
+Alles staat in `src/data/concerten.js`: de concerten zelf (`CONCERTEN`), het
+wikipedia-artikel per venue (`LOCATIE_WIKI`), het nieuws per concertdatum
+(`DAG_NIEUWS`) en de tekst van leesmij.txt (`LEESMIJ`).
 
 ## Lenzendatabase
 
@@ -64,21 +69,33 @@ De lenscodes staan in `src/data/lenzen.js`:
 sql.js. Zie `public/lenzendatabase/LEESMIJ.md` voor de tabellen. Vervang het
 bestand en herlaad: de site haalt altijd de nieuwste versie op.
 
+## Huisstijl
+
+- Titelbalk van elk venster: klasse `venster-titelbalk` (in `src/index.css`).
+- Bureaubladicoon (enkel klik selecteert, dubbelklik opent, versleepbaar):
+  `src/components/DesktopIcoon.jsx`.
+- Tabellen (lenzen en concerten) delen hun stijl via `Lenzendatabase.css`.
+
 ## Structuur
 
 ```
 src/
-  components/   Pagina (schil), Navbar, Taakbalk, Lightbox, SchermInstellingen, LenzenTabel
-  pages/        Gallerij, Kijklijst, Rugzak, Verkocht, Lenzendatabase (+ eigen css)
-  hooks/        useMenuLayout: menu scrollt mee en landt op de taakbalk
-  lib/          fotonamen (lens/thema uit bestandsnaam), lenzendatabase (sql.js)
-  data/         lenzen, fotos, kijklijst, rugzak, verkocht
+  components/   Pagina (schil), Navbar, Taakbalk, Lightbox, vensters (WikiInfo,
+                DagInfo, Leesmij, SpotifySpeler, LensEigenschappen,
+                SchermInstellingen), DesktopIcoon en kleine icoontjes
+  pages/        Gallerij, Concerten, Lenzendatabase (+ eigen css)
+  hooks/        useMenuLayout (taakbalk even breed als de inhoud), useTeBreed
+  lib/          fotonamen (lens/thema uit bestandsnaam), lenzendatabase (sql.js), ebay
+  data/         fotos, lenzen, verhalen, concerten
   assets/       iconen/ en kluis/ (de foto's)
-public/         favicon, lenzendatabase/
+public/         favicon, lenzendatabase/, staticwebapp.config.json
 ```
 
 ## Hosting
 
-De router gebruikt gewone paden (`/rugzak`). Op een statische host moet elke
-onbekende route naar `index.html` vallen (Netlify/Vercel doen dat met een
-rewrite-regel; op Apache met een `.htaccess`-fallback).
+Azure Static Web Apps: elke push naar `main` wordt automatisch gebouwd en
+gepubliceerd (`.github/workflows`). De router gebruikt gewone paden
+(`/concerten`); `public/staticwebapp.config.json` laat elke onbekende route
+op `index.html` uitkomen, zodat zo'n link ook werkt bij direct openen of
+verversen. Onderaan elke pagina staat de versie (commitcode + builddatum),
+ingevuld door `vite.config.js`.

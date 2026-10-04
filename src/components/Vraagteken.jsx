@@ -1,4 +1,5 @@
-/* het vraagteken voor de "verhaal achter de foto"-knop, als open lijntje
+/* het vraagteken voor de "verhaal achter de foto"-knop in de lightbox en
+   de eigenschappen-knop in de lenzendatabase, als open lijntje
    (geen dikke vulling) in dezelfde strakke lijnstijl als Kruisje.jsx en
    Streepje.jsx, iets groter dan de andere titelbalk-knopjes zodat hij goed
    leesbaar blijft */

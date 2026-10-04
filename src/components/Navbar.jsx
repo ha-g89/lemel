@@ -3,10 +3,6 @@ import { THEMA_NAAM } from '../data/lenzen.js'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
 import autosIcoon from '../assets/iconen/autos.png'
 import jp26Icoon from '../assets/iconen/jp26.png'
-// kijklijst, rugzak en verkocht staan voor nu uit het menu (zie onderin) -- die info staat ook in de database
-// import kijklijstIcoon from '../assets/iconen/kijklijst.png'
-// import rugzakIcoon from '../assets/iconen/rugzak.png'
-// import verkochtIcoon from '../assets/iconen/verkocht.png'
 import databaseIcoon from '../assets/iconen/database.png'
 import concertIcoon from '../assets/iconen/concert.png'
 import homeIcoon from '../assets/iconen/home.png'
@@ -67,20 +63,6 @@ export default function Navbar({
             ))}
           </div>
         </div>
-        {/* kijklijst, rugzak en verkocht staan voor nu uit het menu -- die info staat ook in de database
-        <NavLink to="/kijklijst" className={actief} onClick={onSluitMenu}>
-          <img src={kijklijstIcoon} alt="" />
-          <span><u>k</u>ijklijst</span>
-        </NavLink>
-        <NavLink to="/rugzak" className={actief} onClick={onSluitMenu}>
-          <img src={rugzakIcoon} alt="" />
-          <span><u>r</u>ugzak</span>
-        </NavLink>
-        <NavLink to="/verkocht" className={actief} onClick={onSluitMenu}>
-          <img src={verkochtIcoon} alt="" />
-          <span><u>v</u>erkocht</span>
-        </NavLink>
-        */}
         <NavLink to="/lenzendatabase" className={actief} onClick={onSluitMenu}>
           <img src={databaseIcoon} alt="" />
           <span><u>d</u>atabase</span>
