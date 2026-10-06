@@ -6,8 +6,9 @@ import FotoContextMenu from '../components/FotoContextMenu.jsx'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
+import overmijIcoon from '../assets/iconen/overmij.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
-import { FOTOLIJST, LEESMIJ } from '../data/fotos.js'
+import { FOTOLIJST, LEESMIJ, OVERMIJ } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
 import './Gallerij.css'
 
@@ -22,6 +23,7 @@ export default function Gallerij() {
   const vensterTeller = useRef(0)
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, foto } */
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
+  const [overmijOpen, zetOvermijOpen] = useState(false)
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
@@ -87,6 +89,15 @@ export default function Gallerij() {
           onOpen={() => zetLeesmijOpen(true)}
           sleepbaar
           opslagSleutel="lemel-leesmij-plek-start"
+          beginX={-45}
+        />
+        <DesktopIcoon
+          icoon={overmijIcoon}
+          naam="overmij.txt"
+          onOpen={() => zetOvermijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-overmij-plek-start"
+          beginX={45}
         />
       </div>
 
@@ -138,6 +149,14 @@ export default function Gallerij() {
       />
 
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
+      {overmijOpen && (
+        <Leesmij
+          tekst={OVERMIJ}
+          naam="overmij.txt"
+          icoon={overmijIcoon}
+          onSluiten={() => zetOvermijOpen(false)}
+        />
+      )}
 
       {contextMenu && (
         <FotoContextMenu

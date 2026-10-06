@@ -3,11 +3,14 @@ import Kruisje from './Kruisje.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 
 /**
- * Kladblok-venster met leesmij.txt: de gedachte achter een pagina.
+ * Kladblok-venster met een tekstbestand, standaard leesmij.txt: de gedachte
+ * achter een pagina.
  * @param {string}   tekst     inhoud van het tekstbestand
  * @param {Function} onSluiten sluit het venster
+ * @param {string}   [naam]    bestandsnaam in de titelbalk
+ * @param {string}   [icoon]   icoon in de titelbalk
  */
-export default function Leesmij({ tekst, onSluiten }) {
+export default function Leesmij({ tekst, onSluiten, naam = 'leesmij.txt', icoon = leesmijIcoon }) {
   useEffect(() => {
     function opToets(e) {
       if (e.key === 'Escape') onSluiten()
@@ -20,8 +23,8 @@ export default function Leesmij({ tekst, onSluiten }) {
     <div className="eigenschappen-overlay" onClick={onSluiten}>
       <div className="eigenschappen-venster info-venster kladblok-venster" onClick={(e) => e.stopPropagation()}>
         <div className="titelbalk venster-titelbalk">
-          <img className="titelbalk-icoon" src={leesmijIcoon} alt="" />
-          <span className="titelbalk-tekst">leesmij.txt - kladblok</span>
+          <img className="titelbalk-icoon" src={icoon} alt="" />
+          <span className="titelbalk-tekst">{naam} - kladblok</span>
           <span className="sluitknop" onClick={onSluiten}>
             <Kruisje />
           </span>
