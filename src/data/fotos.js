@@ -135,3 +135,6 @@ export const FOTOLIJST = FOTOS.map((basis) => {
     naam: schoneNaam(bestand),
   }
 })
+
+/* tekst van leesmij.txt op de startpagina (bureaubladicoon onder de naar-start-knop) */
+export const LEESMIJ = `tekst volgt.  - mel`

@@ -157,7 +157,7 @@ function LightboxVenster({
  * Overlay met alle open lightbox-vensters ernaast, elk in zijn eigen kader.
  * Alle vensters (ook geminimaliseerde) blijven hier gemount zodat hun state
  * bewaard blijft; de overlay zelf verbergt zich pas als er niets zichtbaar is.
- * @param {{ basis: string, foto: object, geminimaliseerd: boolean }[]} vensters
+ * @param {{ id: number, basis: string, foto: object, geminimaliseerd: boolean }[]} vensters
  * @param {object[]} fotolijst          de (gefilterde) fotolijst waarbinnen vorige/volgende bladert
  * @param {Function} onSluit             sluit één venster helemaal (basis) => void
  * @param {Function} onMinimaliseer      verberg één venster (streepje) (basis) => void
@@ -203,7 +203,7 @@ export default function Lightbox({
         const index = fotolijst.findIndex((f) => f.basis === v.basis)
         return (
           <LightboxVenster
-            key={v.basis}
+            key={v.id}
             foto={v.foto}
             geminimaliseerd={v.geminimaliseerd}
             onSluit={() => onSluit(v.basis)}

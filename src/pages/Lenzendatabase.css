@@ -321,6 +321,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    /* overflow: hidden knipt anders de staart van g/p/y en de 1px schaduw
+       eronder af; extra ruimte onderin, met een negatieve marge zodat de
+       titelbalk zelf niet hoger wordt */
+    padding-bottom: 2px;
+    margin-bottom: -2px;
 }
 .eigenschappen-venster .titelbalk .sluitknop {
     width: 17px;

@@ -101,6 +101,21 @@
     margin-bottom: 40px;
 }
 
+/* ---- leesmij.txt ---- */
+/* strook tussen de naar-start-knop en de foto's, zo breed als de fotogrid:
+   hierbinnen kun je het leesmij-icoon verslepen. de negatieve marge onderaan
+   eet de bovenmarge van de fotogrid op, zodat de foto's niet verder zakken
+   dan de strook zelf nodig heeft */
+.leesmij-plek-start {
+    position: relative;
+    width: 55vw;
+    left: 50%;
+    margin-left: -27.5vw;
+    height: 90px;
+    margin-top: 8px;
+    margin-bottom: -44px;
+}
+
 /* ---- contextmenu (rechtermuisknop op een foto) ---- */
 .contextmenu {
     position: fixed;

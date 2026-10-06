@@ -1,10 +1,13 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Pagina from '../components/Pagina.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FotoContextMenu from '../components/FotoContextMenu.jsx'
+import DesktopIcoon from '../components/DesktopIcoon.jsx'
+import Leesmij from '../components/Leesmij.jsx'
+import leesmijIcoon from '../assets/iconen/leesmij.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
-import { FOTOLIJST } from '../data/fotos.js'
+import { FOTOLIJST, LEESMIJ } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
 import './Gallerij.css'
 
@@ -12,10 +15,13 @@ export default function Gallerij() {
   const [params] = useSearchParams()
   const lens = params.get('lens')
   const thema = params.get('thema')
-  /* elk open venster: { basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
-     ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop. */
+  /* elk open venster: { id, basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
+     ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop.
+     id blijft gelijk bij vorige/volgende, zodat het venster niet opnieuw laadt. */
   const [vensters, zetVensters] = useState([])
+  const vensterTeller = useRef(0)
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, foto } */
+  const [leesmijOpen, zetLeesmijOpen] = useState(false)
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
@@ -38,7 +44,8 @@ export default function Gallerij() {
       if (bestaat) {
         return lijst.map((v) => (v.basis === foto.basis ? { ...v, geminimaliseerd: false } : v))
       }
-      return [...lijst, { basis: foto.basis, foto, geminimaliseerd: false }]
+      vensterTeller.current += 1
+      return [...lijst, { id: vensterTeller.current, basis: foto.basis, foto, geminimaliseerd: false }]
     })
   }, [])
   const sluitLightbox = useCallback((basis) => {
@@ -59,7 +66,7 @@ export default function Gallerij() {
     zetVensters((lijst) => {
       if (lijst.some((v) => v.basis === nieuweFoto.basis && v.basis !== huidigeBasis)) return lijst
       return lijst.map((v) =>
-        v.basis === huidigeBasis ? { basis: nieuweFoto.basis, foto: nieuweFoto, geminimaliseerd: false } : v
+        v.basis === huidigeBasis ? { ...v, basis: nieuweFoto.basis, foto: nieuweFoto, geminimaliseerd: false } : v
       )
     })
   }, [])
@@ -73,6 +80,16 @@ export default function Gallerij() {
 
   return (
     <Pagina titel="le mel" metJaar vensters={taakbalkVensters}>
+      <div className="leesmij-plek-start">
+        <DesktopIcoon
+          icoon={leesmijIcoon}
+          naam="leesmij.txt"
+          onOpen={() => zetLeesmijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-leesmij-plek-start"
+        />
+      </div>
+
       <h2 id="fotos"></h2>
 
       {filterGeldig && (
@@ -119,6 +136,8 @@ export default function Gallerij() {
         onMinimaliseerAlles={minimaliseerAlles}
         onNavigeer={navigeerLightbox}
       />
+
+      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
 
       {contextMenu && (
         <FotoContextMenu
