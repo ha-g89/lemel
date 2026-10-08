@@ -72,17 +72,25 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
         <img className="titel" src={logo} alt="le mel" />
       </Link>
 
-      <button
-        type="button"
-        id="naar-start-knop"
-        className="naar-start-knop"
-        onClick={() =>
-          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
-        }
-      >
-        <img src={naarStartIcoon} alt="" />
-        <span>naar start</span>
-      </button>
+      {/* houder zodat het slijm buiten de knop kan hangen (de knop zelf heeft
+          overflow: hidden voor het glimeffect) */}
+      <div className="naar-start-houder">
+        <button
+          type="button"
+          id="naar-start-knop"
+          className="naar-start-knop"
+          onClick={() =>
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
+          }
+        >
+          <img src={naarStartIcoon} alt="" />
+          <span>naar start</span>
+        </button>
+        <span className="slijm slijm-links" aria-hidden="true" />
+        <span className="slijm slijm-rechts" aria-hidden="true" />
+        <span className="slijm-drup slijm-drup-links" aria-hidden="true" />
+        <span className="slijm-drup slijm-drup-rechts" aria-hidden="true" />
+      </div>
 
       {children}
 
