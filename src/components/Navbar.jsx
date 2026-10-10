@@ -9,6 +9,7 @@ import homeIcoon from '../assets/iconen/home.png'
 import afsluitenIcoon from '../assets/iconen/afsluiten.png'
 import settingIcoon from '../assets/iconen/setting.png'
 import weergaveIcoon from '../assets/iconen/weergave.png'
+import steamIcoon from '../assets/iconen/steam-menu.png'
 
 const actief = ({ isActive }) => (isActive ? 'actief' : undefined)
 
@@ -71,6 +72,15 @@ export default function Navbar({
           <img src={concertIcoon} alt="" />
           <span><u>c</u>oncerten</span>
         </NavLink>
+        <a
+          href="https://steamcommunity.com/profiles/76561199152393177/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onSluitMenu}
+        >
+          <img src={steamIcoon} alt="" />
+          <span>s<u>t</u>eam</span>
+        </a>
         {opAfsluiten && (
           <>
             <div className="menu-scheiding"></div>

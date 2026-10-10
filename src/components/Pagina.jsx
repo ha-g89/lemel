@@ -6,7 +6,6 @@ import BSOD from './BSOD.jsx'
 import SchermInstellingen from './SchermInstellingen.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
-import naarStartIcoon from '../assets/iconen/boom.png'
 
 /* versie in de voettekst: commitcode + builddatum, ingevuld door
    vite.config.js bij elke build (zie commitCode daar) */
@@ -102,7 +101,6 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
             window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
           }
         >
-          <img src={naarStartIcoon} alt="" />
           <span>naar start</span>
         </button>
         <span className="slijm slijm-links" aria-hidden="true" />

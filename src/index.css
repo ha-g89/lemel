@@ -8,7 +8,11 @@ html {
 }
 body {
     position: relative;
-    background-color: #FFFFFF;
+    background-color: #F3EFE6; /* warm gebroken wit */
+    /* verkreukeld, versleten papier: naadloze tegel met grote, zachte kreukels
+       (gemaakt met een script, al in de gebroken-witte kleur) */
+    background-image: url("./assets/papier.jpg");
+    background-size: 1536px 1536px;
     color: #000000;
     font-family: "Inter", Helvetica, Arial, sans-serif;
     font-size: 15px;
@@ -524,12 +528,6 @@ h2 {
 }
 @media (prefers-reduced-motion: reduce) {
     .naar-start-knop::after { animation: none; display: none; }
-}
-.naar-start-knop img {
-    width: 11px;
-    height: 11px;
-    image-rendering: pixelated;
-    flex-shrink: 0;
 }
 .naar-start-knop:active {
     background-color: #D4D4D4;
