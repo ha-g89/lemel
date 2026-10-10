@@ -125,7 +125,7 @@ export default function Gallerij() {
               data-tooltip={tooltip}
             >
               <img
-                src={foto.url || undefined}
+                src={foto.klein || undefined}
                 alt={foto.naam}
                 loading={laadwijze}
                 onClick={() => openLightbox(foto)}

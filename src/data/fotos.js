@@ -116,6 +116,18 @@ const bestanden = import.meta.glob('../assets/kluis/*.{jpg,JPG,jpeg,JPEG,png,PNG
    foto in FOTOS zo simpel mogelijk kan blijven staan (bv. 'MCA_1900')
    terwijl het echte bestand er ook nog een lenscode en/of één of
    meerdere themacodes achteraan kan hebben staan. */
+/* kleine webp-versies voor de fotogrid, gemaakt door scripts/maak-thumbnails.mjs.
+   Sleutel: volledige bestandsnaam zonder extensie, gelijk aan de originele foto. */
+const thumbnails = import.meta.glob('../assets/kluis-klein/*.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+})
+const thumbVan = {}
+for (const pad in thumbnails) {
+  thumbVan[pad.split('/').pop().replace(/\.webp$/, '')] = thumbnails[pad]
+}
+
 const perKaleNaam = {}
 for (const pad in bestanden) {
   const bestandsnaam = pad.split('/').pop()
@@ -130,6 +142,8 @@ export const FOTOLIJST = FOTOS.map((basis) => {
     basis,
     bestand,
     url: hit ? hit.url : null,
+    /* valt terug op de grote foto als er (nog) geen thumbnail is */
+    klein: hit ? thumbVan[hit.naam] || hit.url : null,
     lens: lensVan(bestand),
     themas: themasVan(bestand),
     naam: schoneNaam(bestand),

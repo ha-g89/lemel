@@ -440,3 +440,17 @@
     width: auto;
     height: auto;
 }
+
+/* ---- telefoon: twee kolommen, bijna schermbreed ---- */
+@media (max-width: 700px) {
+    .photogrid {
+        column-count: 2;
+        width: 92vw;
+        margin-left: -46vw;
+        margin-right: -46vw;
+    }
+    .leesmij-plek-start {
+        width: 92vw;
+        margin-left: -46vw;
+    }
+}

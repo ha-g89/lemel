@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/maak-thumbnails.mjs",
     "dev": "vite",
+    "thumbnails": "node scripts/maak-thumbnails.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

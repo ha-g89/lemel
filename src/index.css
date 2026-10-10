@@ -32,6 +32,7 @@ table {
 }
 .wrapper {
     width: 600px;
+    max-width: calc(100% - 20px);
     margin: 0 auto;
     padding: 64px 10px 20px 10px;
     text-align: center;
@@ -761,4 +762,12 @@ h2 {
     /* donkergroene schaduw: witte titel krijgt diepte en blijft leesbaar op
        het felgroene rechterdeel van de balk */
     text-shadow: 1px 1px 0 #022b05;
+}
+
+/* op een telefoon is 55vw te smal: de taakbalk gaat net als de fotogrid bijna schermbreed */
+@media (max-width: 700px) {
+    .taakbalk {
+        width: 92vw;
+        margin-left: -46vw;
+    }
 }
