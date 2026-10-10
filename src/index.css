@@ -645,25 +645,25 @@ h2 {
 .slijm-links { left: -6px; }
 .slijm-rechts { right: -6px; transform: scaleX(-1); }
 
-/* aan beide kanten een subtiel druppeltje dat langzaam langs de klodder omlaag glijdt,
-   even blijft hangen en er dan afvalt, tot aan de foto's (of het venster) eronder.
-   de baan loopt van de klodder tot de bovenrand daarvan en knipt alles eronder af,
+/* aan beide kanten een subtiel druppeltje dat uit de onderste punt van de
+   klodder groeit, uitrekt en er dan afvalt, tot aan de foto's (of het venster) eronder.
+   de baan loopt van boven de klodder tot de bovenrand daarvan en knipt alles eronder af,
    zodat de druppel achter de foto lijkt te verdwijnen. de lengte (--slijm-val)
-   meet Pagina.jsx. tijdens het glijden en vallen wiebelt de druppel als gelei */
+   meet Pagina.jsx. tijdens het vallen wiebelt de druppel als gelei */
 .slijm-baan {
     position: absolute;
-    top: 12px;
-    width: 10px;
-    height: var(--slijm-val, 40px);
+    top: -6px;
+    width: 20px;
+    height: calc(var(--slijm-val, 40px) + 18px);
     overflow: hidden;
     pointer-events: none;
 }
-.slijm-baan-links { left: -8px; }
-.slijm-baan-rechts { right: -8px; }
+.slijm-baan-links { left: -14px; }
+.slijm-baan-rechts { right: -14px; transform: scaleX(-1); }
 .slijm-drup {
     position: absolute;
     top: 0;
-    left: 2px;
+    left: 0;
     width: 6px;
     height: 6px;
     opacity: 0;
@@ -682,42 +682,39 @@ h2 {
     box-shadow: inset -1px -1px 0 #1fc40a;
     clip-path: polygon(1px 0, 5px 0, 5px 1px, 6px 1px, 6px 4px, 5px 4px, 5px 5px, 4px 5px, 4px 6px, 2px 6px, 2px 5px, 1px 5px, 1px 4px, 0 4px, 0 1px, 1px 1px);
     transform-origin: 50% 0;
-    /* zelfde tempo als slijm-glij, zodat het wiebelen pas begint bij het loskomen */
+    /* zelfde tempo als slijm-glij, zodat vorm en plek bij elkaar horen */
     animation: slijm-wiebel 7s 2s ease-in-out infinite;
 }
 .slijm-baan-links .slijm-drup-vorm { animation-duration: 8s; animation-delay: 5.5s; }
+/* de druppel groeit langzaam uit de onderste punt van de klodder: eerst een
+   piepklein bultje, dan steeds dikker, rekt uit tot een traan en valt.
+   translate(11px, 33px) = net in de punt (de pixels van .slijm) */
 @keyframes slijm-glij {
-    0% { opacity: 0; transform: translateY(0); animation-timing-function: steps(1, end); }
-    /* stroperig omlaag kruipen: traag op gang, even inhouden, weer verder */
-    5% { opacity: 1; transform: translateY(0); animation-timing-function: ease-in; }
-    18% { opacity: 1; transform: translateY(3px); animation-timing-function: ease-in-out; }
-    26% { opacity: 1; transform: translateY(5px); animation-timing-function: ease-in; }
-    38% { opacity: 1; transform: translateY(12px); animation-timing-function: ease-out; }
-    45% { opacity: 1; transform: translateY(16px); animation-timing-function: steps(1, end); }
+    0%, 40% { opacity: 1; transform: translate(11px, 33px); animation-timing-function: ease-in-out; }
+    /* zwaar genoeg: zakt een stukje uit aan een dun nekje */
+    50% { opacity: 1; transform: translate(11px, 36px); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); }
     /* loslaten en vallen, steeds sneller, tot voorbij de onderkant van de baan */
-    50% { opacity: 1; transform: translateY(16px); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); }
-    68% { opacity: 1; transform: translateY(var(--slijm-val, 40px)); animation-timing-function: steps(1, end); }
-    69% { opacity: 0; transform: translateY(var(--slijm-val, 40px)); }
-    100% { opacity: 0; transform: translateY(var(--slijm-val, 40px)); }
+    76% { opacity: 1; transform: translate(11px, calc(var(--slijm-val, 40px) + 18px)); animation-timing-function: steps(1, end); }
+    77%, 100% { opacity: 0; transform: translate(11px, calc(var(--slijm-val, 40px) + 18px)); }
 }
 
-/* tijdens het glijden rekt de druppel een beetje uit (hij wordt zwaarder),
-   bij het loskomen drilt hij tijdens de val (50%-68% van slijm-glij) */
+/* vorm (zelfde tijdstippen als slijm-glij): opzwellen vanuit niets, uitrekken,
+   en tijdens de val (50%-76%) drillen: eerst flink, dan steeds rustiger */
 @keyframes slijm-wiebel {
-    0%, 5%, 50%, 68%, 100% { transform: none; }
-    18%  { transform: scale(0.95, 1.1); }
-    26%  { transform: scale(1.05, 0.95); }
-    38%  { transform: scale(0.9, 1.15); }
-    45%  { transform: scale(0.9, 1.15); }
-    52%  { transform: translateX(0) scale(1.3, 0.75); }
-    54%  { transform: translateX(-0.5px) scale(0.85, 1.2); }
-    56%  { transform: translateX(0) scale(1.2, 0.85); }
-    58%  { transform: translateX(0.5px) scale(0.85, 1.25); }
-    60%  { transform: translateX(0) scale(1.15, 0.9); }
-    62%  { transform: translateX(-0.5px) scale(0.9, 1.2); }
-    64%  { transform: translateX(0) scale(1.1, 0.9); }
-    66%  { transform: translateX(0.5px) scale(0.9, 1.2); }
+    0%   { transform: scale(0.15, 0.1); animation-timing-function: ease-in; }
+    15%  { transform: scale(0.45, 0.35); animation-timing-function: ease-in-out; }
+    30%  { transform: scale(0.8, 0.75); animation-timing-function: ease-in-out; }
+    40%  { transform: scale(1, 1); animation-timing-function: ease-in-out; }
+    50%  { transform: scale(0.8, 1.35); }
+    54%  { transform: translateX(-0.5px) scale(1.2, 0.85); }
+    58%  { transform: translateX(0.5px) scale(0.88, 1.15); }
+    62%  { transform: translateX(-0.3px) scale(1.12, 0.9); }
+    66%  { transform: translateX(0.3px) scale(0.92, 1.1); }
+    70%  { transform: scale(1.06, 0.95); }
+    74%  { transform: scale(0.96, 1.05); }
+    76%, 100% { transform: none; }
 }
+
 @media (prefers-reduced-motion: reduce) {
     .slijm-baan { display: none; }
 }
