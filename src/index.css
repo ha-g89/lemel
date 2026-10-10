@@ -293,7 +293,14 @@ table {
         inset 2px 2px 0 #DFDFDF;
     z-index: 200;
 }
-.menu-item:hover .submenu {
+/* hover alleen met een echte muis; op touch klapt Navbar.jsx het submenu
+   open met de klasse "open" (anders vangt iOS de eerste tik af als hover) */
+@media (hover: hover) {
+    .menu-item:hover .submenu {
+        display: block;
+    }
+}
+.menu-item.open .submenu {
     display: block;
 }
 .navbar a {
@@ -769,5 +776,18 @@ h2 {
     .taakbalk {
         width: 92vw;
         margin-left: -46vw;
+    }
+    /* minder lege ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
+    .wrapper {
+        padding-top: 32px;
+    }
+    .naar-start-houder {
+        margin-top: 56px;
+    }
+    /* onder de 16px zoomt iOS in zodra je in een tekstveld tikt */
+    input[type="text"],
+    input[type="search"],
+    select {
+        font-size: 16px !important;
     }
 }

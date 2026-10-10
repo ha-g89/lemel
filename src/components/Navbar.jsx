@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { THEMA_NAAM } from '../data/lenzen.js'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
@@ -29,25 +30,47 @@ const THEMA_ICOON = {
  * @param {Function} [opAfsluiten]       klik op "Shut Down..." onderaan het menu
  * @param {Function} [onOpenInstellingen] klik op "scherminstellingen" in het instellingen-submenu
  */
-export default function Navbar({
-  metJaar = false,
-  open = false,
-  onSluitMenu,
-  opAfsluiten,
-  onOpenInstellingen,
-}) {
-  const jaarKort = String(new Date().getFullYear()).slice(-2)
-
+export default function Navbar({ open = false, ...rest }) {
   if (!open) return null
+  return <StartMenu {...rest} />
+}
+
+/* het opengeklapte menu zelf; los component zodat het open submenu bij
+   elke keer openen weer dicht begint */
+function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstellingen }) {
+  const jaarKort = String(new Date().getFullYear()).slice(-2)
+  /* op een touchscreen bestaat geen hover: de eerste tik op een item met een
+     pijltje klapt het submenu open, een tweede tik volgt pas de link */
+  const [openSubmenu, zetOpenSubmenu] = useState(null)
+  const aanraking = useRef(false)
+  function klapOpen(e, naam) {
+    if (!aanraking.current || openSubmenu === naam) return false
+    e.preventDefault()
+    zetOpenSubmenu(naam)
+    return true
+  }
+  const itemKlasse = (naam) => (openSubmenu === naam ? 'menu-item open' : 'menu-item')
 
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      onPointerDown={(e) => {
+        aanraking.current = e.pointerType === 'touch'
+      }}
+    >
       <div className="balk" id="jaarbalk">
         <b>le</b>&nbsp;mel{metJaar && <>&nbsp;{jaarKort}</>}
       </div>
       <div className="items">
-        <div className="menu-item">
-          <NavLink to="/" end className={actief} onClick={onSluitMenu}>
+        <div className={itemKlasse('gallerij')}>
+          <NavLink
+            to="/"
+            end
+            className={actief}
+            onClick={(e) => {
+              if (!klapOpen(e, 'gallerij') && onSluitMenu) onSluitMenu()
+            }}
+          >
             <img src={gallerijIcoon} alt="" />
             <span><u>g</u>allerij</span>
             <span className="pijl">&#9654;</span>
@@ -94,8 +117,14 @@ export default function Navbar({
               <img src={homeIcoon} alt="" className="home-icoon" />
               <span><u>h</u>ome</span>
             </Link>
-            <div className="menu-item">
-              <a href="#" onClick={(e) => e.preventDefault()}>
+            <div className={itemKlasse('instellingen')}>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (aanraking.current) zetOpenSubmenu(openSubmenu === 'instellingen' ? null : 'instellingen')
+                }}
+              >
                 <img src={settingIcoon} alt="" />
                 <span><u>i</u>nstellingen</span>
                 <span className="pijl">&#9654;</span>

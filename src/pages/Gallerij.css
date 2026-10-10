@@ -36,13 +36,16 @@
     opacity: 0;
     z-index: 5;
 }
-.photobox[data-tooltip]:hover::after {
-    animation: tooltip-verschijnen 0s 500ms forwards;
+/* alleen met een muis: op touch blijft :hover na een tik hangen */
+@media (hover: hover) {
+    .photobox[data-tooltip]:hover::after {
+        animation: tooltip-verschijnen 0s 500ms forwards;
+    }
 }
 @keyframes tooltip-verschijnen {
     to { opacity: 1; }
 }
-@media (prefers-reduced-motion: reduce) {
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
     .photobox[data-tooltip]:hover::after {
         animation: none;
         opacity: 1;

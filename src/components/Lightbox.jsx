@@ -59,6 +59,23 @@ function LightboxVenster({
     sleepRef.current = null
     e.currentTarget.releasePointerCapture(e.pointerId)
   }
+  /* vegen over de foto (touchscreen): naar links is volgende, naar rechts vorige.
+     alleen een duidelijk horizontale veeg met één vinger, zodat scrollen en
+     inzoomen met twee vingers gewoon blijven werken */
+  const veegRef = useRef(null)
+  function opVeegStart(e) {
+    veegRef.current = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null
+  }
+  function opVeegEind(e) {
+    const start = veegRef.current
+    veegRef.current = null
+    if (!start || e.changedTouches.length !== 1) return
+    const dx = e.changedTouches[0].clientX - start.x
+    const dy = e.changedTouches[0].clientY - start.y
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return
+    const doel = dx < 0 ? volgendeFoto : vorigeFoto
+    if (doel) onNavigeer(doel)
+  }
   useLayoutEffect(() => {
     const varianten = ['a', 'b', 'c']
     // eslint-disable-next-line react-hooks/set-state-in-effect -- willekeurig per keer openen, mag geen render-pure berekening zijn
@@ -118,7 +135,7 @@ function LightboxVenster({
           </span>
         </span>
       </div>
-      <div id="lightbox-vlak">
+      <div id="lightbox-vlak" onTouchStart={opVeegStart} onTouchEnd={opVeegEind}>
         <img id="lightbox-img" src={foto.url} alt="" />
         {verhaal && verhaalOpen && (
           <div id="lightbox-verhaal-venster" onClick={(e) => e.stopPropagation()}>
