@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
@@ -35,6 +35,25 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
   useEffect(() => {
     document.title = titel
   }, [titel])
+
+  /* hoe ver de slijmdruppels vallen: van de klodder (12px onder de bovenkant
+     van de knop) tot de bovenrand van de foto's of het venster eronder.
+     opnieuw meten als de pagina van vorm verandert */
+  const houderRef = useRef(null)
+  useLayoutEffect(() => {
+    const houder = houderRef.current
+    if (!houder) return
+    function meet() {
+      const doek = document.querySelector('[data-doek]')
+      if (!doek) return
+      const val = doek.getBoundingClientRect().top - houder.getBoundingClientRect().top - 12
+      houder.style.setProperty('--slijm-val', Math.max(20, Math.round(val)) + 'px')
+    }
+    meet()
+    const waarnemer = new ResizeObserver(meet)
+    waarnemer.observe(document.body)
+    return () => waarnemer.disconnect()
+  }, [afgesloten, bsod])
 
   /* paasei zonder knop: typ ergens op de site "bsod" (niet terwijl je in
      een tekstveld typt, anders triggert het per ongeluk bij het zoeken) */
@@ -74,7 +93,7 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
 
       {/* houder zodat het slijm buiten de knop kan hangen (de knop zelf heeft
           overflow: hidden voor het glimeffect) */}
-      <div className="naar-start-houder">
+      <div className="naar-start-houder" ref={houderRef}>
         <button
           type="button"
           id="naar-start-knop"
@@ -88,8 +107,16 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
         </button>
         <span className="slijm slijm-links" aria-hidden="true" />
         <span className="slijm slijm-rechts" aria-hidden="true" />
-        <span className="slijm-drup slijm-drup-links" aria-hidden="true" />
-        <span className="slijm-drup slijm-drup-rechts" aria-hidden="true" />
+        <span className="slijm-baan slijm-baan-links" aria-hidden="true">
+          <span className="slijm-drup">
+            <span className="slijm-drup-vorm" />
+          </span>
+        </span>
+        <span className="slijm-baan slijm-baan-rechts" aria-hidden="true">
+          <span className="slijm-drup">
+            <span className="slijm-drup-vorm" />
+          </span>
+        </span>
       </div>
 
       {children}

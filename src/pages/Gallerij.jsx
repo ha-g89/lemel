@@ -7,6 +7,7 @@ import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import overmijIcoon from '../assets/iconen/overmij.png'
+import steamIcoon from '../assets/iconen/steam.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { FOTOLIJST, LEESMIJ, OVERMIJ } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
@@ -89,7 +90,7 @@ export default function Gallerij() {
           onOpen={() => zetLeesmijOpen(true)}
           sleepbaar
           opslagSleutel="lemel-leesmij-plek-start"
-          beginX={-45}
+          beginX={-90}
         />
         <DesktopIcoon
           icoon={overmijIcoon}
@@ -97,7 +98,15 @@ export default function Gallerij() {
           onOpen={() => zetOvermijOpen(true)}
           sleepbaar
           opslagSleutel="lemel-overmij-plek-start"
-          beginX={45}
+          beginX={0}
+        />
+        <DesktopIcoon
+          icoon={steamIcoon}
+          naam="steam.exe"
+          onOpen={() => window.open('https://steamcommunity.com/profiles/76561199152393177/', '_blank', 'noopener')}
+          sleepbaar
+          opslagSleutel="lemel-counterstrike-plek-start"
+          beginX={90}
         />
       </div>
 

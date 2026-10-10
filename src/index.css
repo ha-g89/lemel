@@ -646,11 +646,34 @@ h2 {
 .slijm-rechts { right: -6px; transform: scaleX(-1); }
 
 /* aan beide kanten een subtiel druppeltje dat langzaam langs de klodder omlaag glijdt,
-   even blijft hangen en er dan afvalt. rond bolletje van 6x6 met afgeknipte
-   hoekjes; beweegt in stapjes van 2px (glijden) en 4px (vallen) */
-.slijm-drup {
+   even blijft hangen en er dan afvalt, tot aan de foto's (of het venster) eronder.
+   de baan loopt van de klodder tot de bovenrand daarvan en knipt alles eronder af,
+   zodat de druppel achter de foto lijkt te verdwijnen. de lengte (--slijm-val)
+   meet Pagina.jsx. tijdens het glijden en vallen wiebelt de druppel als gelei */
+.slijm-baan {
     position: absolute;
     top: 12px;
+    width: 10px;
+    height: var(--slijm-val, 40px);
+    overflow: hidden;
+    pointer-events: none;
+}
+.slijm-baan-links { left: -8px; }
+.slijm-baan-rechts { right: -8px; }
+.slijm-drup {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    opacity: 0;
+    animation: slijm-glij 7s 2s infinite;
+}
+/* links met een ander tempo, zodat ze niet tegelijk vallen */
+.slijm-baan-links .slijm-drup { animation-duration: 8s; animation-delay: 5.5s; }
+/* rond bolletje van 6x6 met afgeknipte hoekjes, het wiebelen zit hierop */
+.slijm-drup-vorm {
+    display: block;
     width: 6px;
     height: 6px;
     background:
@@ -658,24 +681,36 @@ h2 {
         #39FF14;
     box-shadow: inset -1px -1px 0 #1fc40a;
     clip-path: polygon(1px 0, 5px 0, 5px 1px, 6px 1px, 6px 4px, 5px 4px, 5px 5px, 4px 5px, 4px 6px, 2px 6px, 2px 5px, 1px 5px, 1px 4px, 0 4px, 0 1px, 1px 1px);
-    opacity: 0;
-    pointer-events: none;
-    animation: slijm-glij 7s 2s infinite;
+    transform-origin: 50% 0;
+    /* zelfde tempo als slijm-glij, zodat het wiebelen pas begint bij het loskomen */
+    animation: slijm-wiebel 7s 2s ease-in-out infinite;
 }
-/* links met een ander tempo, zodat ze niet tegelijk vallen */
-.slijm-drup-links { left: -6px; animation-duration: 8s; animation-delay: 5.5s; }
-.slijm-drup-rechts { right: -6px; }
+.slijm-baan-links .slijm-drup-vorm { animation-duration: 8s; animation-delay: 5.5s; }
 @keyframes slijm-glij {
     0% { opacity: 0; transform: translateY(0); animation-timing-function: steps(1, end); }
     5% { opacity: 1; transform: translateY(0); animation-timing-function: steps(8, end); }
     45% { opacity: 1; transform: translateY(16px); animation-timing-function: steps(1, end); }
-    50% { opacity: 1; transform: translateY(16px); animation-timing-function: steps(6, end); }
-    62% { opacity: 1; transform: translateY(40px); animation-timing-function: steps(1, end); }
-    63% { opacity: 0; transform: translateY(40px); }
-    100% { opacity: 0; transform: translateY(40px); }
+    /* loslaten en vallen, steeds sneller, tot voorbij de onderkant van de baan */
+    50% { opacity: 1; transform: translateY(16px); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); }
+    68% { opacity: 1; transform: translateY(var(--slijm-val, 40px)); animation-timing-function: steps(1, end); }
+    69% { opacity: 0; transform: translateY(var(--slijm-val, 40px)); }
+    100% { opacity: 0; transform: translateY(var(--slijm-val, 40px)); }
+}
+/* drillen tijdens de val (50%-68% van slijm-glij): om en om breder-platter en
+   smaller-langer, met een kleine zwaai. daarvoor, langs de klodder, stil */
+@keyframes slijm-wiebel {
+    0%, 50%, 68%, 100% { transform: none; }
+    52%  { transform: translateX(0) scale(1.3, 0.75); }
+    54%  { transform: translateX(-0.5px) scale(0.85, 1.2); }
+    56%  { transform: translateX(0) scale(1.2, 0.85); }
+    58%  { transform: translateX(0.5px) scale(0.85, 1.25); }
+    60%  { transform: translateX(0) scale(1.15, 0.9); }
+    62%  { transform: translateX(-0.5px) scale(0.9, 1.2); }
+    64%  { transform: translateX(0) scale(1.1, 0.9); }
+    66%  { transform: translateX(0.5px) scale(0.9, 1.2); }
 }
 @media (prefers-reduced-motion: reduce) {
-    .slijm-drup { display: none; }
+    .slijm-baan { display: none; }
 }
 
 /* ---- voettekst ---- */
