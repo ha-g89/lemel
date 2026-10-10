@@ -358,27 +358,6 @@
 .eigenschappen-venster .titelbalk .sluitknop:active svg {
     transform: translate(1px, 1px);
 }
-.eigenschappen-venster .lens-kop {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: left;
-    padding: 2px 2px 8px 2px;
-    margin-bottom: 8px;
-    /* ingegraveerde scheidingslijn, Win95 */
-    border-bottom: 1px solid #FFFFFF;
-    box-shadow: 0 -1px 0 #808080 inset;
-}
-.eigenschappen-venster .lens-kop img {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    image-rendering: pixelated;
-}
-.eigenschappen-venster .lens-kop-naam {
-    font-weight: bold;
-    margin-bottom: 2px;
-}
 .eigenschappen-venster fieldset {
     margin: 0 0 8px 0;
     padding: 8px;
@@ -405,4 +384,23 @@
 }
 .eigenschappen-venster dd a {
     color: #05430a;
+}
+
+/* ---- leesmij.txt ---- */
+/* strook tussen de naar-start-knop en het venster, zo breed als het venster
+   (net als .leesmij-plek-start op de startpagina): hierbinnen kun je het
+   leesmij-icoon verslepen. de negatieve marge onderaan eet de bovenmarge van
+   de databox op, zodat het venster niet verder zakt dan nodig */
+.leesmij-plek-boven {
+    position: relative;
+    width: 92vw;
+    max-width: 1200px;
+    left: 50%;
+    margin-left: -46vw;
+    height: 90px;
+    margin-top: 8px;
+    margin-bottom: -96px;
+}
+@media (min-width: 1305px) {
+    .leesmij-plek-boven { margin-left: -600px; }
 }

@@ -5,6 +5,10 @@ import LensEigenschappen from '../components/LensEigenschappen.jsx'
 import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
 import Vraagteken from '../components/Vraagteken.jsx'
 import StatusIcoon from '../components/StatusIcoon.jsx'
+import DesktopIcoon from '../components/DesktopIcoon.jsx'
+import Leesmij from '../components/Leesmij.jsx'
+import leesmijIcoon from '../assets/iconen/leesmij.png'
+import { LEESMIJ } from '../data/lenzen.js'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
 import { laadLenzen, euro, vergelijk } from '../lib/lenzendatabase.js'
@@ -107,6 +111,7 @@ export default function Lenzendatabase() {
   const [sortering, zetSortering] = useState({ kolom: 'maker', omhoog: true })
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, r } */
   const [eigenschappenRij, zetEigenschappenRij] = useState(null)
+  const [leesmijOpen, zetLeesmijOpen] = useState(false)
 
   useEffect(() => {
     let actief = true
@@ -174,6 +179,16 @@ export default function Lenzendatabase() {
 
   return (
     <Pagina titel="le mel — lenzen" klasse="database">
+      <div className="leesmij-plek-boven">
+        <DesktopIcoon
+          icoon={leesmijIcoon}
+          naam="leesmij.txt"
+          onOpen={() => zetLeesmijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-leesmij-plek-lenzen"
+        />
+      </div>
+
       <div className="databox" data-doek>
         {!geladen && (
           <div id="statusregel">
@@ -279,6 +294,7 @@ export default function Lenzendatabase() {
       {eigenschappenRij && (
         <LensEigenschappen r={eigenschappenRij} onSluiten={() => zetEigenschappenRij(null)} />
       )}
+      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
     </Pagina>
   )
 }

@@ -125,20 +125,6 @@
     cursor: pointer;
 }
 
-/* ---- leesmij.txt ---- */
-/* strook tussen de tabel en de taakbalk, zo breed als de tabel: hierbinnen
-   kun je het leesmij-icoon verslepen */
-.databox.concertenbox {
-    margin-bottom: 0;
-}
-.leesmij-plek {
-    position: relative;
-    height: 140px;
-    margin-top: 4px;
-    /* de taakbalk heeft 40px margin-top; zo loopt de strook door tot 4px
-       boven de taakbalk in plaats van daar een lege band te laten */
-    margin-bottom: -36px;
-}
 .eigenschappen-venster.kladblok-venster {
     width: 440px;
     padding: 3px;

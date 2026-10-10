@@ -116,7 +116,17 @@ export default function Concerten() {
 
   return (
     <Pagina titel="le mel — concerten" klasse="database">
-      <div className="databox concertenbox" data-doek>
+      <div className="leesmij-plek-boven">
+        <DesktopIcoon
+          icoon={leesmijIcoon}
+          naam="leesmij.txt"
+          onOpen={() => zetLeesmijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-leesmij-plek-concerten"
+        />
+      </div>
+
+      <div className="databox" data-doek>
         <div id="filterpaneel">
           <label>
             zoek{' '}
@@ -219,16 +229,6 @@ export default function Concerten() {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="leesmij-plek">
-          <DesktopIcoon
-            icoon={leesmijIcoon}
-            naam="leesmij.txt"
-            onOpen={() => zetLeesmijOpen(true)}
-            sleepbaar
-            opslagSleutel="lemel-leesmij-plek"
-          />
         </div>
       </div>
 

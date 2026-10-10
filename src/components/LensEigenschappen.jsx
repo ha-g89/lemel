@@ -2,29 +2,8 @@ import { euro } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import databaseIcoon from '../assets/iconen/database.png'
 import Kruisje from './Kruisje.jsx'
-import fisheyeIcoon from '../assets/iconen/lens-fisheye.png'
-import ultragroothoekIcoon from '../assets/iconen/lens-ultragroothoek.png'
-import groothoekIcoon from '../assets/iconen/lens-groothoek.png'
-import standaardIcoon from '../assets/iconen/lens-standaard.png'
-import portretIcoon from '../assets/iconen/lens-portret.png'
-import teleIcoon from '../assets/iconen/lens-tele.png'
-import superteleIcoon from '../assets/iconen/lens-supertele.png'
 
 const STATUS_LABEL = { owned: 'in bezit', wanted: 'op kijklijst', sold: 'verkocht' }
-
-/* soort lens aan de hand van het brandpunt (kleinbeeld), met een pictogram
-   waaraan je het meteen ziet: kort en breed voor groothoek, lang voor tele */
-function lensSoort(r) {
-  const mm = r.focal_mm
-  if (/fish/i.test(r.model)) return { naam: 'fisheye', icoon: fisheyeIcoon }
-  if (!mm) return null
-  if (mm < 21) return { naam: 'ultragroothoek', icoon: ultragroothoekIcoon }
-  if (mm < 40) return { naam: 'groothoek', icoon: groothoekIcoon }
-  if (mm <= 60) return { naam: 'standaard', icoon: standaardIcoon }
-  if (mm <= 135) return { naam: 'portret', icoon: portretIcoon }
-  if (mm <= 300) return { naam: 'tele', icoon: teleIcoon }
-  return { naam: 'supertele', icoon: superteleIcoon }
-}
 
 function Veld({ label, waarde }) {
   if (waarde === null || waarde === undefined || waarde === '') return null
@@ -52,7 +31,6 @@ export default function LensEigenschappen({ r, onSluiten }) {
   const constructie = r.elements ? r.elements + ' elementen in ' + (r.groups_ || '?') + ' groepen' : null
   const prijslink = r.prijsurl || ebayZoeklink(naam)
   const prijs = euro(r.laatste_prijs, r.laatste_valuta)
-  const soort = lensSoort(r)
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>
@@ -65,16 +43,6 @@ export default function LensEigenschappen({ r, onSluiten }) {
           </span>
         </div>
         <div className="inhoud">
-          {/* kop zoals bij eigenschappen in Windows: groot pictogram met de naam */}
-          {soort && (
-            <div className="lens-kop">
-              <img src={soort.icoon} alt="" />
-              <div>
-                <div className="lens-kop-naam">{r.model}</div>
-                <div>{soort.naam}</div>
-              </div>
-            </div>
-          )}
           <fieldset>
             <legend>algemeen</legend>
             <dl>

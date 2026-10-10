@@ -21,3 +21,8 @@ export const THEMA_NAAM = {
   autos: "auto's",
   jp26: 'jp26',
 }
+
+/* tekst van leesmij.txt op de lenzendatabase */
+export const LEESMIJ = `dit is mijn lenzendatabase. hierin houd ik alle lenzen bij die ik heb, die ik wil hebben en die ik al verkocht heb.
+
+functionaliteiten: zoek bovenin op merk, model of vatting, of filter op vatting en status (in bezit, kijklijst, verkocht). klik op een kolomkop om te sorteren, nog een keer klikken draait de volgorde om. klik op een modelnaam om 'm op ebay te zoeken, en op de prijs om te zien waar die vandaan komt. het (?) naast een model, of een rij rechtermuisen, opent de eigenschappen met alle specs van die lens.`

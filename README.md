@@ -30,6 +30,10 @@ onbekende adressen gaan naar de gallerij.
 Paaseieren: "scherminstellingen" onder instellingen in het Start-menu
 (grijstinten, negatief, sepia) en typ ergens op de site "bsod".
 
+Op de startpagina staan de bureaubladiconen leesmij.txt en overmij.txt; hun
+teksten (`LEESMIJ`, `OVERMIJ`) staan in `src/data/fotos.js`. Het Start-menu
+heeft ook een link naar steam.
+
 ## Foto's toevoegen
 
 1. Zet het origineel in de map `kluis` op je bureaublad en draai
@@ -75,6 +79,8 @@ bestand en herlaad: de site haalt altijd de nieuwste versie op.
 - Bureaubladicoon (enkel klik selecteert, dubbelklik opent, versleepbaar):
   `src/components/DesktopIcoon.jsx`.
 - Tabellen (lenzen en concerten) delen hun stijl via `Lenzendatabase.css`.
+- Achtergrond: warm gebroken wit (#F3EFE6) met een naadloze tegel van zacht
+  verkreukeld papier (`src/assets/papier.jpg`).
 
 ## Structuur
 
