@@ -51,6 +51,23 @@
         opacity: 1;
     }
 }
+/* een foto die nog niet binnen is blijft onzichtbaar; daarna rolt hij in
+   brokken van boven naar beneden in beeld, als over een inbelverbinding */
+.photobox img:not(.binnen):not(.binnen-direct) {
+    visibility: hidden;
+}
+.photobox img.binnen:not(.binnen-direct) {
+    animation: modem-laden 700ms steps(7, end) both;
+}
+@keyframes modem-laden {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .photobox img.binnen:not(.binnen-direct) {
+        animation: none;
+    }
+}
 .photobox img {
     width: 100%;
     height: 100%;
@@ -98,23 +115,21 @@
     position: relative;
     left: 50%;
     margin-left: calc(var(--doek-breedte) / -2);
-    margin-top: 48px;
-    margin-bottom: 40px;
+    margin-top: 64px;
+    margin-bottom: 16px;
 }
 
 /* ---- leesmij.txt ---- */
-/* strook boven de foto's, zo breed als de fotogrid:
-   hierbinnen kun je het leesmij-icoon verslepen. de negatieve marge onderaan
-   eet de bovenmarge van de fotogrid op, zodat de foto's niet verder zakken
-   dan de strook zelf nodig heeft */
+/* klein bureaublad onder de foto's, zo breed als de fotogrid: hierbinnen
+   kun je leesmij en overmij verslepen. de negatieve marge onderaan haalt
+   de taakbalk er dichter onder */
 .leesmij-plek-start {
     position: relative;
     width: var(--doek-breedte);
     left: 50%;
     margin-left: calc(var(--doek-breedte) / -2);
-    height: 90px;
-    margin-top: 24px;
-    margin-bottom: -44px;
+    height: 80px;
+    margin-bottom: -24px;
 }
 
 /* ---- contextmenu (rechtermuisknop op een foto) ---- */

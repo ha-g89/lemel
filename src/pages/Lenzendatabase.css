@@ -26,27 +26,12 @@
 .data-venster .titelbalk .sluitknop {
     text-decoration: none;
 }
-/* statusbalk onderin: blijft onderaan in beeld terwijl je door de tabel
-   scrolt, net als in een echt programma */
-.statusbalk {
+/* statusbalk onderin (basisstijl in index.css): blijft onderaan in beeld
+   terwijl je door de tabel scrolt, net als in een echt programma */
+.data-venster .statusbalk {
     position: sticky;
     bottom: 0;
     z-index: 3;
-    display: flex;
-    gap: 2px;
-    padding-top: 3px;
-    background-color: #C0C0C0;
-}
-.statusbalk > span {
-    flex: 1;
-    padding: 2px 4px;
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 #statusregel {
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;

@@ -82,25 +82,6 @@ export default function Gallerij() {
 
   return (
     <Pagina titel="le mel" metJaar vensters={taakbalkVensters}>
-      <div className="leesmij-plek-start">
-        <DesktopIcoon
-          icoon={leesmijIcoon}
-          naam="leesmij.txt"
-          onOpen={() => zetLeesmijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-leesmij-plek-start"
-          beginX={-45}
-        />
-        <DesktopIcoon
-          icoon={overmijIcoon}
-          naam="overmij.txt"
-          onOpen={() => zetOvermijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-overmij-plek-start"
-          beginX={45}
-        />
-      </div>
-
       <h2 id="fotos"></h2>
 
       {filterGeldig && (
@@ -128,6 +109,13 @@ export default function Gallerij() {
                 src={foto.klein || undefined}
                 alt={foto.naam}
                 loading={laadwijze}
+                /* pas zichtbaar als hij binnen is, dan komt hij als over een
+                   trage modem van boven naar beneden in beeld; uit de cache
+                   meteen, zonder animatie */
+                ref={(img) => {
+                  if (img?.complete && img.naturalWidth) img.classList.add('binnen-direct')
+                }}
+                onLoad={(e) => e.currentTarget.classList.add('binnen')}
                 onClick={() => openLightbox(foto)}
                 onContextMenu={(e) => {
                   e.preventDefault()
@@ -137,6 +125,27 @@ export default function Gallerij() {
             </div>
           )
         })}
+      </div>
+
+      {/* klein bureaublad onder de foto's, vlak boven de taakbalk: de foto's
+          blijven bovenaan de hoofdzaak */}
+      <div className="leesmij-plek-start">
+        <DesktopIcoon
+          icoon={leesmijIcoon}
+          naam="leesmij.txt"
+          onOpen={() => zetLeesmijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-leesmij-plek-start"
+          beginX={-45}
+        />
+        <DesktopIcoon
+          icoon={overmijIcoon}
+          naam="overmij.txt"
+          onOpen={() => zetOvermijOpen(true)}
+          sleepbaar
+          opslagSleutel="lemel-overmij-plek-start"
+          beginX={45}
+        />
       </div>
 
       <Lightbox

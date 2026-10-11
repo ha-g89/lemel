@@ -116,7 +116,10 @@ export default function Concerten() {
   const aantalWil = CONCERTEN.filter((r) => r.wil).length
 
   return (
-    <Pagina titel="le mel — concerten" klasse="database">
+    <Pagina
+      titel={speelRij ? '♪ ' + speelRij.liedje + ' – le mel' : 'le mel — concerten'}
+      klasse="database"
+    >
       <div className="leesmij-plek-boven">
         <DesktopIcoon
           icoon={leesmijIcoon}

@@ -34,7 +34,7 @@ table {
     width: 600px;
     max-width: calc(100% - 20px);
     margin: 0 auto;
-    padding: 64px 10px 20px 10px;
+    padding: 28px 10px 20px 10px;
     text-align: center;
 }
 .titel {
@@ -425,6 +425,37 @@ h2 {
     margin-bottom: 0;
 }
 
+/* ---- statusbalk onderin een venster (datavensters, lightbox): ingedrukte
+   vakjes naast elkaar; de tekst maakt het venster nooit breder ---- */
+.statusbalk {
+    display: flex;
+    gap: 2px;
+    padding-top: 3px;
+    background-color: #C0C0C0;
+    contain: inline-size;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    line-height: normal;
+    text-align: left;
+}
+.statusbalk > span {
+    flex: 1;
+    min-width: 0;
+    padding: 2px 4px;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* vakje dat alleen zo breed is als zijn tekst, bv. "12 van 120" */
+.statusbalk > span.smal {
+    flex: 0 0 auto;
+}
+
 /* ---- scheiding boven Shut Down in het menu ---- */
 .menu-scheiding {
     height: 0;
@@ -787,7 +818,7 @@ h2 {
     }
     /* minder lege ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
     .wrapper {
-        padding-top: 32px;
+        padding-top: 20px;
     }
     .naar-start-houder {
         margin-top: 36px;

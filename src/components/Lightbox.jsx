@@ -19,6 +19,8 @@ import Vraagteken from './Vraagteken.jsx'
  * @param {object}   [vorigeFoto]    vorige foto in de (gefilterde) lijst, of undefined bij de eerste
  * @param {object}   [volgendeFoto]  volgende foto in de (gefilterde) lijst, of undefined bij de laatste
  * @param {Function} onNavigeer      (nieuweFoto) => void, wisselt dit venster naar een andere foto
+ * @param {number}   nummer          hoeveelste foto in de lijst (vanaf 1), voor de statusbalk
+ * @param {number}   totaal          aantal foto's in de lijst
  * @param {number}   [zIndex]        stapelvolgorde t.o.v. andere vensters
  * @param {Function} [onVoorgrond]   breng dit venster naar voren (bij slepen/klikken)
  */
@@ -30,6 +32,8 @@ function LightboxVenster({
   vorigeFoto,
   volgendeFoto,
   onNavigeer,
+  nummer,
+  totaal,
   zIndex,
   onVoorgrond,
 }) {
@@ -111,9 +115,7 @@ function LightboxVenster({
         onPointerMove={opSleepBeweeg}
         onPointerUp={opSleepEind}
       >
-        <span id="lightbox-naam">
-          {foto.naam}.jpg{lensnaam ? '  —  ' + lensnaam : ''}
-        </span>
+        <span id="lightbox-naam">{foto.naam}.jpg</span>
         <span className="lightbox-knoppen">
           {verhaal && (
             <span
@@ -166,6 +168,16 @@ function LightboxVenster({
           )}
         </div>
       )}
+      {/* bestandsnaam, lens en plek in de lijst, zoals de statusbalk van een fotoviewer */}
+      <div className="statusbalk">
+        <span>{foto.naam}.jpg</span>
+        <span>{lensnaam || 'onbekende lens'}</span>
+        {nummer > 0 && (
+          <span className="smal">
+            {nummer} van {totaal}
+          </span>
+        )}
+      </div>
     </div>
   )
 }
@@ -241,6 +253,8 @@ export default function Lightbox({
             vorigeFoto={index > 0 ? fotolijst[index - 1] : undefined}
             volgendeFoto={index !== -1 && index < fotolijst.length - 1 ? fotolijst[index + 1] : undefined}
             onNavigeer={(nieuweFoto) => onNavigeer(v.basis, nieuweFoto)}
+            nummer={index + 1}
+            totaal={fotolijst.length}
             zIndex={voorgrond[v.basis]}
             onVoorgrond={() => naarVoorgrond(v.basis)}
           />
