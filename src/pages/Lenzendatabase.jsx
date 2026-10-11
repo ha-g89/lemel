@@ -7,6 +7,8 @@ import Vraagteken from '../components/Vraagteken.jsx'
 import StatusIcoon from '../components/StatusIcoon.jsx'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import Leesmij from '../components/Leesmij.jsx'
+import DataVenster from '../components/DataVenster.jsx'
+import databaseIcoon from '../assets/iconen/database.png'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import { LEESMIJ } from '../data/lenzen.js'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
@@ -172,7 +174,20 @@ export default function Lenzendatabase() {
         />
       </div>
 
-      <div className="databox" data-doek>
+      <DataVenster
+        titel="lenzen.db - database"
+        icoon={databaseIcoon}
+        status={
+          geladen && (
+            <>
+              <span>
+                {rijen.length} van {alleRijen.length} lenzen
+              </span>
+              <span>{alleRijen.filter((r) => r.status === 'owned').length} in bezit</span>
+            </>
+          )
+        }
+      >
         {!geladen && (
           <div id="statusregel">
             <p>{status}</p>
@@ -220,9 +235,6 @@ export default function Lenzendatabase() {
                 <option value="sold">verkocht</option>
               </select>
             </label>
-            <span id="aantalresultaten">
-              {rijen.length} van {alleRijen.length} lenzen
-            </span>
           </div>
         )}
 
@@ -257,7 +269,7 @@ export default function Lenzendatabase() {
             </tbody>
           </table>
         </div>
-      </div>
+      </DataVenster>
 
       {contextMenu && (
         <Contextmenu x={contextMenu.x} y={contextMenu.y} onSluiten={() => zetContextMenu(null)}>

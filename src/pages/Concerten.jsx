@@ -10,6 +10,8 @@ import { CONCERTEN, DAG_NIEUWS, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
+import DataVenster from '../components/DataVenster.jsx'
+import concertIcoon from '../assets/iconen/concert.png'
 import './Lenzendatabase.css'
 import './Concerten.css'
 
@@ -125,7 +127,20 @@ export default function Concerten() {
         />
       </div>
 
-      <div className="databox" data-doek>
+      <DataVenster
+        titel="concerten.db - database"
+        icoon={concertIcoon}
+        status={
+          <>
+            <span>
+              {rijen.length} van {CONCERTEN.length} concerten
+            </span>
+            <span>
+              {aantalGeweest} geweest, {aantalWil} op de lijst
+            </span>
+          </>
+        }
+      >
         <div id="filterpaneel">
           <label>
             zoek{' '}
@@ -145,9 +160,6 @@ export default function Concerten() {
               <option value="wil">wil heen ({aantalWil})</option>
             </select>
           </label>
-          <span id="aantalresultaten">
-            {rijen.length} van {CONCERTEN.length} concerten
-          </span>
         </div>
 
         <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
@@ -233,7 +245,7 @@ export default function Concerten() {
             </tbody>
           </table>
         </div>
-      </div>
+      </DataVenster>
 
       {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
       {dagInfo && <DagInfo datum={dagInfo} nieuws={DAG_NIEUWS[dagInfo]} onSluiten={() => zetDagInfo(null)} />}

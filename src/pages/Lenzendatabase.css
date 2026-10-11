@@ -8,6 +8,46 @@
     margin-bottom: 40px;
     text-align: left;
 }
+/* ---- programmavenster om de tabel (DataVenster.jsx) ---- */
+.data-venster {
+    box-sizing: border-box;
+    padding: 3px;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+}
+.data-venster .titelbalk .sluitknop {
+    text-decoration: none;
+}
+/* statusbalk onderin: blijft onderaan in beeld terwijl je door de tabel
+   scrolt, net als in een echt programma */
+.statusbalk {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    gap: 2px;
+    padding-top: 3px;
+    background-color: #C0C0C0;
+}
+.statusbalk > span {
+    flex: 1;
+    padding: 2px 4px;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 #statusregel {
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
@@ -59,19 +99,12 @@
     gap: 10px;
     width: 100%;
     box-sizing: border-box;
-    margin: 0 0 14px 0;
-    padding: 8px 10px;
+    margin: 0;
+    padding: 6px 4px;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
     color: #000000;
     background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    box-shadow:
-        inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -93,11 +126,6 @@
     background-color: #FFFFFF;
 }
 #zoekveld { width: 120px; }
-#aantalresultaten {
-    margin-left: auto;
-    font-weight: normal;
-    color: #05430a;
-}
 /* past de tabel niet in de breedte, dan krijgt hij een eigen schuifvenster
    van maximaal schermhoogte (zoals een lijst in verkenner): de horizontale
    schuifbalk staat dan altijd in beeld i.p.v. helemaal onderaan de tabel.
@@ -302,7 +330,8 @@
     font-size: 11px;
     color: #000000;
 }
-.eigenschappen-venster .titelbalk {
+.eigenschappen-venster .titelbalk,
+.data-venster .titelbalk {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -311,14 +340,16 @@
     padding: 3px 3px 3px 5px;
     margin-bottom: 6px;
 }
-.eigenschappen-venster .titelbalk-icoon {
+.eigenschappen-venster .titelbalk-icoon,
+.data-venster .titelbalk-icoon {
     width: 14px;
     height: 14px;
     flex-shrink: 0;
     margin-right: 4px;
     image-rendering: pixelated;
 }
-.eigenschappen-venster .titelbalk-tekst {
+.eigenschappen-venster .titelbalk-tekst,
+.data-venster .titelbalk-tekst {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -330,7 +361,8 @@
     padding-bottom: 2px;
     margin-bottom: -2px;
 }
-.eigenschappen-venster .titelbalk .sluitknop {
+.eigenschappen-venster .titelbalk .sluitknop,
+.data-venster .titelbalk .sluitknop {
     width: 17px;
     height: 15px;
     flex-shrink: 0;
@@ -348,7 +380,8 @@
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
 }
-.eigenschappen-venster .titelbalk .sluitknop:active {
+.eigenschappen-venster .titelbalk .sluitknop:active,
+.data-venster .titelbalk .sluitknop:active {
     border-top: 1px solid #000000;
     border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
@@ -358,7 +391,8 @@
         inset -1px -1px 0 #DFDFDF;
     background-color: #D4D4D4;
 }
-.eigenschappen-venster .titelbalk .sluitknop:active svg {
+.eigenschappen-venster .titelbalk .sluitknop:active svg,
+.data-venster .titelbalk .sluitknop:active svg {
     transform: translate(1px, 1px);
 }
 .eigenschappen-venster fieldset {
@@ -402,4 +436,9 @@
     height: 90px;
     margin-top: 24px;
     margin-bottom: -96px;
+}
+
+/* in het datavenster sluit het filterpaneel direct aan op de titelbalk */
+.data-venster .titelbalk {
+    margin-bottom: 0;
 }
