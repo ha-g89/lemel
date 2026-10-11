@@ -264,7 +264,7 @@ export const CONCERTEN = [
 ]
 
 /* wikipedia-artikel per locatie (sleutel = locatie zoals in de tabel);
-   geeft de locatie een onderstreepte link met een info-venster. pitch
+   geeft de locatie een groene link met een info-venster. pitch
    festival heeft geen eigen artikel, dus daar de westergasfabriek, waar
    het festival werd gehouden. */
 export const LOCATIE_WIKI = {

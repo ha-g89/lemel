@@ -35,9 +35,12 @@
     background: none;
     font: inherit;
     color: #05430a;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
     text-align: left;
+}
+.info-link:hover {
+    text-decoration: underline;
 }
 /* toetsenbordfocus als windows-95-stippelrandje i.p.v. de ronde browserrand */
 .info-link:focus-visible {
@@ -93,38 +96,100 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
 }
-/* zwevende spotify-speler rechtsonder, boven de taakbalk */
-.eigenschappen-venster.spotify-venster {
-    position: fixed;
-    right: 16px;
-    bottom: 44px;
-    z-index: 1500;
-    width: 340px;
-    max-width: calc(100vw - 32px);
+/* groene speelknop met wit driehoekje, valt op tussen de grijze knopjes;
+   bij hover over de rij licht hij op, bij hover over het liedje ook de titel */
+.infoknop.speelknop {
+    background-color: #0e7d12;
+    color: #FFFFFF;
+    box-shadow:
+        inset -1px -1px 0 #05430a,
+        inset 1px 1px 0 #39FF14;
 }
-.eigenschappen-venster.spotify-venster {
-    overflow: hidden;
+.wrapper.database table.datatable tbody tr:hover .speelknop {
+    background-color: #18a51d;
 }
-/* ingedrukt vak om de speler, met dezelfde donkergrijze kleur als de
-   spotify-kaart (theme=0): zo vallen de ronde hoekjes van spotify weg */
-.spotify-vak {
-    background-color: #1C1C1C;
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
+.liedje-cel:hover .liedje-titel {
+    color: #05430a;
+    text-decoration: underline;
+}
+.liedje-cel:active .speelknop {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #05430a,
+        inset -1px -1px 0 #39FF14;
 }
-.spotify-vak iframe {
-    display: block;
-    border: 0;
+.liedje-cel:active .speelknop svg {
+    transform: translate(1px, 1px);
 }
-.spotify-venster .titelbalk {
-    touch-action: none;
-    user-select: none;
+/* nu aan het spelen: knop blijft ingedrukt, titel vet */
+.infoknop.speelknop.speelt {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #05430a,
+        inset -1px -1px 0 #39FF14;
 }
-.spotify-venster .titelbalk .sluitknop {
-    cursor: pointer;
+/* de rij die speelt blijft lichtgroen, zoals een geselecteerde rij, en de
+   titel wordt groen in dezelfde kleur als "nu speelt" in de statusbalk */
+.wrapper.database table.datatable tbody tr.speelt-rij {
+    background-color: #CFE8CF;
+}
+.speelknop.speelt + .liedje-titel {
+    color: #05430a;
+}
+/* drie pixelbalkjes die op en neer dansen, zoals de equalizer in winamp */
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    height: 8px;
+}
+.equalizer span {
+    width: 2px;
+    background-color: #FFFFFF;
+    animation: equalizer-dansen 0.9s steps(4) infinite;
+}
+.equalizer span:nth-child(2) { animation-delay: -0.3s; animation-duration: 0.7s; }
+.equalizer span:nth-child(3) { animation-delay: -0.6s; animation-duration: 1.1s; }
+@keyframes equalizer-dansen {
+    0%, 100% { height: 2px; }
+    50% { height: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .equalizer span { animation: none; height: 6px; }
+}
+.nu-speelt {
+    color: #05430a;
+}
+.liedje-cel:focus-visible {
+    outline: 1px dotted #000000;
+    outline-offset: 1px;
+}
+/* de spotify-speler speelt onzichtbaar (SpotifySpeler.jsx): wel binnen
+   beeld, want een iframe buiten beeld legt de browser stil */
+.spotify-onzichtbaar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: -1;
+    width: 300px;
+    height: 80px;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .eigenschappen-venster.kladblok-venster {

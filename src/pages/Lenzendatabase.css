@@ -197,8 +197,12 @@
 .wrapper.database table.datatable tbody tr:hover {
     background-color: #CFE8CF;
 }
+/* links alleen groen; de onderstreping pas bij hover, anders oogt de tabel druk */
 .wrapper.database table.datatable td a {
     color: #05430a;
+    text-decoration: none;
+}
+.wrapper.database table.datatable td a:hover {
     text-decoration: underline;
 }
 .wrapper.database table.datatable td a:visited {

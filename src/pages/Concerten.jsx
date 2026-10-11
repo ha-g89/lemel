@@ -49,7 +49,7 @@ function Vinkje({ aan, label }) {
   )
 }
 
-/* naam als onderstreepte link die het wikipedia-infovenster opent; zonder
+/* naam als groene link die het wikipedia-infovenster opent; zonder
    wikipedia-artikel gewoon platte tekst */
 function InfoLink({ tekst, wiki, onOpen }) {
   if (!wiki) return tekst
@@ -135,9 +135,16 @@ export default function Concerten() {
             <span>
               {rijen.length} van {CONCERTEN.length} concerten
             </span>
-            <span>
-              {aantalGeweest} geweest, {aantalWil} op de lijst
-            </span>
+            {/* zolang er een liedje speelt staat dat hier, anders de tellingen */}
+            {speelRij ? (
+              <span className="nu-speelt">
+                &#9834; nu speelt: {speelRij.liedje} &ndash; {speelRij.artiest}
+              </span>
+            ) : (
+              <span>
+                {aantalGeweest} geweest, {aantalWil} op de lijst
+              </span>
+            )}
           </>
         }
       >
@@ -185,7 +192,7 @@ export default function Concerten() {
                 </tr>
               )}
               {rijen.map((r) => (
-                <tr key={r.artiest + r.datum + r.locatie}>
+                <tr key={r.artiest + r.datum + r.locatie} className={speelRij === r ? 'speelt-rij' : undefined}>
                   <td className="niet-afbreken">
                     {!r.datum ? (
                       <span className="geen-data">&mdash;</span>
@@ -219,17 +226,28 @@ export default function Concerten() {
                   </td>
                   <td className="knop-kolom">
                     {r.spotify ? (
-                      <span className="liedje-cel">
-                        <button
-                          type="button"
-                          className="infoknop"
-                          title={'speel ' + (r.liedje || 'liedje') + ' af'}
-                          onClick={() => zetSpeelRij(r)}
-                        >
-                          <Afspelen />
-                        </button>
-                        {r.liedje}
-                      </span>
+                      /* knop en titel samen één klikvlak: klikken speelt het
+                         liedje af, nog een keer klikken zet het uit */
+                      <button
+                        type="button"
+                        className="liedje-cel"
+                        title={(speelRij === r ? 'zet ' : 'speel ') + (r.liedje || 'liedje') + (speelRij === r ? ' uit' : ' af')}
+                        onClick={() => zetSpeelRij(speelRij === r ? null : r)}
+                      >
+                        {/* het liedje dat speelt: ingedrukte knop met een dansende equalizer */}
+                        <span className={speelRij === r ? 'infoknop speelknop speelt' : 'infoknop speelknop'}>
+                          {speelRij === r ? (
+                            <span className="equalizer" aria-label="speelt nu">
+                              <span />
+                              <span />
+                              <span />
+                            </span>
+                          ) : (
+                            <Afspelen />
+                          )}
+                        </span>
+                        <span className="liedje-titel">{r.liedje}</span>
+                      </button>
                     ) : (
                       <span className="geen-data">&mdash;</span>
                     )}
@@ -250,7 +268,7 @@ export default function Concerten() {
       {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
       {dagInfo && <DagInfo datum={dagInfo} nieuws={DAG_NIEUWS[dagInfo]} onSluiten={() => zetDagInfo(null)} />}
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
-      {speelRij && <SpotifySpeler r={speelRij} onSluiten={() => zetSpeelRij(null)} />}
+      {speelRij && <SpotifySpeler r={speelRij} onKlaar={() => zetSpeelRij(null)} />}
     </Pagina>
   )
 }
