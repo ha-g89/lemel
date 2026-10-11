@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { THEMA_NAAM } from '../data/lenzen.js'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
 import autosIcoon from '../assets/iconen/autos.png'
@@ -39,6 +39,7 @@ export default function Navbar({ open = false, ...rest }) {
    elke keer openen weer dicht begint */
 function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstellingen }) {
   const jaarKort = String(new Date().getFullYear()).slice(-2)
+  const { pathname, search } = useLocation()
   /* op een touchscreen bestaat geen hover: de eerste tik op een item met een
      pijltje klapt het submenu open, een tweede tik volgt pas de link */
   const [openSubmenu, zetOpenSubmenu] = useState(null)
@@ -109,9 +110,14 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
             <div className="menu-scheiding"></div>
             <Link
               to="/"
-              onClick={() => {
+              onClick={(e) => {
                 if (onSluitMenu) onSluitMenu()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                /* al op de startpagina: rustig naar boven rollen in plaats van
+                   opnieuw navigeren (dat springt meteen naar boven) */
+                if (pathname === '/' && !search) {
+                  e.preventDefault()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
               }}
             >
               <img src={homeIcoon} alt="" className="home-icoon" />

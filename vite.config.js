@@ -23,7 +23,6 @@ function commitCode() {
   return process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 7) : 'dev'
 }
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   define: {
