@@ -20,20 +20,20 @@ const KOLOMMEN = [
   ['model', 'model'],
   ['mount', 'vatting'],
   ['focal_mm', 'brandpunt'],
-  ['aperture_max', 'f-stop'],
-  ['laatste_prijs', 'laatste prijs'],
-  ['rating', 'beoordeling'],
+  ['laatste_prijs', 'prijs'],
   ['status', 'status'],
 ]
 
 const STATUS_LABEL = { owned: 'in bezit', wanted: 'kijklijst', sold: 'verkocht' }
 
+/* alleen het pixelicoontje, zodat de tabel smal blijft; de tekst staat in
+   de tooltip en in het eigenschappen-venster */
 function StatusBadge({ status }) {
-  if (!STATUS_LABEL[status]) return null
+  const label = STATUS_LABEL[status]
+  if (!label) return null
   return (
-    <span className={'status-' + status}>
+    <span className={'status-' + status} title={label} role="img" aria-label={label}>
       <StatusIcoon status={status} />
-      {STATUS_LABEL[status]}
     </span>
   )
 }
@@ -41,7 +41,6 @@ function StatusBadge({ status }) {
 function Rij({ r, onContextMenu, onEigenschappen }) {
   const naam = r.maker + ' ' + r.model
   const focal = r.focal_mm ? Math.round(r.focal_mm) + 'mm' : ''
-  const fstop = r.aperture_max ? 'f/' + r.aperture_max : ''
   const prijs = euro(r.laatste_prijs, r.laatste_valuta)
   const prijslink = r.prijsurl || ebayZoeklink(naam)
   /* modelnaam gaat altijd naar ebay: de advertentie zelf als de laatste prijs
@@ -64,35 +63,19 @@ function Rij({ r, onContextMenu, onEigenschappen }) {
         </span>
       </td>
       <td>{r.mount || ''}</td>
-      <td>{focal}</td>
-      <td>{fstop}</td>
-      <td>
+      <td className="niet-afbreken">{focal}</td>
+      <td className="niet-afbreken">
         {prijs ? (
           <a href={prijslink} target="_blank" rel="noopener noreferrer">
             {prijs}
           </a>
         ) : (
           <a className="geen-data" href={prijslink} target="_blank" rel="noopener noreferrer">
-            zoek op eBay
+            eBay
           </a>
         )}
       </td>
-      <td>
-        {r.rating ? (
-          r.reviewurl ? (
-            <a href={r.reviewurl} target="_blank" rel="noopener noreferrer">
-              {r.rating} / {r.rating_max}
-            </a>
-          ) : (
-            <>
-              {r.rating} / {r.rating_max}
-            </>
-          )
-        ) : (
-          <span className="geen-data">&mdash;</span>
-        )}
-      </td>
-      <td>
+      <td className="status-kolom">
         <StatusBadge status={r.status} />
       </td>
     </tr>
@@ -257,7 +240,7 @@ export default function Lenzendatabase() {
             <tbody id="lenzenbody">
               {geladen && rijen.length === 0 && (
                 <tr>
-                  <td colSpan="8">geen lenzen gevonden met dit filter.</td>
+                  <td colSpan={KOLOMMEN.length}>geen lenzen gevonden met dit filter.</td>
                 </tr>
               )}
               {rijen.map((r) => (

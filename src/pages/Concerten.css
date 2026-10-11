@@ -84,8 +84,10 @@
     text-align: center;
     color: #05430a;
 }
-/* titelbalk en kruisje even groot als bij de lightbox-vensters van de gallerij */
-
+/* stad in grijs onder de locatie */
+.stad {
+    color: #808080;
+}
 /* favo liedje: speelknop links van de titel */
 .liedje-cel {
     display: inline-flex;

@@ -1,16 +1,12 @@
 /* ---- lenzendatabase-specifiek ---- */
 .databox {
-    width: 92vw;
-    max-width: 1200px;
+    width: var(--doek-breedte);
     position: relative;
     left: 50%;
-    margin-left: -46vw;
+    margin-left: calc(var(--doek-breedte) / -2);
     margin-top: 100px;
     margin-bottom: 40px;
     text-align: left;
-}
-@media (min-width: 1305px) {
-    .databox { margin-left: -600px; }
 }
 #statusregel {
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
@@ -96,7 +92,7 @@
     border-bottom: 1px solid #FFFFFF;
     background-color: #FFFFFF;
 }
-#zoekveld { width: 170px; }
+#zoekveld { width: 120px; }
 #aantalresultaten {
     margin-left: auto;
     font-weight: normal;
@@ -131,10 +127,9 @@
 }
 .wrapper.database table.datatable td,
 .wrapper.database table.datatable th {
-    padding: 5px 10px;
+    padding: 5px 6px;
     text-align: left;
     vertical-align: top;
-    white-space: nowrap;
     border-bottom: 1px solid #C5D5C5;
 }
 .wrapper.database table.datatable thead tr {
@@ -181,25 +176,33 @@
 .wrapper.database table.datatable td a:visited {
     color: #05430a;
 }
-/* statuslabels: allemaal even groot (zelfde breedte, rand en hoogte),
-   alleen de kleur verschilt */
+/* kolomkoppen, prijzen en brandpunt blijven op één regel; namen mogen
+   afbreken, zodat de tabel in de breedte van het doek past */
+.wrapper.database table.datatable th,
+.wrapper.database table.datatable td.niet-afbreken {
+    white-space: nowrap;
+}
+.wrapper.database table.datatable th[data-kolom="status"],
+.wrapper.database table.datatable td.status-kolom {
+    width: 1%;
+    text-align: center;
+}
+/* statusvakje met alleen het pixelicoontje (kroon, oog, munten): allemaal
+   even groot, alleen de kleur verschilt */
 .status-owned,
 .status-wanted,
 .status-sold {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    min-width: 72px;
-    padding: 1px 5px;
-    font-size: 9px;
-    text-align: center;
+    width: 20px;
+    height: 15px;
     border: 1px solid transparent;
 }
-/* pixelicoontje vóór de statustekst (kroon, oog, munten) */
 .status-owned .status-icoon,
 .status-wanted .status-icoon,
 .status-sold .status-icoon {
-    margin-right: 4px;
-    vertical-align: 0;
     -webkit-text-stroke: 0;
 }
 .status-owned {
@@ -262,7 +265,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 6px;
 }
 .geen-data {
     color: #999999;
@@ -387,20 +390,16 @@
 }
 
 /* ---- leesmij.txt ---- */
-/* strook tussen de naar-start-knop en het venster, zo breed als het venster
+/* strook boven het venster, zo breed als het venster
    (net als .leesmij-plek-start op de startpagina): hierbinnen kun je het
    leesmij-icoon verslepen. de negatieve marge onderaan eet de bovenmarge van
    de databox op, zodat het venster niet verder zakt dan nodig */
 .leesmij-plek-boven {
     position: relative;
-    width: 92vw;
-    max-width: 1200px;
+    width: var(--doek-breedte);
     left: 50%;
-    margin-left: -46vw;
+    margin-left: calc(var(--doek-breedte) / -2);
     height: 90px;
-    margin-top: 8px;
+    margin-top: 24px;
     margin-bottom: -96px;
-}
-@media (min-width: 1305px) {
-    .leesmij-plek-boven { margin-left: -600px; }
 }

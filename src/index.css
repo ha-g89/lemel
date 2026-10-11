@@ -2,6 +2,11 @@
    Gedeelde stijlen voor alle pagina's. Paginaspecifieke stijlen
    staan bij de pagina in src/pages.
    ============================================================ */
+/* breedte van het doek (fotogrid, database, concerten) en daarmee van de
+   taakbalk: overal gelijk, zodat er bij wisselen van pagina niets verspringt */
+:root {
+    --doek-breedte: max(38vw, 520px);
+}
 html {
     transition: filter 150ms ease-out, transform 400ms ease-in-out;
 }
@@ -64,8 +69,8 @@ table {
 .taakbalk {
     position: relative;
     left: 50%;
-    width: 55vw;
-    margin-left: -27.5vw;
+    width: var(--doek-breedte);
+    margin-left: calc(var(--doek-breedte) / -2);
     margin-top: 40px;
     height: 28px;
     box-sizing: border-box;
@@ -556,8 +561,8 @@ h2 {
     position: relative;
     width: fit-content;
     margin: 70px auto 0 auto;
-    /* tijdelijk onzichtbaar; de ruimte blijft wel bestaan */
-    visibility: hidden;
+    /* tijdelijk weg, inclusief de ruimte die de knop innam */
+    display: none;
 }
 /* slijmklodder over de bovenhoek en langs de zijkant: pixel art, elk
    blokje is een box-shadow van 2x2px op dit (zelf onzichtbare) element.
@@ -772,11 +777,13 @@ h2 {
     text-shadow: 1px 1px 0 #022b05;
 }
 
-/* op een telefoon is 55vw te smal: de taakbalk gaat bijna schermbreed */
 @media (max-width: 700px) {
-    .taakbalk {
-        width: 92vw;
-        margin-left: -46vw;
+    :root {
+        --doek-breedte: 66vw;
+    }
+    /* tabellen passen niet in 66vw: op de telefoon bijna schermbreed */
+    .wrapper.database {
+        --doek-breedte: 92vw;
     }
     /* minder lege ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
     .wrapper {

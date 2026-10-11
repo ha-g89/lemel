@@ -17,7 +17,6 @@ const KOLOMMEN = [
   ['datum', 'datum'],
   ['artiest', 'artiest'],
   ['locatie', 'locatie'],
-  ['stad', 'stad'],
   ['liedje', 'favo'],
   ['geweest', 'geweest'],
   ['wil', 'wil heen'],
@@ -175,7 +174,7 @@ export default function Concerten() {
               )}
               {rijen.map((r) => (
                 <tr key={r.artiest + r.datum + r.locatie}>
-                  <td>
+                  <td className="niet-afbreken">
                     {!r.datum ? (
                       <span className="geen-data">&mdash;</span>
                     ) : DAG_NIEUWS[r.datum] ? (
@@ -194,14 +193,18 @@ export default function Concerten() {
                   <td>
                     <InfoLink tekst={r.artiest} wiki={r.wiki} onOpen={zetInfo} />
                   </td>
+                  {/* stad onder de locatie in plaats van een eigen kolom, zodat de
+                      tabel in de breedte van het doek past */}
                   <td>
                     {r.locatie ? (
-                      <InfoLink tekst={r.locatie} wiki={LOCATIE_WIKI[r.locatie]} onOpen={zetInfo} />
+                      <>
+                        <InfoLink tekst={r.locatie} wiki={LOCATIE_WIKI[r.locatie]} onOpen={zetInfo} />
+                        {r.stad && <div className="stad">{r.stad}</div>}
+                      </>
                     ) : (
                       <span className="geen-data">&mdash;</span>
                     )}
                   </td>
-                  <td>{r.stad || <span className="geen-data">&mdash;</span>}</td>
                   <td className="knop-kolom">
                     {r.spotify ? (
                       <span className="liedje-cel">
