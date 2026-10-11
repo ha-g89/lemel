@@ -151,7 +151,7 @@ export const FOTOLIJST = FOTOS.map((basis) => {
 })
 
 /* tekst van leesmij.txt op de startpagina (bureaubladicoon onder de naar-start-knop) */
-export const LEESMIJ = `klik op een foto om 'm te openen. gebruik de knoppen in de foto om naar de volgende of vorige te gaan. als je helemaal beneden bent, of helemaal naar beneden wilt, klik dan op naar start. beneden heb je de taakbalk met een startmenu. daarachter staan nog meer knoppen.
+export const LEESMIJ = `klik op een foto om 'm te openen. gebruik de knoppen in de foto om naar de volgende of vorige te gaan. beneden heb je de taakbalk met een startmenu. daarachter staan nog meer knoppen.
 
 nog wat willekeurige functionaliteiten: als je een foto rechtermuist, dan krijg je een menu te zien. sommige foto's hebben een (?) met een verhaal erachter.`
 

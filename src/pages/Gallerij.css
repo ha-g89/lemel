@@ -94,12 +94,12 @@
 .photogrid {
     column-count: 4;
     column-gap: 4px;
-    width: 55vw;
+    width: 38vw;
     position: relative;
     left: 50%;
     right: 50%;
-    margin-left: -27.5vw;
-    margin-right: -27.5vw;
+    margin-left: -19vw;
+    margin-right: -19vw;
     margin-top: 48px;
     margin-bottom: 40px;
 }
@@ -111,9 +111,9 @@
    dan de strook zelf nodig heeft */
 .leesmij-plek-start {
     position: relative;
-    width: 55vw;
+    width: 38vw;
     left: 50%;
-    margin-left: -27.5vw;
+    margin-left: -19vw;
     height: 90px;
     margin-top: 8px;
     margin-bottom: -44px;
@@ -444,16 +444,16 @@
     height: auto;
 }
 
-/* ---- telefoon: twee kolommen, bijna schermbreed ---- */
+/* ---- telefoon: twee kolommen, met aan de zijkanten ruimte om te vegen ---- */
 @media (max-width: 700px) {
     .photogrid {
         column-count: 2;
-        width: 92vw;
-        margin-left: -46vw;
-        margin-right: -46vw;
+        width: 66vw;
+        margin-left: -33vw;
+        margin-right: -33vw;
     }
     .leesmij-plek-start {
-        width: 92vw;
-        margin-left: -46vw;
+        width: 66vw;
+        margin-left: -33vw;
     }
 }

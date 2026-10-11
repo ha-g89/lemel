@@ -174,8 +174,9 @@ function LightboxVenster({
  * Overlay met alle open lightbox-vensters ernaast, elk in zijn eigen kader.
  * Alle vensters (ook geminimaliseerde) blijven hier gemount zodat hun state
  * bewaard blijft; de overlay zelf verbergt zich pas als er niets zichtbaar is.
- * @param {{ id: number, basis: string, foto: object, geminimaliseerd: boolean }[]} vensters
- * @param {object[]} fotolijst          de (gefilterde) fotolijst waarbinnen vorige/volgende bladert
+ * @param {{ id: number, basis: string, foto: object, lijst?: object[], geminimaliseerd: boolean }[]} vensters
+ *   lijst: de map waaruit de foto kwam, daarbinnen bladert vorige/volgende
+ * @param {object[]} fotolijst          lijst om in te bladeren voor een venster zonder eigen lijst
  * @param {Function} onSluit             sluit één venster helemaal (basis) => void
  * @param {Function} onMinimaliseer      verberg één venster (streepje) (basis) => void
  * @param {Function} onMinimaliseerAlles verberg alle zichtbare vensters, blijven in de taakbalk
@@ -199,14 +200,28 @@ export default function Lightbox({
     zetVoorgrond((v) => ({ ...v, [basis]: zTeller.current }))
   }
 
+  /* toetsenbord werkt op het laatst geopende zichtbare venster:
+     Escape sluit, pijltje links/rechts bladert naar vorige/volgende */
   useEffect(() => {
     function opToets(e) {
-      if (e.key !== 'Escape' || !zichtbaar.length) return
-      onSluit(zichtbaar[zichtbaar.length - 1].basis)
+      if (!zichtbaar.length || e.altKey || e.ctrlKey || e.metaKey) return
+      const bovenste = zichtbaar[zichtbaar.length - 1]
+      if (e.key === 'Escape') {
+        onSluit(bovenste.basis)
+        return
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      const lijst = bovenste.lijst || fotolijst
+      const index = lijst.findIndex((f) => f.basis === bovenste.basis)
+      if (index === -1) return
+      const doel = lijst[e.key === 'ArrowLeft' ? index - 1 : index + 1]
+      if (!doel) return
+      e.preventDefault()
+      onNavigeer(bovenste.basis, doel)
     }
     document.addEventListener('keydown', opToets)
     return () => document.removeEventListener('keydown', opToets)
-  }, [zichtbaar, onSluit])
+  }, [zichtbaar, fotolijst, onSluit, onNavigeer])
 
   if (!vensters.length) return null
 
@@ -217,7 +232,8 @@ export default function Lightbox({
   return (
     <div id="lightbox-overlay" className={klassen.join(' ') || undefined} onClick={onMinimaliseerAlles}>
       {vensters.map((v) => {
-        const index = fotolijst.findIndex((f) => f.basis === v.basis)
+        const lijst = v.lijst || fotolijst
+        const index = lijst.findIndex((f) => f.basis === v.basis)
         return (
           <LightboxVenster
             key={v.id}
@@ -225,8 +241,8 @@ export default function Lightbox({
             geminimaliseerd={v.geminimaliseerd}
             onSluit={() => onSluit(v.basis)}
             onMinimaliseer={() => onMinimaliseer(v.basis)}
-            vorigeFoto={index > 0 ? fotolijst[index - 1] : undefined}
-            volgendeFoto={index !== -1 && index < fotolijst.length - 1 ? fotolijst[index + 1] : undefined}
+            vorigeFoto={index > 0 ? lijst[index - 1] : undefined}
+            volgendeFoto={index !== -1 && index < lijst.length - 1 ? lijst[index + 1] : undefined}
             onNavigeer={(nieuweFoto) => onNavigeer(v.basis, nieuweFoto)}
             zIndex={voorgrond[v.basis]}
             onVoorgrond={() => naarVoorgrond(v.basis)}

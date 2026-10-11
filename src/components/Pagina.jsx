@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
@@ -86,9 +85,16 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
-      <Link className="titel-link" to="/">
+      {/* de wereldbol brengt je naar de taakbalk onderaan, zolang de
+          naar-start-knop onzichtbaar is */}
+      <button
+        type="button"
+        className="titel-link"
+        title="naar de taakbalk"
+        onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })}
+      >
         <img className="titel" src={logo} alt="le mel" />
-      </Link>
+      </button>
 
       {/* houder zodat het slijm buiten de knop kan hangen (de knop zelf heeft
           overflow: hidden voor het glimeffect) */}

@@ -14,9 +14,9 @@ body {
     background-image: url("./assets/papier.jpg");
     background-size: 1536px 1536px;
     color: #000000;
-    font-family: "Inter", Helvetica, Arial, sans-serif;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: normal;
     margin: 0;
     padding: 0;
 }
@@ -58,6 +58,10 @@ table {
     display: block;
     width: fit-content;
     margin: 0 auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
     line-height: 0;
 }
 
@@ -421,6 +425,19 @@ h2 {
     margin-bottom: 0;
 }
 
+/* onzichtbaar, maar wel voorgelezen door een schermlezer */
+.voor-schermlezer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* ---- scheiding boven Shut Down in het menu ---- */
 .menu-scheiding {
     height: 0;
@@ -556,7 +573,9 @@ h2 {
 .naar-start-houder {
     position: relative;
     width: fit-content;
-    margin: 110px auto 0 auto;
+    margin: 70px auto 0 auto;
+    /* tijdelijk onzichtbaar; de ruimte blijft wel bestaan */
+    visibility: hidden;
 }
 /* slijmklodder over de bovenhoek en langs de zijkant: pixel art, elk
    blokje is een box-shadow van 2x2px op dit (zelf onzichtbare) element.
@@ -782,7 +801,7 @@ h2 {
         padding-top: 32px;
     }
     .naar-start-houder {
-        margin-top: 56px;
+        margin-top: 36px;
     }
     /* onder de 16px zoomt iOS in zodra je in een tekstveld tikt */
     input[type="text"],
