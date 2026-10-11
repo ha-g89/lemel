@@ -21,13 +21,13 @@
 .desktop-icoon-plaatje {
     position: relative;
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
 }
 .desktop-icoon-plaatje img {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     image-rendering: pixelated;
 }
 /* geselecteerd: het icoon krijgt een blauwe waas over precies zijn eigen
@@ -38,8 +38,8 @@
     inset: 0;
     background-color: #000080;
     opacity: 0;
-    -webkit-mask: var(--icoon) center / 32px 32px no-repeat;
-    mask: var(--icoon) center / 32px 32px no-repeat;
+    -webkit-mask: var(--icoon) center / 26px 26px no-repeat;
+    mask: var(--icoon) center / 26px 26px no-repeat;
 }
 .desktop-icoon.geselecteerd .desktop-icoon-plaatje::after {
     opacity: 0.5;
