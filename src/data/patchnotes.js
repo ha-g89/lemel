@@ -13,6 +13,7 @@ export const PATCHNOTES = [
       'database: prijzen staan met het juiste valutateken, dus $ in plaats van USD.',
       'database: met de vinkjes onder de zoekbalk zet je kolommen aan en uit. standaard staan merk, vatting en status aan.',
       'zoekveld en keuzelijsten in windows 98-stijl, met een strak pijltje dat ingedrukt blijft zolang de lijst openstaat.',
+      'schuifbalken in de vensters in windows 98-stijl, met knopjes en een geblokt spoor.',
       'concerten: op de telefoon speelt het favo liedje in een klein spelervenster onderaan.',
       'concerten: khalid erbij (afas live, 12-10-2026), dmx eraf.',
       'concerten: "nu speelt" loopt als een lichtkrant door de statusbalk.',
