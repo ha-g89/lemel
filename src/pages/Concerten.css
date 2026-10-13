@@ -192,6 +192,36 @@
     pointer-events: none;
 }
 
+/* op een touchscherm staat de speler in een klein venster onderaan het
+   scherm (zie SpotifySpeler.jsx); de tabel blijft erboven bruikbaar */
+.eigenschappen-venster.speler-venster {
+    position: fixed;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: min(320px, calc(100vw - 24px));
+    z-index: 1400;
+}
+.speler-venster .titelbalk-tekst {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* verzonken vak om de speler, zoals de rand om het kladblokblad */
+.speler-vak {
+    height: 80px;
+    overflow: hidden;
+    background-color: #C0C0C0;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+.speler-vak iframe {
+    display: block;
+}
+
 .eigenschappen-venster.kladblok-venster {
     width: 440px;
     padding: 3px;

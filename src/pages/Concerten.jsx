@@ -271,7 +271,9 @@ export default function Concerten() {
       {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
       {dagInfo && <DagInfo datum={dagInfo} nieuws={DAG_NIEUWS[dagInfo]} onSluiten={() => zetDagInfo(null)} />}
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
-      {speelRij && <SpotifySpeler r={speelRij} onKlaar={() => zetSpeelRij(null)} />}
+      {speelRij && (
+        <SpotifySpeler r={speelRij} onKlaar={() => zetSpeelRij(null)} onSluiten={() => zetSpeelRij(null)} />
+      )}
     </Pagina>
   )
 }
