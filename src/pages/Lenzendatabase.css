@@ -111,6 +111,13 @@
     background-color: #FFFFFF;
 }
 #zoekveld { width: 120px; }
+/* geen blauwe focusrand van de browser (safari/ios), maar een strak
+   groen randje in de kleur van de site */
+#filterpaneel input[type="text"]:focus,
+#filterpaneel select:focus {
+    outline: 1px solid #0e7d12;
+    outline-offset: 0;
+}
 /* rij met win98-vinkjes onder het filterpaneel: welke kolommen de tabel toont
    (het model staat er niet bij, dat blijft altijd zichtbaar) */
 #kolommenrij {
