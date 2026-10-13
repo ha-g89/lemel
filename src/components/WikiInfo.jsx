@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import concertIcoon from '../assets/iconen/concert.png'
 import Kruisje from './Kruisje.jsx'
+import { useEscape } from '../hooks/useEscape.js'
 
 /* samenvatting + foto van een wikipedia-artikel; eerst de nederlandse
    wikipedia, valt terug op de engelse als het artikel daar niet bestaat */
@@ -39,13 +40,7 @@ export default function WikiInfo({ titel, wiki: wikiTitel, onSluiten }) {
     }
   }, [wikiTitel])
 
-  useEffect(() => {
-    function opToets(e) {
-      if (e.key === 'Escape') onSluiten()
-    }
-    document.addEventListener('keydown', opToets)
-    return () => document.removeEventListener('keydown', opToets)
-  }, [onSluiten])
+  useEscape(onSluiten)
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>

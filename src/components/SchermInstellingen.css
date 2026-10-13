@@ -70,9 +70,6 @@
 #scherminstellingen-venster .titelbalk .sluitknop:active svg {
     transform: translate(1px, 1px);
 }
-#scherminstellingen-venster .inhoud {
-    padding: 0;
-}
 .effecten-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -127,7 +124,6 @@
     margin: 0;
     padding: 8px;
     border: 1px solid #808080;
-    border-top-color: #808080;
     box-shadow: inset 1px 1px 0 #FFFFFF;
 }
 .loze-knoppenrij {
@@ -137,8 +133,6 @@
 }
 .loze-knop {
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
-    font-size: 11px;
-    padding: 3px 10px;
     background-color: #C0C0C0;
     color: #000000;
     border-top: 2px solid #FFFFFF;

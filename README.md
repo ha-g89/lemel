@@ -31,8 +31,8 @@ Paaseieren: "scherminstellingen" onder instellingen in het Start-menu
 (grijstinten, negatief, sepia) en typ ergens op de site "bsod".
 
 Op de startpagina staan de bureaubladiconen leesmij.txt en overmij.txt; hun
-teksten (`LEESMIJ`, `OVERMIJ`) staan in `src/data/fotos.js`. Het Start-menu
-heeft ook een link naar steam.
+teksten (`LEESMIJ`, `OVERMIJ`) staan in `src/data/fotos.js`. Daarnaast staat
+"naar boven!!", dat op elke pagina terug naar boven rolt (zie `Pagina.jsx`).
 
 ## Foto's toevoegen
 
@@ -45,6 +45,9 @@ heeft ook een link naar steam.
    Een thema kan erachter: `MCA_1226_pentax-a-50_autos.JPG`.
 3. Zet de kale naam (zonder code en extensie) in de lijst `FOTOS` in
    `src/data/fotos.js`, bijvoorbeeld `'MCA_0194'`.
+4. Draai `npm run thumbnails` (of `npm run dev`, dat doet het ook) en commit
+   de nieuwe kleine versie in `src/assets/kluis-klein/`. `npm run build` maakt
+   die niet zelf; zonder thumbnail toont de fotogrid de grote foto.
 
 De site zoekt zelf het bestand, met of zonder code, en haalt de lens uit de
 naam. Foto's zonder lenscode werken gewoon, die tonen alleen geen lens.
@@ -79,8 +82,7 @@ bestand en herlaad: de site haalt altijd de nieuwste versie op.
 - Bureaubladicoon (enkel klik selecteert, dubbelklik opent, versleepbaar):
   `src/components/DesktopIcoon.jsx`.
 - Tabellen (lenzen en concerten) delen hun stijl via `Lenzendatabase.css`.
-- Achtergrond: warm gebroken wit (#F3EFE6) met een naadloze tegel van zacht
-  verkreukeld papier (`src/assets/papier.jpg`).
+- Achtergrond: wit.
 
 ## Structuur
 
@@ -93,7 +95,7 @@ src/
   hooks/        useMenuLayout (taakbalk even breed als de inhoud), useTeBreed
   lib/          fotonamen (lens/thema uit bestandsnaam), lenzendatabase (sql.js), ebay
   data/         fotos, lenzen, verhalen, concerten
-  assets/       iconen/ en kluis/ (de foto's)
+  assets/       iconen/, kluis/ (de foto's) en kluis-klein/ (thumbnails)
 public/         favicon, lenzendatabase/, staticwebapp.config.json
 ```
 

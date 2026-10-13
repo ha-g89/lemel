@@ -112,10 +112,6 @@ const bestanden = import.meta.glob('../assets/kluis/*.{jpg,JPG,jpeg,JPEG,png,PNG
   import: 'default',
 })
 
-/* Geïndexeerd op de kale naam (zonder lens-/themacode(s)), zodat een
-   foto in FOTOS zo simpel mogelijk kan blijven staan (bv. 'MCA_1900')
-   terwijl het echte bestand er ook nog een lenscode en/of één of
-   meerdere themacodes achteraan kan hebben staan. */
 /* kleine webp-versies voor de fotogrid, gemaakt door scripts/maak-thumbnails.mjs.
    Sleutel: volledige bestandsnaam zonder extensie, gelijk aan de originele foto. */
 const thumbnails = import.meta.glob('../assets/kluis-klein/*.webp', {
@@ -128,6 +124,10 @@ for (const pad in thumbnails) {
   thumbVan[pad.split('/').pop().replace(/\.webp$/, '')] = thumbnails[pad]
 }
 
+/* Geïndexeerd op de kale naam (zonder lens-/themacode(s)), zodat een
+   foto in FOTOS zo simpel mogelijk kan blijven staan (bv. 'MCA_1900')
+   terwijl het echte bestand er ook nog een lenscode en/of één of
+   meerdere themacodes achteraan kan hebben staan. */
 const perKaleNaam = {}
 for (const pad in bestanden) {
   const bestandsnaam = pad.split('/').pop()
@@ -140,7 +140,6 @@ export const FOTOLIJST = FOTOS.map((basis) => {
   const bestand = hit ? hit.naam : basis
   return {
     basis,
-    bestand,
     url: hit ? hit.url : null,
     /* valt terug op de grote foto als er (nog) geen thumbnail is */
     klein: hit ? thumbVan[hit.naam] || hit.url : null,
@@ -150,7 +149,7 @@ export const FOTOLIJST = FOTOS.map((basis) => {
   }
 })
 
-/* tekst van leesmij.txt op de startpagina (bureaubladicoon onder de naar-start-knop) */
+/* tekst van leesmij.txt op de startpagina (bureaubladicoon onder de foto's, naast overmij.txt) */
 export const LEESMIJ = `klik op een foto om 'm te openen. gebruik de knoppen in de foto om naar de volgende of vorige te gaan. beneden heb je de taakbalk met een startmenu. daarachter staan nog meer knoppen.
 
 nog wat willekeurige functionaliteiten: als je een foto rechtermuist, dan krijg je een menu te zien. sommige foto's hebben een (?) met een verhaal erachter.`

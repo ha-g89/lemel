@@ -1,4 +1,4 @@
-/* het strakke kruisje voor sluitknoppen (lightbox, paasei-venster):
+/* het strakke kruisje voor de sluitknop van elk venster:
    twee vloeiende diagonale lijnen, geen pixel-trapjes */
 export default function Kruisje() {
   return (

@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import Kruisje from './Kruisje.jsx'
+import { useEscape } from '../hooks/useEscape.js'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 
 /**
@@ -11,13 +11,7 @@ import leesmijIcoon from '../assets/iconen/leesmij.png'
  * @param {string}   [icoon]   icoon in de titelbalk
  */
 export default function Leesmij({ tekst, onSluiten, naam = 'leesmij.txt', icoon = leesmijIcoon }) {
-  useEffect(() => {
-    function opToets(e) {
-      if (e.key === 'Escape') onSluiten()
-    }
-    document.addEventListener('keydown', opToets)
-    return () => document.removeEventListener('keydown', opToets)
-  }, [onSluiten])
+  useEscape(onSluiten)
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>

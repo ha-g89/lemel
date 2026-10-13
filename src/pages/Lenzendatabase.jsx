@@ -16,7 +16,7 @@ import kijklijstTegel from '../assets/iconen/kijklijst.png'
 import { LEESMIJ } from '../data/lenzen.js'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
-import { laadLenzen, euro, vergelijk } from '../lib/lenzendatabase.js'
+import { laadLenzen, prijsTekst, vergelijk, STATUS_LABEL } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import './Lenzendatabase.css'
 
@@ -36,7 +36,7 @@ const VASTE_KOLOM = 'model'
    vaste model) aan; brandpunt en prijs zet je zelf aan met de vinkjes */
 const STANDAARD_VERBORGEN = ['focal_mm', 'laatste_prijs']
 
-const STATUS_LABEL = { owned: 'in bezit', wanted: 'kijklijst', sold: 'verkocht' }
+const LAADTEKST = 'database wordt geladen…'
 
 /* in bezit en kijklijst hebben een eigen getekend tegeltje (kroon, oog) */
 const STATUS_TEGEL = { owned: inBezitTegel, wanted: kijklijstTegel }
@@ -59,7 +59,7 @@ function StatusBadge({ status }) {
 function Rij({ r, toon, onContextMenu, onEigenschappen }) {
   const naam = r.maker + ' ' + r.model
   const focal = r.focal_mm ? Math.round(r.focal_mm) + 'mm' : ''
-  const prijs = euro(r.laatste_prijs, r.laatste_valuta)
+  const prijs = prijsTekst(r.laatste_prijs, r.laatste_valuta)
   const prijslink = r.prijsurl || ebayZoeklink(naam)
   /* modelnaam gaat altijd naar ebay: de advertentie zelf als de laatste prijs
      van ebay komt, anders een zoekopdracht op deze lens (de prijs kan ook van
@@ -109,7 +109,7 @@ function Rij({ r, toon, onContextMenu, onEigenschappen }) {
  */
 export default function Lenzendatabase() {
   const [alleRijen, zetAlleRijen] = useState(null)
-  const [status, zetStatus] = useState('database wordt geladen…')
+  const [status, zetStatus] = useState(LAADTEKST)
   const [zoekterm, zetZoekterm] = useState('')
   const [vatting, zetVatting] = useState('')
   const [statusfilter, zetStatusfilter] = useState('')
@@ -225,7 +225,7 @@ export default function Lenzendatabase() {
         {!geladen && (
           <div id="statusregel">
             <p>{status}</p>
-            {status === 'database wordt geladen…' && (
+            {status === LAADTEKST && (
               <div className="laadbalk-buiten">
                 <div className="laadbalk-binnen"></div>
               </div>
@@ -264,9 +264,11 @@ export default function Lenzendatabase() {
                 onChange={(e) => zetStatusfilter(e.target.value)}
               >
                 <option value="">alle {alleRijen.length}</option>
-                <option value="owned">in bezit</option>
-                <option value="wanted">op kijklijst</option>
-                <option value="sold">verkocht</option>
+                {Object.entries(STATUS_LABEL).map(([code, label]) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
               </Keuzelijst>
             </label>
           </div>

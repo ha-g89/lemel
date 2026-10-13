@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
 import concertIcoon from '../assets/iconen/concert.png'
 import Kruisje from './Kruisje.jsx'
+import { useEscape } from '../hooks/useEscape.js'
 
 const MAANDEN_EN = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -21,13 +21,7 @@ function wikiLink(datum) {
  * @param {Function} onSluiten sluit het venster
  */
 export default function DagInfo({ datum, nieuws, onSluiten }) {
-  useEffect(() => {
-    function opToets(e) {
-      if (e.key === 'Escape') onSluiten()
-    }
-    document.addEventListener('keydown', opToets)
-    return () => document.removeEventListener('keydown', opToets)
-  }, [onSluiten])
+  useEscape(onSluiten)
 
   const dag = new Date(datum + 'T12:00:00')
   const titel = dag.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })

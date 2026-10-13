@@ -1,4 +1,6 @@
-/* ---- lenzendatabase-specifiek ---- */
+/* ---- databasepagina's (lenzen en concerten): venster, filterpaneel en
+   tabel; ook de gedeelde stijl van alle info- en eigenschappen-vensters
+   (eigenschappen, leesmij, wikiinfo, daginfo) ---- */
 .databox {
     width: var(--doek-breedte);
     position: relative;
@@ -110,7 +112,11 @@
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
     color: #000000;
-    padding: 3px 4px;
+    box-sizing: border-box;
+    /* vaste hoogte, zodat zoekveld en keuzelijsten even hoog zijn; 22px laat
+       in het knopje precies ruimte om het pijltje op hele pixels te centreren */
+    height: 22px;
+    padding: 0 4px;
     border-top: 1px solid #808080;
     border-left: 1px solid #808080;
     border-right: 1px solid #FFFFFF;
@@ -119,15 +125,6 @@
         inset 1px 1px 0 #000000,
         inset -1px -1px 0 #DFDFDF;
     background-color: #FFFFFF;
-}
-/* vaste hoogte, zodat zoekveld en keuzelijsten even hoog zijn; 22px laat in
-   het knopje precies ruimte om het pijltje op hele pixels te centreren */
-#filterpaneel input[type="text"],
-#filterpaneel select {
-    box-sizing: border-box;
-    height: 22px;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 /* keuzelijst (zie Keuzelijst.jsx): rechts in het verzonken vakje een grijs
    win98-knopje met zwart pijltje, gebouwd uit randen zoals de startknop */
@@ -366,11 +363,7 @@
     height: 15px;
     background-color: #888888;
     border: 1px solid #888888;
-    color: #FFFFFF;
     vertical-align: middle;
-}
-.status-sold .status-icoon {
-    -webkit-text-stroke: 0;
 }
 /* klein grijs knopje in een tabelcel (▶ bij het favo liedje, ? bij een lens),
    net als de titelbalkknopjes van de lightbox; iets minder padding in die
@@ -423,7 +416,8 @@
     color: #999999;
 }
 
-/* ---- eigenschappen-venster (rechtsklik op een rij) ---- */
+/* ---- eigenschappen-venster (rechtsklik op een rij), ook de basis van de
+   info-vensters en leesmij ---- */
 .eigenschappen-overlay {
     position: fixed;
     inset: 0;
@@ -463,6 +457,10 @@
        + 3px padding */
     padding: 3px 3px 3px 5px;
     margin-bottom: 6px;
+}
+/* in het datavenster sluit het filterpaneel direct aan op de titelbalk */
+.data-venster .titelbalk {
+    margin-bottom: 0;
 }
 .eigenschappen-venster .titelbalk-icoon,
 .data-venster .titelbalk-icoon {
@@ -560,9 +558,4 @@
     height: 90px;
     margin-top: 24px;
     margin-bottom: -96px;
-}
-
-/* in het datavenster sluit het filterpaneel direct aan op de titelbalk */
-.data-venster .titelbalk {
-    margin-bottom: 0;
 }

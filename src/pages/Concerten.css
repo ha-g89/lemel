@@ -48,7 +48,7 @@
     outline-offset: 1px;
 }
 
-/* info-vensters (artiest, venue, datum, kladblok, speler); de basisstijl
+/* info-vensters (artiest, venue, datum, kladblok); de basisstijl
    komt van .eigenschappen-venster in Lenzendatabase.css */
 .eigenschappen-venster.info-venster {
     width: 380px;

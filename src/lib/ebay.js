@@ -1,7 +1,7 @@
-/* zoeklink voor eBay: zonder haakjes, umlaut weg. Gedeeld tussen de
-   fotonamen (gallerij) en de lenzendatabase, die allebei naar dezelfde
-   eBay-zoekpagina linken voor een lensnaam. */
-export function zoekterm(naam) {
+/* zoeklink voor eBay: zonder haakjes, umlaut weg. Gedeeld door de lightbox
+   (gallerij), de lenzentabel en het eigenschappen-venster, die allemaal naar
+   dezelfde eBay-zoekpagina linken voor een lensnaam. */
+function zoekterm(naam) {
   return naam.replace(/\([^)]*\)/g, '').replace(/ä/g, 'a').replace(/\s+/g, ' ').trim()
 }
 

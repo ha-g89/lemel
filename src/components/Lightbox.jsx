@@ -11,8 +11,8 @@ import Vraagteken from './Vraagteken.jsx'
 /**
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft
  * gemount als het geminimaliseerd is (alleen met display:none verborgen),
- * zodat het laadprofiel niet opnieuw afspeelt bij terugzetten.
- * @param {object}   foto            item uit FOTOLIJST ({ url, naam, lens })
+ * zodat positie, maximaliseren en het laadprofiel bewaard blijven.
+ * @param {object}   foto            item uit FOTOLIJST ({ basis, url, naam, lens })
  * @param {boolean}  geminimaliseerd niet zichtbaar, maar wel nog gemount
  * @param {Function} onSluit         sluit dit venster helemaal (kruisje)
  * @param {Function} onMinimaliseer  verberg dit venster (streepje), blijft in de taakbalk

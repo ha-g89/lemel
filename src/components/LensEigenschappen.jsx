@@ -1,9 +1,8 @@
-import { euro } from '../lib/lenzendatabase.js'
+import { prijsTekst, STATUS_LABEL } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import databaseIcoon from '../assets/iconen/database.png'
 import Kruisje from './Kruisje.jsx'
 
-const STATUS_LABEL = { owned: 'in bezit', wanted: 'op kijklijst', sold: 'verkocht' }
 
 function Veld({ label, waarde }) {
   if (waarde === null || waarde === undefined || waarde === '') return null
@@ -30,7 +29,7 @@ export default function LensEigenschappen({ r, onSluiten }) {
   const jaren = r.year_from ? r.year_from + '–' + (r.year_to || 'heden') : null
   const constructie = r.elements ? r.elements + ' elementen in ' + (r.groups_ || '?') + ' groepen' : null
   const prijslink = r.prijsurl || ebayZoeklink(naam)
-  const prijs = euro(r.laatste_prijs, r.laatste_valuta)
+  const prijs = prijsTekst(r.laatste_prijs, r.laatste_valuta)
 
   return (
     <div className="eigenschappen-overlay" onClick={onSluiten}>

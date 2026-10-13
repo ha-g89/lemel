@@ -36,9 +36,8 @@ function vergelijk(a, b, kolom) {
   const x = a[kolom]
   const y = b[kolom]
   if (typeof x === 'boolean' || typeof y === 'boolean') return (y ? 1 : 0) - (x ? 1 : 0)
-  if (!x && y) return 1
-  if (x && !y) return -1
-  return String(x || '').localeCompare(String(y || ''), 'nl')
+  /* lege velden zet de sortering zelf al onderaan */
+  return String(x).localeCompare(String(y), 'nl')
 }
 
 /* een Windows-95-vinkvakje, alleen om te tonen */

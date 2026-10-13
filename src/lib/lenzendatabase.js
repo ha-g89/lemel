@@ -67,7 +67,9 @@ function valutaSymbool(valuta) {
   }
 }
 
-export function euro(bedrag, valuta) {
+export const STATUS_LABEL = { owned: 'in bezit', wanted: 'op kijklijst', sold: 'verkocht' }
+
+export function prijsTekst(bedrag, valuta) {
   if (bedrag === null || bedrag === undefined) return null
   return valutaSymbool(valuta) + Number(bedrag).toFixed(2).replace('.', ',')
 }

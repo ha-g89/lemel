@@ -8,7 +8,6 @@ export function lensVan(bestand) {
       const kandidaat = delen.slice(i, n).join('-')
       if (LENS_NAAM[kandidaat]) return kandidaat
     }
-    if (LENS_NAAM[delen[i]]) return delen[i]
   }
   return null
 }

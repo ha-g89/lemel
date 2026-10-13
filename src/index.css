@@ -113,7 +113,6 @@ table {
     font-size: inherit;
     font-weight: bold;
     color: #000000;
-    text-decoration: none;
     cursor: pointer;
     background-color: #C0C0C0;
     border-top: 1px solid #FFFFFF;
@@ -124,7 +123,6 @@ table {
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
 }
-.startknop:visited { color: #000000; }
 .startknop:active,
 .startknop.actief {
     border-top: 1px solid #000000;
@@ -396,9 +394,6 @@ table {
 .navbar a img.weergave-icoon {
     transform: scale(0.8);
 }
-.navbar a:hover {
-    text-decoration: none;
-}
 .navbar a span u {
     text-decoration: underline;
 }
@@ -529,6 +524,8 @@ h2 {
 /* ---- knop: naar start (scrollt naar de taakbalk); een gewone grijze
    Win98-knop, afgeronde hoeken, gecentreerd onder het logo ---- */
 .naar-start-knop {
+    position: relative;
+    overflow: hidden;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -555,10 +552,6 @@ h2 {
 }
 /* glimeffect: om de paar seconden schuift er een zachte lichtstreep schuin
    over de knop (eerste 27% van de cyclus van 4s, daarna rust). subtiel gehouden */
-.naar-start-knop {
-    position: relative;
-    overflow: hidden;
-}
 .naar-start-knop::after {
     content: "";
     position: absolute;
@@ -803,8 +796,8 @@ h2 {
     padding-bottom: 6px;
 }
 
-/* ---- thema: titelbalk van elk venster (lightbox, info, speler, kladblok,
-   eigenschappen, scherminstellingen). Nieuw venster? geef de titelbalk de
+/* ---- thema: titelbalk van elk venster (lightbox, info, kladblok,
+   datavenster, eigenschappen, scherminstellingen). Nieuw venster? geef de titelbalk de
    klasse venster-titelbalk; afmetingen en padding regelt elk venster zelf ---- */
 .venster-titelbalk {
     background-image:

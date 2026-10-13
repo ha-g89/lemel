@@ -127,8 +127,6 @@ export default function Gallerij() {
             <div
               key={foto.basis}
               className={past(foto) ? 'photobox' : 'photobox verborgen'}
-              data-lens={foto.lens || ''}
-              data-thema={foto.themas.join(' ')}
               data-tooltip={tooltip}
             >
               <img

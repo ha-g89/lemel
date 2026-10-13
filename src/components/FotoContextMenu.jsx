@@ -1,9 +1,8 @@
 import Contextmenu from './Contextmenu.jsx'
 
 /**
- * Win98-rechtermuisknopmenu op een foto: hergebruikt dezelfde
- * bevel/hover-stijl als het Start-menu (.navbar/.navbar a).
- * @param {object}   foto      item uit FOTOLIJST ({ url, naam, lens })
+ * Win98-rechtermuisknopmenu op een foto, via Contextmenu.jsx.
+ * @param {object}   foto      item uit FOTOLIJST ({ basis, url, naam, lens })
  * @param {number}   x         positie in pixels (clientX)
  * @param {number}   y         positie in pixels (clientY)
  * @param {Function} onOpenen  open de lightbox met deze foto
