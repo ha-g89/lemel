@@ -50,10 +50,26 @@ export async function laadLenzen() {
   })
 }
 
+/* valutacode naar het korte symbool ($, £, ¥, …); een valuta zonder eigen
+   teken (CHF, kr) krijgt een spatie voor het bedrag */
+function valutaSymbool(valuta) {
+  if (!valuta || valuta === 'EUR') return '€'
+  try {
+    const delen = new Intl.NumberFormat('nl-NL', {
+      style: 'currency',
+      currency: valuta,
+      currencyDisplay: 'narrowSymbol',
+    }).formatToParts(0)
+    const symbool = delen.find((d) => d.type === 'currency').value
+    return /[a-z]$/i.test(symbool) ? symbool + ' ' : symbool
+  } catch {
+    return valuta + ' '
+  }
+}
+
 export function euro(bedrag, valuta) {
   if (bedrag === null || bedrag === undefined) return null
-  const symbool = valuta === 'EUR' || !valuta ? '€' : valuta + ' '
-  return symbool + Number(bedrag).toFixed(2).replace('.', ',')
+  return valutaSymbool(valuta) + Number(bedrag).toFixed(2).replace('.', ',')
 }
 
 export function vergelijk(a, b, kolom) {

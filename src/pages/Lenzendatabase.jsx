@@ -10,6 +10,8 @@ import Leesmij from '../components/Leesmij.jsx'
 import DataVenster from '../components/DataVenster.jsx'
 import databaseIcoon from '../assets/iconen/database.png'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
+import inBezitTegel from '../assets/iconen/in-bezit.png'
+import kijklijstTegel from '../assets/iconen/kijklijst.png'
 import { LEESMIJ } from '../data/lenzen.js'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
@@ -26,13 +28,26 @@ const KOLOMMEN = [
   ['status', 'status'],
 ]
 
+/* het model blijft altijd zichtbaar (daar zitten de ebay-link en het (?)),
+   dus die krijgt geen vinkje */
+const VASTE_KOLOM = 'model'
+/* bij het openen van de pagina staan alleen merk, vatting en status (en het
+   vaste model) aan; brandpunt en prijs zet je zelf aan met de vinkjes */
+const STANDAARD_VERBORGEN = ['focal_mm', 'laatste_prijs']
+
 const STATUS_LABEL = { owned: 'in bezit', wanted: 'kijklijst', sold: 'verkocht' }
+
+/* in bezit en kijklijst hebben een eigen getekend tegeltje (kroon, oog) */
+const STATUS_TEGEL = { owned: inBezitTegel, wanted: kijklijstTegel }
 
 /* alleen het pixelicoontje, zodat de tabel smal blijft; de tekst staat in
    de tooltip en in het eigenschappen-venster */
 function StatusBadge({ status }) {
   const label = STATUS_LABEL[status]
   if (!label) return null
+  if (STATUS_TEGEL[status]) {
+    return <img className="status-tegel" src={STATUS_TEGEL[status]} title={label} alt={label} />
+  }
   return (
     <span className={'status-' + status} title={label} role="img" aria-label={label}>
       <StatusIcoon status={status} />
@@ -40,7 +55,7 @@ function StatusBadge({ status }) {
   )
 }
 
-function Rij({ r, onContextMenu, onEigenschappen }) {
+function Rij({ r, toon, onContextMenu, onEigenschappen }) {
   const naam = r.maker + ' ' + r.model
   const focal = r.focal_mm ? Math.round(r.focal_mm) + 'mm' : ''
   const prijs = euro(r.laatste_prijs, r.laatste_valuta)
@@ -53,7 +68,7 @@ function Rij({ r, onContextMenu, onEigenschappen }) {
 
   return (
     <tr onContextMenu={onContextMenu}>
-      <td>{r.maker || ''}</td>
+      {toon.maker && <td>{r.maker || ''}</td>}
       <td className="knop-kolom">
         <span className="model-cel">
           <a href={ebaylink} target="_blank" rel="noopener noreferrer">
@@ -64,22 +79,26 @@ function Rij({ r, onContextMenu, onEigenschappen }) {
           </button>
         </span>
       </td>
-      <td>{r.mount || ''}</td>
-      <td className="niet-afbreken">{focal}</td>
-      <td className="niet-afbreken">
-        {prijs ? (
-          <a href={prijslink} target="_blank" rel="noopener noreferrer">
-            {prijs}
-          </a>
-        ) : (
-          <a className="geen-data" href={prijslink} target="_blank" rel="noopener noreferrer">
-            eBay
-          </a>
-        )}
-      </td>
-      <td className="status-kolom">
-        <StatusBadge status={r.status} />
-      </td>
+      {toon.mount && <td>{r.mount || ''}</td>}
+      {toon.focal_mm && <td className="niet-afbreken">{focal}</td>}
+      {toon.laatste_prijs && (
+        <td className="niet-afbreken">
+          {prijs ? (
+            <a href={prijslink} target="_blank" rel="noopener noreferrer">
+              {prijs}
+            </a>
+          ) : (
+            <a className="geen-data" href={prijslink} target="_blank" rel="noopener noreferrer">
+              eBay
+            </a>
+          )}
+        </td>
+      )}
+      {toon.status && (
+        <td className="status-kolom">
+          <StatusBadge status={r.status} />
+        </td>
+      )}
     </tr>
   )
 }
@@ -97,6 +116,20 @@ export default function Lenzendatabase() {
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, r } */
   const [eigenschappenRij, zetEigenschappenRij] = useState(null)
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
+  const [verborgen, zetVerborgen] = useState(STANDAARD_VERBORGEN)
+
+  const toon = useMemo(() => {
+    const t = {}
+    KOLOMMEN.forEach(([k]) => {
+      t[k] = !verborgen.includes(k)
+    })
+    return t
+  }, [verborgen])
+  const zichtbareKolommen = KOLOMMEN.filter(([k]) => toon[k])
+
+  function wisselKolom(kolom) {
+    zetVerborgen((v) => (v.includes(kolom) ? v.filter((k) => k !== kolom) : [...v, kolom]))
+  }
 
   useEffect(() => {
     let actief = true
@@ -238,11 +271,23 @@ export default function Lenzendatabase() {
           </div>
         )}
 
+        {geladen && (
+          <div id="kolommenrij">
+            {KOLOMMEN.filter(([kolom]) => kolom !== VASTE_KOLOM).map(([kolom, kop]) => (
+              <label key={kolom} className="kolom-optie">
+                <input type="checkbox" checked={toon[kolom]} onChange={() => wisselKolom(kolom)} />
+                <span className="kolom-vinkje"></span>
+                {kop}
+              </label>
+            ))}
+          </div>
+        )}
+
         <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="lenzentabel">
             <thead>
               <tr>
-                {KOLOMMEN.map(([kolom, kop]) => (
+                {zichtbareKolommen.map(([kolom, kop]) => (
                   <th key={kolom} data-kolom={kolom} onClick={() => sorteerOp(kolom)}>
                     {kop}
                   </th>
@@ -252,13 +297,14 @@ export default function Lenzendatabase() {
             <tbody id="lenzenbody">
               {geladen && rijen.length === 0 && (
                 <tr>
-                  <td colSpan={KOLOMMEN.length}>geen lenzen gevonden met dit filter.</td>
+                  <td colSpan={zichtbareKolommen.length}>geen lenzen gevonden met dit filter.</td>
                 </tr>
               )}
               {rijen.map((r) => (
                 <Rij
                   key={r.id}
                   r={r}
+                  toon={toon}
                   onContextMenu={(e) => {
                     e.preventDefault()
                     zetContextMenu({ x: e.clientX, y: e.clientY, r })
