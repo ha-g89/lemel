@@ -30,7 +30,7 @@ export default function Gallerij() {
   /* vier iconen op het bureaubladje onderaan: naast elkaar, of op een smal
      scherm (telefoon) in twee rijen van twee */
   const [smal] = useState(() => window.matchMedia('(max-width: 700px)').matches)
-  const plek = (nr) => (smal ? { x: nr % 2 ? 45 : -45, y: nr < 2 ? -38 : 38 } : { x: -135 + nr * 90, y: 0 })
+  const plek = (nr) => (smal ? { x: nr % 2 ? 55 : -55, y: nr < 2 ? -40 : 40 } : { x: -180 + nr * 120, y: 0 })
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
