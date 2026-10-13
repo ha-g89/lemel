@@ -65,6 +65,18 @@ table {
     line-height: 0;
 }
 
+/* ---- klein bureaublad vlak boven de taakbalk (zie Pagina), zo breed als
+   het doek: hierin kun je "naar boven!!" (en op de startpagina leesmij en
+   overmij) verslepen. de negatieve marge haalt de taakbalk er dichter onder */
+.bureaublad-onder {
+    position: relative;
+    width: var(--doek-breedte);
+    left: 50%;
+    margin-left: calc(var(--doek-breedte) / -2);
+    height: 80px;
+    margin-bottom: -24px;
+}
+
 /* ---- taakbalk ---- */
 .taakbalk {
     position: relative;

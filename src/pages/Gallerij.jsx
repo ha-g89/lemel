@@ -81,7 +81,33 @@ export default function Gallerij() {
   }))
 
   return (
-    <Pagina titel="le mel" metJaar vensters={taakbalkVensters}>
+    <Pagina
+      titel="le mel"
+      metJaar
+      vensters={taakbalkVensters}
+      /* leesmij en overmij staan op het bureaubladje onder de foto's, naast
+         "naar boven!!" (zie Pagina) */
+      bureaublad={
+        <>
+          <DesktopIcoon
+            icoon={leesmijIcoon}
+            naam="leesmij.txt"
+            onOpen={() => zetLeesmijOpen(true)}
+            sleepbaar
+            opslagSleutel="lemel-leesmij-plek-start"
+            beginX={-90}
+          />
+          <DesktopIcoon
+            icoon={overmijIcoon}
+            naam="overmij.txt"
+            onOpen={() => zetOvermijOpen(true)}
+            sleepbaar
+            opslagSleutel="lemel-overmij-plek-start"
+            beginX={0}
+          />
+        </>
+      }
+    >
       <h2 id="fotos"></h2>
 
       {filterGeldig && (
@@ -125,27 +151,6 @@ export default function Gallerij() {
             </div>
           )
         })}
-      </div>
-
-      {/* klein bureaublad onder de foto's, vlak boven de taakbalk: de foto's
-          blijven bovenaan de hoofdzaak */}
-      <div className="leesmij-plek-start">
-        <DesktopIcoon
-          icoon={leesmijIcoon}
-          naam="leesmij.txt"
-          onOpen={() => zetLeesmijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-leesmij-plek-start"
-          beginX={-45}
-        />
-        <DesktopIcoon
-          icoon={overmijIcoon}
-          naam="overmij.txt"
-          onOpen={() => zetOvermijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-overmij-plek-start"
-          beginX={45}
-        />
       </div>
 
       <Lightbox

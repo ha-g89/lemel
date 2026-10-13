@@ -549,7 +549,7 @@
 
 /* ---- leesmij.txt ---- */
 /* strook boven het venster, zo breed als het venster
-   (net als .leesmij-plek-start op de startpagina): hierbinnen kun je het
+   (net als het bureaublad onder de foto's op de startpagina): hierbinnen kun je het
    leesmij-icoon verslepen. de negatieve marge onderaan eet de bovenmarge van
    de databox op, zodat het venster niet verder zakt dan nodig */
 .leesmij-plek-boven {

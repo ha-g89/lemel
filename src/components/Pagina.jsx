@@ -3,8 +3,10 @@ import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
 import SchermInstellingen from './SchermInstellingen.jsx'
+import DesktopIcoon from './DesktopIcoon.jsx'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
+import naarBovenIcoon from '../assets/iconen/naar-boven.png'
 
 /* versie in de voettekst: commitcode + builddatum, ingevuld door
    vite.config.js bij elke build (zie commitCode daar) */
@@ -16,15 +18,18 @@ const BUILDDATUM = new Date(import.meta.env.VITE_BUILDDATUM).toLocaleDateString(
 })
 
 /**
- * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst.
+ * Gedeelde paginaschil: titel-logo, menu, inhoud, een klein bureaublad met
+ * "naar boven!!", taakbalk en voettekst.
  *
  * @param {string}  titel     browsertitel
  * @param {string}  klasse    extra klasse op de wrapper voor paginaspecifieke stijlen
  * @param {boolean} metJaar   jaartal in de menubalk (alleen gallerij)
  * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
  *   knoppen in de taakbalk voor open vensters (bv. de lightbox), één per geopende foto
+ * @param {ReactNode} [bureaublad] extra bureaubladiconen naast "naar boven!!" (bv. leesmij
+ *   en overmij op de startpagina); geef ze beginX -90 en 0, "naar boven!!" staat op 90
  */
-export default function Pagina({ titel, klasse, metJaar = false, vensters = [], children }) {
+export default function Pagina({ titel, klasse, metJaar = false, vensters = [], bureaublad, children }) {
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
   const [bsod, zetBsod] = useState(false)
@@ -124,6 +129,20 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
       </div>
 
       {children}
+
+      {/* klein bureaublad vlak boven de taakbalk: dubbelklik op "naar boven!!"
+          rolt de pagina rustig terug naar boven */}
+      <div className="bureaublad-onder">
+        {bureaublad}
+        <DesktopIcoon
+          icoon={naarBovenIcoon}
+          naam="naar boven!!"
+          onOpen={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          sleepbaar
+          opslagSleutel="lemel-naar-boven-plek"
+          beginX={bureaublad ? 90 : 0}
+        />
+      </div>
 
       <Taakbalk
         vensters={vensters}

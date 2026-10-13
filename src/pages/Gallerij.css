@@ -119,19 +119,6 @@
     margin-bottom: 16px;
 }
 
-/* ---- leesmij.txt ---- */
-/* klein bureaublad onder de foto's, zo breed als de fotogrid: hierbinnen
-   kun je leesmij en overmij verslepen. de negatieve marge onderaan haalt
-   de taakbalk er dichter onder */
-.leesmij-plek-start {
-    position: relative;
-    width: var(--doek-breedte);
-    left: 50%;
-    margin-left: calc(var(--doek-breedte) / -2);
-    height: 80px;
-    margin-bottom: -24px;
-}
-
 /* ---- contextmenu (rechtermuisknop op een foto) ---- */
 .contextmenu {
     position: fixed;
