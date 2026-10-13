@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react'
 
 /* het pijltje is pixelart met zichtbare treetjes: elk pixeltje is een heel
    aantal schermpixels (zo blijft het strak), en het aantal rijen is zo
-   gekozen dat het bij elke schermschaling (100%, 125%, 150%, retina)
-   ongeveer 8×4,5 css-px groot oogt. de breedte is 2×rijen−1 (spitse punt)
-   of 2×rijen (punt van 2 pixels), wat het dichtst bij 8 css-px komt */
+   gekozen dat het bij elke schermschaling (100%, 125%, 150%, telefoon)
+   ongeveer 8×4 css-px groot oogt: altijd twee keer zo breed als hoog, met
+   een punt van 2 pixels, zodat het nergens smaller of hoger lijkt */
 function pijlMaat() {
   const dpr = window.devicePixelRatio || 1
   const pixel = Math.max(1, Math.round(dpr))
-  const rijen = Math.max(3, Math.round((4.5 * dpr) / pixel))
-  const doel = (8 * dpr) / pixel
-  const breedte = Math.abs(rijen * 2 - doel) < Math.abs(rijen * 2 - 1 - doel) ? rijen * 2 : rijen * 2 - 1
-  return { schaal: pixel / dpr, rijen, breedte }
+  const rijen = Math.max(3, Math.round((4 * dpr) / pixel))
+  return { schaal: pixel / dpr, rijen, breedte: rijen * 2 }
 }
 
 /**
