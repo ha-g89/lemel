@@ -27,9 +27,21 @@ const BUILDDATUM = new Date(import.meta.env.VITE_BUILDDATUM).toLocaleDateString(
  * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
  *   knoppen in de taakbalk voor open vensters (bv. de lightbox), één per geopende foto
  * @param {ReactNode} [bureaublad] extra bureaubladiconen naast "naar boven!!" (bv. leesmij
- *   en overmij op de startpagina); geef ze beginX -90 en 0, "naar boven!!" staat op 90
+ *   en overmij op de startpagina)
+ * @param {{ x: number, y: number }} [naarBovenPlek] beginplek van "naar boven!!" t.o.v.
+ *   het midden van het bureaublad, zodat het niet op de extra iconen begint
+ * @param {boolean} [bureaubladHoog] ruimte voor twee rijen iconen (smal scherm)
  */
-export default function Pagina({ titel, klasse, metJaar = false, vensters = [], bureaublad, children }) {
+export default function Pagina({
+  titel,
+  klasse,
+  metJaar = false,
+  vensters = [],
+  bureaublad,
+  naarBovenPlek = { x: 0, y: 0 },
+  bureaubladHoog = false,
+  children,
+}) {
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
   const [bsod, zetBsod] = useState(false)
@@ -132,7 +144,7 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
 
       {/* klein bureaublad vlak boven de taakbalk: dubbelklik op "naar boven!!"
           rolt de pagina rustig terug naar boven */}
-      <div className="bureaublad-onder">
+      <div className={bureaubladHoog ? 'bureaublad-onder hoog' : 'bureaublad-onder'}>
         {bureaublad}
         <DesktopIcoon
           icoon={naarBovenIcoon}
@@ -140,7 +152,8 @@ export default function Pagina({ titel, klasse, metJaar = false, vensters = [], 
           onOpen={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           sleepbaar
           opslagSleutel="lemel-naar-boven-plek"
-          beginX={bureaublad ? 90 : 0}
+          beginX={naarBovenPlek.x}
+          beginY={naarBovenPlek.y}
         />
       </div>
 

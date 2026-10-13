@@ -7,9 +7,11 @@ import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import overmijIcoon from '../assets/iconen/overmij.png'
+import patchnotesIcoon from '../assets/iconen/patchnotes.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { FOTOLIJST, LEESMIJ, OVERMIJ } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
+import { patchnotesTekst } from '../data/patchnotes.js'
 import './Gallerij.css'
 
 export default function Gallerij() {
@@ -24,6 +26,11 @@ export default function Gallerij() {
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, foto } */
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
   const [overmijOpen, zetOvermijOpen] = useState(false)
+  const [patchnotesOpen, zetPatchnotesOpen] = useState(false)
+  /* vier iconen op het bureaubladje onderaan: naast elkaar, of op een smal
+     scherm (telefoon) in twee rijen van twee */
+  const [smal] = useState(() => window.matchMedia('(max-width: 700px)').matches)
+  const plek = (nr) => (smal ? { x: nr % 2 ? 45 : -45, y: nr < 2 ? -38 : 38 } : { x: -135 + nr * 90, y: 0 })
 
   /* filter alleen toepassen als de code bestaat, anders alles tonen */
   const filterGeldig = (lens && LENS_NAAM[lens]) || (thema && THEMA_NAAM[thema])
@@ -85,8 +92,10 @@ export default function Gallerij() {
       titel="le mel"
       metJaar
       vensters={taakbalkVensters}
-      /* leesmij en overmij staan op het bureaubladje onder de foto's, naast
-         "naar boven!!" (zie Pagina) */
+      /* leesmij, overmij en patchnotes staan op het bureaubladje onder de
+         foto's, naast "naar boven!!" (zie Pagina) */
+      naarBovenPlek={plek(3)}
+      bureaubladHoog={smal}
       bureaublad={
         <>
           <DesktopIcoon
@@ -95,7 +104,8 @@ export default function Gallerij() {
             onOpen={() => zetLeesmijOpen(true)}
             sleepbaar
             opslagSleutel="lemel-leesmij-plek-start"
-            beginX={-90}
+            beginX={plek(0).x}
+            beginY={plek(0).y}
           />
           <DesktopIcoon
             icoon={overmijIcoon}
@@ -103,7 +113,17 @@ export default function Gallerij() {
             onOpen={() => zetOvermijOpen(true)}
             sleepbaar
             opslagSleutel="lemel-overmij-plek-start"
-            beginX={0}
+            beginX={plek(1).x}
+            beginY={plek(1).y}
+          />
+          <DesktopIcoon
+            icoon={patchnotesIcoon}
+            naam="patchnotes.txt"
+            onOpen={() => zetPatchnotesOpen(true)}
+            sleepbaar
+            opslagSleutel="lemel-patchnotes-plek-start"
+            beginX={plek(2).x}
+            beginY={plek(2).y}
           />
         </>
       }
@@ -167,6 +187,14 @@ export default function Gallerij() {
           naam="overmij.txt"
           icoon={overmijIcoon}
           onSluiten={() => zetOvermijOpen(false)}
+        />
+      )}
+      {patchnotesOpen && (
+        <Leesmij
+          tekst={patchnotesTekst()}
+          naam="patchnotes.txt"
+          icoon={patchnotesIcoon}
+          onSluiten={() => zetPatchnotesOpen(false)}
         />
       )}
 

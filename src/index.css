@@ -76,6 +76,9 @@ table {
     height: 80px;
     margin-bottom: -24px;
 }
+.bureaublad-onder.hoog {
+    height: 160px;
+}
 
 /* ---- taakbalk ---- */
 .taakbalk {

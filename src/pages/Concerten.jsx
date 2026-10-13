@@ -40,6 +40,20 @@ function vergelijk(a, b, kolom) {
   return String(x).localeCompare(String(y), 'nl')
 }
 
+/* lichtkrant in de statusbalk, zoals een pager: de tekst staat er twee keer
+   achter elkaar en schuift precies één lengte op, zodat hij naadloos rondloopt.
+   de duur groeit mee met de tekst, zodat lange en korte titels even snel gaan */
+function NuSpeelt({ tekst }) {
+  return (
+    <span className="nu-speelt" title={tekst}>
+      <span className="lichtkrant" style={{ '--duur': Math.max(6, tekst.length * 0.25) + 's' }}>
+        <span>{tekst}</span>
+        <span aria-hidden="true">{tekst}</span>
+      </span>
+    </span>
+  )
+}
+
 /* een Windows-95-vinkvakje, alleen om te tonen */
 function Vinkje({ aan, label }) {
   return (
@@ -138,11 +152,10 @@ export default function Concerten() {
             <span>
               {rijen.length} van {CONCERTEN.length} concerten
             </span>
-            {/* zolang er een liedje speelt staat dat hier, anders de tellingen */}
+            {/* zolang er een liedje speelt loopt dat hier als een lichtkrant
+                voorbij, anders staan hier de tellingen */}
             {speelRij ? (
-              <span className="nu-speelt">
-                &#9834; nu speelt: {speelRij.liedje} &ndash; {speelRij.artiest}
-              </span>
+              <NuSpeelt tekst={'♪ nu speelt: ' + speelRij.liedje + ' – ' + speelRij.artiest} />
             ) : (
               <span>
                 {aantalGeweest} geweest, {aantalWil} op de lijst

@@ -35,8 +35,9 @@ function bewaarPlek(sleutel, plek) {
  * @param {string}   [opslagSleutel]  localStorage-sleutel om de plek te onthouden
  * @param {number}   [beginX]         verschuiving in px t.o.v. het midden voor de beginplek,
  *                                    zodat meerdere iconen in één ruimte niet op elkaar beginnen
+ * @param {number}   [beginY]         idem verticaal, voor iconen in meerdere rijen
  */
-export default function DesktopIcoon({ icoon, naam, onOpen, sleepbaar = false, opslagSleutel, beginX = 0 }) {
+export default function DesktopIcoon({ icoon, naam, onOpen, sleepbaar = false, opslagSleutel, beginX = 0, beginY = 0 }) {
   const [geselecteerd, zetGeselecteerd] = useState(false)
   const [plek, zetPlek] = useState(null) /* { x, y } in px binnen de ouder */
   const aanraking = useRef(false)
@@ -61,7 +62,7 @@ export default function DesktopIcoon({ icoon, naam, onOpen, sleepbaar = false, o
     const { maxX, maxY } = grenzen()
     const bewaard = leesPlek(opslagSleutel)
     // eslint-disable-next-line react-hooks/set-state-in-effect -- plek hangt af van gemeten afmetingen, moet vóór de eerste paint
-    zetPlek(bewaard ? klem(bewaard.fx * maxX, bewaard.y) : klem(maxX / 2 + beginX, maxY / 2))
+    zetPlek(bewaard ? klem(bewaard.fx * maxX, bewaard.y) : klem(maxX / 2 + beginX, maxY / 2 + beginY))
     // eslint-disable-next-line react-hooks/exhaustive-deps -- alleen bij laden meten
   }, [sleepbaar, opslagSleutel])
 
