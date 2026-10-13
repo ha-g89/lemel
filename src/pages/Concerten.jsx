@@ -11,6 +11,7 @@ import Leesmij from '../components/Leesmij.jsx'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import DataVenster from '../components/DataVenster.jsx'
+import Keuzelijst from '../components/Keuzelijst.jsx'
 import concertIcoon from '../assets/iconen/concert.png'
 import './Lenzendatabase.css'
 import './Concerten.css'
@@ -164,11 +165,11 @@ export default function Concerten() {
           </label>
           <label>
             alleen
-            <select id="statusfilter" value={filter} onChange={(e) => zetFilter(e.target.value)}>
+            <Keuzelijst id="statusfilter" value={filter} onChange={(e) => zetFilter(e.target.value)}>
               <option value="">alle {CONCERTEN.length}</option>
               <option value="geweest">geweest ({aantalGeweest})</option>
               <option value="wil">wil heen ({aantalWil})</option>
-            </select>
+            </Keuzelijst>
           </label>
         </div>
 

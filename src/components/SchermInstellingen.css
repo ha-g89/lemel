@@ -105,6 +105,10 @@
     border-left: 1px solid #808080;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+    /* win98-binnenrand, net als de vinkjes en velden van de database */
+    box-shadow:
+        inset 1px 1px 0 #000000,
+        inset -1px -1px 0 #DFDFDF;
 }
 .effect-optie input:checked + .vinkje::after {
     content: '';

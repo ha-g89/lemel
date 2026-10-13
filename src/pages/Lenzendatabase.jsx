@@ -8,6 +8,7 @@ import StatusIcoon from '../components/StatusIcoon.jsx'
 import DesktopIcoon from '../components/DesktopIcoon.jsx'
 import Leesmij from '../components/Leesmij.jsx'
 import DataVenster from '../components/DataVenster.jsx'
+import Keuzelijst from '../components/Keuzelijst.jsx'
 import databaseIcoon from '../assets/iconen/database.png'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
 import inBezitTegel from '../assets/iconen/in-bezit.png'
@@ -246,18 +247,18 @@ export default function Lenzendatabase() {
             </label>
             <label>
               vatting
-              <select id="vattingfilter" value={vatting} onChange={(e) => zetVatting(e.target.value)}>
+              <Keuzelijst id="vattingfilter" value={vatting} onChange={(e) => zetVatting(e.target.value)}>
                 <option value="">alle</option>
                 {vattingen.map((v) => (
                   <option key={v} value={v}>
                     {v}
                   </option>
                 ))}
-              </select>
+              </Keuzelijst>
             </label>
             <label>
               alleen
-              <select
+              <Keuzelijst
                 id="statusfilter"
                 value={statusfilter}
                 onChange={(e) => zetStatusfilter(e.target.value)}
@@ -266,7 +267,7 @@ export default function Lenzendatabase() {
                 <option value="owned">in bezit</option>
                 <option value="wanted">op kijklijst</option>
                 <option value="sold">verkocht</option>
-              </select>
+              </Keuzelijst>
             </label>
           </div>
         )}

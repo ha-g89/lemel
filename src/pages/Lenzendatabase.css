@@ -99,16 +99,91 @@
     align-items: center;
     gap: 4px;
 }
+/* zoekveld en keuzelijsten: hetzelfde win98-verzonken vakje als de vinkjes
+   (buitenrand grijs/wit, binnenrand zwart/lichtgrijs), hoekig */
 #filterpaneel input[type="text"],
 #filterpaneel select {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    margin: 0;
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
-    padding: 2px 3px;
+    color: #000000;
+    padding: 3px 4px;
     border-top: 1px solid #808080;
     border-left: 1px solid #808080;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #000000,
+        inset -1px -1px 0 #DFDFDF;
     background-color: #FFFFFF;
+}
+/* vaste hoogte, zodat zoekveld en keuzelijsten even hoog zijn; 21px laat in
+   het knopje precies ruimte om het pijltje op hele pixels te centreren */
+#filterpaneel input[type="text"],
+#filterpaneel select {
+    box-sizing: border-box;
+    height: 21px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+/* keuzelijst (zie Keuzelijst.jsx): rechts in het verzonken vakje een grijs
+   win98-knopje met zwart pijltje, gebouwd uit randen zoals de startknop */
+#filterpaneel select {
+    padding-right: 23px;
+    cursor: pointer;
+}
+.keuzelijst {
+    position: relative;
+    display: inline-flex;
+}
+.keuzelijst-knop {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    width: 17px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background-color: #C0C0C0;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.keuzelijst-knop svg {
+    display: block;
+}
+/* ingedrukt (en zolang de lijst openstaat): knopje verzonken en pijltje een
+   pixel naar rechtsonder */
+.keuzelijst select:active + .keuzelijst-knop,
+.keuzelijst.open .keuzelijst-knop {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+}
+.keuzelijst select:active + .keuzelijst-knop svg,
+.keuzelijst.open .keuzelijst-knop svg {
+    transform: translate(1px, 1px);
+}
+/* op de telefoon is de tekst 16px (anders zoomt ios in): hogere velden */
+@media (max-width: 700px) {
+    #filterpaneel input[type="text"],
+    #filterpaneel select {
+        height: 28px;
+    }
 }
 #zoekveld { width: 120px; }
 /* geen blauwe focusrand van de browser (safari/ios), maar een strak
