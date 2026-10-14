@@ -4,6 +4,13 @@
    de laatste patch. */
 export const PATCHNOTES = [
   {
+    datum: '2026-10-14',
+    punten: [
+      "nieuw: inspiratie in het start-menu, met een eigen icoontje. hier komen foto's en gifjes die mij inspireren.",
+      'concerten: met de vinkjes onder de zoekbalk zet je kolommen aan en uit, net als bij de database.',
+    ],
+  },
+  {
     datum: '2026-10-13',
     punten: [
       'nieuw: patchnotes.txt, waarin je kunt lezen wat er per dag verandert.',

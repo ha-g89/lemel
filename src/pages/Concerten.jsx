@@ -25,6 +25,9 @@ const KOLOMMEN = [
   ['wil', 'wil heen'],
 ]
 
+/* de artiest blijft altijd zichtbaar, dus die krijgt geen vinkje */
+const VASTE_KOLOM = 'artiest'
+
 /* jjjj-mm-dd -> dd-mm-jjjj */
 function datumNL(datum) {
   if (!datum) return ''
@@ -91,6 +94,20 @@ export default function Concerten() {
   const [dagInfo, zetDagInfo] = useState(null) /* datum 'jjjj-mm-dd' */
   const [speelRij, zetSpeelRij] = useState(null)
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
+  const [verborgen, zetVerborgen] = useState([])
+
+  const toon = useMemo(() => {
+    const t = {}
+    KOLOMMEN.forEach(([k]) => {
+      t[k] = !verborgen.includes(k)
+    })
+    return t
+  }, [verborgen])
+  const zichtbareKolommen = KOLOMMEN.filter(([k]) => toon[k])
+
+  function wisselKolom(kolom) {
+    zetVerborgen((v) => (v.includes(kolom) ? v.filter((k) => k !== kolom) : [...v, kolom]))
+  }
 
   const rijen = useMemo(() => {
     const term = zoekterm.trim().toLowerCase()
@@ -185,11 +202,21 @@ export default function Concerten() {
           </label>
         </div>
 
+        <div id="kolommenrij">
+          {KOLOMMEN.filter(([kolom]) => kolom !== VASTE_KOLOM).map(([kolom, kop]) => (
+            <label key={kolom} className="kolom-optie">
+              <input type="checkbox" checked={toon[kolom]} onChange={() => wisselKolom(kolom)} />
+              <span className="kolom-vinkje"></span>
+              {kop}
+            </label>
+          ))}
+        </div>
+
         <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="concertentabel">
             <thead>
               <tr>
-                {KOLOMMEN.map(([kolom, kop]) => (
+                {zichtbareKolommen.map(([kolom, kop]) => (
                   <th
                     key={kolom}
                     data-kolom={kolom}
@@ -204,76 +231,95 @@ export default function Concerten() {
             <tbody>
               {rijen.length === 0 && (
                 <tr>
-                  <td colSpan={KOLOMMEN.length}>geen concerten gevonden met dit filter.</td>
+                  <td colSpan={zichtbareKolommen.length}>geen concerten gevonden met dit filter.</td>
                 </tr>
               )}
               {rijen.map((r) => (
-                <tr key={r.artiest + r.datum + r.locatie} className={speelRij === r ? 'speelt-rij' : undefined}>
-                  <td className="niet-afbreken">
-                    {!r.datum ? (
-                      <span className="geen-data">&mdash;</span>
-                    ) : DAG_NIEUWS[r.datum] ? (
-                      <button
-                        type="button"
-                        className="info-link"
-                        title="wat gebeurde er die dag in de wereld?"
-                        onClick={() => zetDagInfo(r.datum)}
-                      >
-                        {datumNL(r.datum)}
-                      </button>
-                    ) : (
-                      datumNL(r.datum)
-                    )}
-                  </td>
+                <tr
+                  key={r.artiest + r.datum + r.locatie}
+                  className={speelRij === r ? 'speelt-rij' : undefined}
+                >
+                  {toon.datum && (
+                    <td className="niet-afbreken">
+                      {!r.datum ? (
+                        <span className="geen-data">&mdash;</span>
+                      ) : DAG_NIEUWS[r.datum] ? (
+                        <button
+                          type="button"
+                          className="info-link"
+                          title="wat gebeurde er die dag in de wereld?"
+                          onClick={() => zetDagInfo(r.datum)}
+                        >
+                          {datumNL(r.datum)}
+                        </button>
+                      ) : (
+                        datumNL(r.datum)
+                      )}
+                    </td>
+                  )}
                   <td>
                     <InfoLink tekst={r.artiest} wiki={r.wiki} onOpen={zetInfo} />
                   </td>
-                  {/* stad onder de locatie in plaats van een eigen kolom, zodat de
-                      tabel in de breedte van het doek past */}
-                  <td>
-                    {r.locatie ? (
-                      <>
-                        <InfoLink tekst={r.locatie} wiki={LOCATIE_WIKI[r.locatie]} onOpen={zetInfo} />
-                        {r.stad && <div className="stad">{r.stad}</div>}
-                      </>
-                    ) : (
-                      <span className="geen-data">&mdash;</span>
-                    )}
-                  </td>
-                  <td className="knop-kolom">
-                    {r.spotify ? (
-                      /* knop en titel samen één klikvlak: klikken speelt het
-                         liedje af, nog een keer klikken zet het uit */
-                      <button
-                        type="button"
-                        className="liedje-cel"
-                        title={(speelRij === r ? 'zet ' : 'speel ') + (r.liedje || 'liedje') + (speelRij === r ? ' uit' : ' af')}
-                        onClick={() => zetSpeelRij(speelRij === r ? null : r)}
-                      >
-                        {/* het liedje dat speelt: ingedrukte knop met een dansende equalizer */}
-                        <span className={speelRij === r ? 'infoknop speelknop speelt' : 'infoknop speelknop'}>
-                          {speelRij === r ? (
-                            <span className="equalizer" aria-label="speelt nu">
-                              <span />
-                              <span />
-                              <span />
-                            </span>
-                          ) : (
-                            <Afspelen />
-                          )}
-                        </span>
-                        <span className="liedje-titel">{r.liedje}</span>
-                      </button>
-                    ) : (
-                      <span className="geen-data">&mdash;</span>
-                    )}
-                  </td>
-                  <td className="vinkkolom">
-                    <Vinkje aan={r.geweest} label="geweest" />
-                  </td>
-                  <td className="vinkkolom">
-                    <Vinkje aan={r.wil} label="wil heen" />
-                  </td>
+                  {toon.locatie && (
+                    /* stad onder de locatie in plaats van een eigen kolom, zodat de
+                       tabel in de breedte van het doek past */
+                    <td>
+                      {r.locatie ? (
+                        <>
+                          <InfoLink tekst={r.locatie} wiki={LOCATIE_WIKI[r.locatie]} onOpen={zetInfo} />
+                          {r.stad && <div className="stad">{r.stad}</div>}
+                        </>
+                      ) : (
+                        <span className="geen-data">&mdash;</span>
+                      )}
+                    </td>
+                  )}
+                  {toon.liedje && (
+                    <td className="knop-kolom">
+                      {r.spotify ? (
+                        /* knop en titel samen één klikvlak: klikken speelt het
+                           liedje af, nog een keer klikken zet het uit */
+                        <button
+                          type="button"
+                          className="liedje-cel"
+                          title={
+                            (speelRij === r ? 'zet ' : 'speel ') +
+                            (r.liedje || 'liedje') +
+                            (speelRij === r ? ' uit' : ' af')
+                          }
+                          onClick={() => zetSpeelRij(speelRij === r ? null : r)}
+                        >
+                          {/* het liedje dat speelt: ingedrukte knop met een dansende equalizer */}
+                          <span
+                            className={speelRij === r ? 'infoknop speelknop speelt' : 'infoknop speelknop'}
+                          >
+                            {speelRij === r ? (
+                              <span className="equalizer" aria-label="speelt nu">
+                                <span />
+                                <span />
+                                <span />
+                              </span>
+                            ) : (
+                              <Afspelen />
+                            )}
+                          </span>
+                          <span className="liedje-titel">{r.liedje}</span>
+                        </button>
+                      ) : (
+                        <span className="geen-data">&mdash;</span>
+                      )}
+                    </td>
+                  )}
+                  {toon.geweest && (
+                    <td className="vinkkolom">
+                      <Vinkje aan={r.geweest} label="geweest" />
+                    </td>
+                  )}
+                  {toon.wil && (
+                    <td className="vinkkolom">
+                      <Vinkje aan={r.wil} label="wil heen" />
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

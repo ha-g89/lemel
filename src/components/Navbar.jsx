@@ -6,6 +6,7 @@ import autosIcoon from '../assets/iconen/autos.png'
 import jp26Icoon from '../assets/iconen/jp26.png'
 import databaseIcoon from '../assets/iconen/database.png'
 import concertIcoon from '../assets/iconen/concert.png'
+import inspiratieIcoon from '../assets/iconen/inspiratie.png'
 import homeIcoon from '../assets/iconen/home.png'
 import afsluitenIcoon from '../assets/iconen/afsluiten.png'
 import settingIcoon from '../assets/iconen/setting.png'
@@ -94,6 +95,10 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
         <NavLink to="/concerten" className={actief} onClick={onSluitMenu}>
           <img src={concertIcoon} alt="" />
           <span><u>c</u>oncerten</span>
+        </NavLink>
+        <NavLink to="/inspiratie" className={actief} onClick={onSluitMenu}>
+          <img src={inspiratieIcoon} alt="" />
+          <span><u>i</u>nspiratie</span>
         </NavLink>
         {opAfsluiten && (
           <>

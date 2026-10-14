@@ -191,7 +191,7 @@
     outline-offset: 0;
 }
 /* rij met win98-vinkjes onder het filterpaneel: welke kolommen de tabel toont
-   (het model staat er niet bij, dat blijft altijd zichtbaar) */
+   (de vaste kolom, model of artiest, staat er niet bij en blijft altijd zichtbaar) */
 #kolommenrij {
     display: flex;
     flex-wrap: wrap;
