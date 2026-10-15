@@ -9,16 +9,19 @@ import Kruisje from './Kruisje.jsx'
  * @param {string}    titel   tekst in de titelbalk, bv. 'lenzen.db - database'
  * @param {string}    icoon   url van het icoon in de titelbalk
  * @param {ReactNode} status  inhoud van de statusbalk (één vakje per element)
+ * @param {boolean}   [sluitbaar] kruisje tonen; op de startpagina zelf heeft sluiten geen zin
  */
-export default function DataVenster({ titel, icoon, status, children }) {
+export default function DataVenster({ titel, icoon, status, sluitbaar = true, children }) {
   return (
     <div className="databox data-venster" data-doek>
       <div className="titelbalk venster-titelbalk">
         <img className="titelbalk-icoon" src={icoon} alt="" />
         <span className="titelbalk-tekst">{titel}</span>
-        <Link className="sluitknop" to="/" title="sluiten" aria-label="sluiten">
-          <Kruisje />
-        </Link>
+        {sluitbaar && (
+          <Link className="sluitknop" to="/" title="sluiten" aria-label="sluiten">
+            <Kruisje />
+          </Link>
+        )}
       </div>
       {children}
       {status && <div className="statusbalk">{status}</div>}

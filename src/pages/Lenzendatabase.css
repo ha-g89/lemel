@@ -6,7 +6,8 @@
     position: relative;
     left: 50%;
     margin-left: calc(var(--doek-breedte) / -2);
-    margin-top: 100px;
+    /* de wereldbol heeft zelf 2px marge onder */
+    margin-top: calc(var(--wereldbol-ruimte) - 2px);
     margin-bottom: 40px;
     text-align: left;
 }
@@ -546,16 +547,17 @@
 }
 
 /* ---- leesmij.txt ---- */
-/* strook boven het venster, zo breed als het venster
-   (net als het bureaublad onder de foto's op de startpagina): hierbinnen kun je het
-   leesmij-icoon verslepen. de negatieve marge onderaan eet de bovenmarge van
-   de databox op, zodat het venster niet verder zakt dan nodig */
+/* strook boven het venster, zo breed als het venster: hierbinnen kun je het
+   leesmij-icoon verslepen. de negatieve marge onderaan haalt het venster
+   tot vlak onder het icoon */
 .leesmij-plek-boven {
     position: relative;
     width: var(--doek-breedte);
     left: 50%;
     margin-left: calc(var(--doek-breedte) / -2);
     height: 90px;
-    margin-top: 24px;
-    margin-bottom: -96px;
+    /* het icoon staat 20px binnen de strook; zo zit er boven en onder het
+       icoon evenveel ruimte als boven de wereldbol (--wereldbol-ruimte) */
+    margin-top: calc(var(--wereldbol-ruimte) - 22px);
+    margin-bottom: -18px;
 }

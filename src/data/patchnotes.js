@@ -1,15 +1,18 @@
 /* patchnotes: wat er per dag op de site is veranderd, nieuwste bovenaan.
    datum als 'jjjj-mm-dd'. hier blijft de hele geschiedenis staan; in
-   patchnotes.txt op de startpagina (bureaubladicoon onderaan) staat alleen
-   de laatste patch. */
+   patchnotes.txt (start-menu, instellingen) staat alleen de laatste patch. */
 export const PATCHNOTES = [
   {
     datum: '2026-10-15',
     punten: [
+      "startpagina: de foto's staan nu in een eigen venster, vijf naast elkaar. alles is wat breder geworden.",
+      'boven en onder de wereldbol zit nu evenveel ruimte, dus alles staat wat hoger op de pagina.',
       'inspiratie: zeventien nieuwe gifjes erbij.',
       "foto's en inspiratie: de tegels staan dichter op elkaar.",
       'inspiratie: de gifjes zijn zwart-wit.',
       'patchnotes.txt: het zwarte lijntje boven het icoontje is weg.',
+      "taakbalk: \"naar boven\" is nu een knop in de taakbalk, net als een geminimaliseerd venster. klik erop en hij blijft ingedrukt tot je weer naar beneden gaat. het icoontje op het bureaublad is weg.",
+      'start-menu: leesmij en patchnotes staan nu onder instellingen, over mij staat onder inspiratie. ze werken op elke pagina en het bureaublad van de startpagina is leeg.',
       'taakbalk: klik op het boompje en je kunt doneren aan natuurmonumenten.',
       'taakbalk: de smiley doet nu ook iets. klik maar.',
       'taakbalk: het computertje gaat nu naar linkedin. instagram vind je onderaan de pagina.',

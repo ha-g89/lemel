@@ -11,6 +11,9 @@ import homeIcoon from '../assets/iconen/home.png'
 import afsluitenIcoon from '../assets/iconen/afsluiten.png'
 import settingIcoon from '../assets/iconen/setting.png'
 import weergaveIcoon from '../assets/iconen/weergave.png'
+import patchnotesIcoon from '../assets/iconen/patchnotes.png'
+import leesmijIcoon from '../assets/iconen/leesmij.png'
+import overmijIcoon from '../assets/iconen/overmij.png'
 
 const actief = ({ isActive }) => (isActive ? 'actief' : undefined)
 
@@ -29,6 +32,9 @@ const THEMA_ICOON = {
  * @param {Function} [onSluitMenu]       sluit het menu (klik op een link erin)
  * @param {Function} [opAfsluiten]       klik op "Shut Down..." onderaan het menu
  * @param {Function} [onOpenInstellingen] klik op "scherminstellingen" in het instellingen-submenu
+ * @param {Function} [onOpenOvermij]      klik op "over mij" (onder inspiratie)
+ * @param {Function} [onOpenLeesmij]      klik op "leesmij" in het instellingen-submenu
+ * @param {Function} [onOpenPatchnotes]   klik op "patchnotes" in het instellingen-submenu
  */
 export default function Navbar({ open = false, ...rest }) {
   if (!open) return null
@@ -37,7 +43,7 @@ export default function Navbar({ open = false, ...rest }) {
 
 /* het opengeklapte menu zelf; los component zodat het open submenu bij
    elke keer openen weer dicht begint */
-function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstellingen }) {
+function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstellingen, onOpenOvermij, onOpenLeesmij, onOpenPatchnotes }) {
   const jaarKort = String(new Date().getFullYear()).slice(-2)
   const { pathname, search } = useLocation()
   /* op een touchscreen bestaat geen hover: de eerste tik op een item met een
@@ -100,6 +106,17 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
           <img src={inspiratieIcoon} alt="" />
           <span><u>i</u>nspiratie</span>
         </NavLink>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            if (onSluitMenu) onSluitMenu()
+            if (onOpenOvermij) onOpenOvermij()
+          }}
+        >
+          <img src={overmijIcoon} alt="" />
+          <span><u>o</u>ver mij</span>
+        </a>
         {opAfsluiten && (
           <>
             <div className="menu-scheiding"></div>
@@ -118,7 +135,8 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
               <img src={homeIcoon} alt="" className="home-icoon" />
               <span><u>h</u>ome</span>
             </Link>
-            <div className={itemKlasse('instellingen')}>
+            {/* onderaan het menu: submenu klapt omhoog open, anders hangt het over de taakbalk */}
+            <div className={itemKlasse('instellingen') + ' omhoog'}>
               <a
                 href="#"
                 onClick={(e) => {
@@ -141,6 +159,28 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
                 >
                   <img src={weergaveIcoon} alt="" className="weergave-icoon" />
                   <span>s<u>c</u>herminstellingen</span>
+                </a>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (onSluitMenu) onSluitMenu()
+                    if (onOpenLeesmij) onOpenLeesmij()
+                  }}
+                >
+                  <img src={leesmijIcoon} alt="" />
+                  <span><u>l</u>eesmij</span>
+                </a>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (onSluitMenu) onSluitMenu()
+                    if (onOpenPatchnotes) onOpenPatchnotes()
+                  }}
+                >
+                  <img src={patchnotesIcoon} alt="" />
+                  <span><u>p</u>atchnotes</span>
                 </a>
               </div>
             </div>

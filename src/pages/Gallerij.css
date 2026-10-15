@@ -79,38 +79,21 @@
 .photobox:nth-child(7n+7) { aspect-ratio: 4 / 3; }
 .photobox.verborgen { display: none; }
 
-#filterbalk {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: fit-content;
-    margin: 0 auto;
-    padding: 4px 6px;
-    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
-    font-size: 11px;
-    color: #000000;
-    background-color: #C0C0C0;
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    box-shadow:
-        inset -2px -2px 0 #808080,
-        inset 2px 2px 0 #DFDFDF;
-}
-#filterbalk a {
-    color: #05430a;
-    text-decoration: underline;
-}
+/* fotogrid in het gallerijvenster (DataVenster): wit vlak, zoals bij inspiratie */
 .photogrid {
-    column-count: 4;
+    column-count: 5;
     column-gap: 4px;
-    width: var(--doek-breedte);
-    position: relative;
-    left: 50%;
-    margin-left: calc(var(--doek-breedte) / -2);
-    margin-top: 64px;
-    margin-bottom: 16px;
+    min-height: 240px;
+    padding: 4px;
+    background-color: #FFFFFF;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+/* "toon alles" in de statusbalk bij een filter */
+.data-venster .statusbalk a {
+    color: #05430a;
 }
 
 /* ---- contextmenu (rechtermuisknop op een foto) ---- */

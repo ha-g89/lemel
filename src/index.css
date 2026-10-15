@@ -5,7 +5,9 @@
 /* breedte van het doek (fotogrid, database, concerten) en daarmee van de
    taakbalk: overal gelijk, zodat er bij wisselen van pagina niets verspringt */
 :root {
-    --doek-breedte: max(38vw, 520px);
+    --doek-breedte: max(58vw, 520px);
+    /* ruimte boven én onder de wereldbol, zodat die er precies tussenin staat */
+    --wereldbol-ruimte: 72px;
 }
 html {
     transition: filter 150ms ease-out, transform 400ms ease-in-out;
@@ -34,7 +36,7 @@ table {
     width: 600px;
     max-width: calc(100% - 20px);
     margin: 0 auto;
-    padding: 28px 10px 20px 10px;
+    padding: var(--wereldbol-ruimte) 10px 20px 10px;
     text-align: center;
 }
 .titel {
@@ -64,22 +66,6 @@ table {
     cursor: pointer;
     line-height: 0;
 }
-
-/* ---- klein bureaublad vlak boven de taakbalk (zie Pagina), zo breed als
-   het doek: hierin kun je "naar boven!!" (en op de startpagina leesmij en
-   overmij) verslepen. de negatieve marge haalt de taakbalk er dichter onder */
-.bureaublad-onder {
-    position: relative;
-    width: var(--doek-breedte);
-    left: 50%;
-    margin-left: calc(var(--doek-breedte) / -2);
-    height: 80px;
-    margin-bottom: -24px;
-}
-.bureaublad-onder.hoog {
-    height: 160px;
-}
-
 /* ---- taakbalk ---- */
 .taakbalk {
     position: relative;
@@ -182,6 +168,22 @@ table {
     box-shadow:
         inset -1px -1px 0 #808080,
         inset 1px 1px 0 #DFDFDF;
+}
+/* ingedrukt zolang je de muisknop vasthoudt, net als in windows 95 */
+.taakvenster:not(.actief):active {
+    background-color: #C0C0C0;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+}
+/* tekst en icoon zakken een pixel mee als de knop ingedrukt is */
+.taakvenster.actief > *,
+.taakvenster:active > * {
+    transform: translate(1px, 1px);
 }
 .taakvenster img {
     width: 12px;
@@ -313,6 +315,10 @@ table {
 }
 .menu-item.open .submenu {
     display: block;
+}
+.menu-item.omhoog .submenu {
+    top: auto;
+    bottom: -3px;
 }
 .navbar a {
     position: relative;
@@ -820,7 +826,7 @@ h2 {
     }
     /* minder lege ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
     .wrapper {
-        padding-top: 20px;
+        --wereldbol-ruimte: 44px;
     }
     .naar-start-houder {
         margin-top: 36px;

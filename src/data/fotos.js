@@ -149,10 +149,10 @@ export const FOTOLIJST = FOTOS.map((basis) => {
   }
 })
 
-/* tekst van leesmij.txt op de startpagina (bureaubladicoon onder de foto's, naast overmij.txt) */
+/* tekst van leesmij.txt (start-menu, instellingen): hoe de site werkt */
 export const LEESMIJ = `klik op een foto om 'm te openen. gebruik de knoppen in de foto om naar de volgende of vorige te gaan. beneden heb je de taakbalk met een startmenu. daarachter staan nog meer knoppen.
 
 nog wat willekeurige functionaliteiten: als je een foto rechtermuist, dan krijg je een menu te zien. sommige foto's hebben een (?) met een verhaal erachter.`
 
-/* tekst van overmij.txt op de startpagina, naast leesmij.txt */
+/* tekst van overmij.txt ("over mij" in het start-menu) */
 export const OVERMIJ = `ik ben mel. welkom op mijn website. ik weet niet goed waar ik begonnen ben, en waar ik ga eindigen. maar is het leven niet ook gewoon zo een beetje? mocht je mijn site op een of andere manier gevonden hebben, dan denk ik dat je wel ongeveer een idee hebt. voor nu heb ik weinig te vertellen. mocht je toch meer informatie nodig hebben, leesmij dan even.  - mel`

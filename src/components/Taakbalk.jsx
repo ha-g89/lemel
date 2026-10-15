@@ -33,7 +33,11 @@ function Klok() {
  * @param {boolean}  metJaar       doorgegeven aan Navbar
  * @param {Function} [opAfsluiten] doorgegeven aan Navbar
  * @param {Function} [onOpenInstellingen] doorgegeven aan Navbar, opent de weergave-instellingen
- * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
+ * @param {Function} [onOpenOvermij]      doorgegeven aan Navbar, opent overmij.txt
+ * @param {Function} [onOpenLeesmij]      doorgegeven aan Navbar, opent leesmij.txt
+ * @param {Function} [onOpenPatchnotes]   doorgegeven aan Navbar, opent patchnotes.txt
+ * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean, icoon?: string }[]} [vensters]
+ *   icoon valt terug op het vensterpictogram
  */
 export default function Taakbalk({
   vensters = [],
@@ -43,6 +47,9 @@ export default function Taakbalk({
   metJaar,
   opAfsluiten,
   onOpenInstellingen,
+  onOpenOvermij,
+  onOpenLeesmij,
+  onOpenPatchnotes,
 }) {
   return (
     <div className="taakbalk">
@@ -52,6 +59,9 @@ export default function Taakbalk({
         onSluitMenu={onSluitMenu}
         opAfsluiten={opAfsluiten}
         onOpenInstellingen={onOpenInstellingen}
+        onOpenOvermij={onOpenOvermij}
+        onOpenLeesmij={onOpenLeesmij}
+        onOpenPatchnotes={onOpenPatchnotes}
       />
       <button
         type="button"
@@ -69,7 +79,7 @@ export default function Taakbalk({
           className={v.actief ? 'taakvenster actief' : 'taakvenster'}
           onClick={v.onKlik}
         >
-          <img src={vensterIcoon} alt="" />
+          <img src={v.icoon ?? vensterIcoon} alt="" />
           <span>{v.titel}</span>
         </button>
       ))}
