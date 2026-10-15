@@ -2,7 +2,7 @@
 .photobox {
     position: relative;
     width: 100%;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
     overflow: hidden;
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
@@ -104,7 +104,7 @@
 }
 .photogrid {
     column-count: 4;
-    column-gap: 7px;
+    column-gap: 4px;
     width: var(--doek-breedte);
     position: relative;
     left: 50%;
@@ -219,7 +219,8 @@
     align-items: center;
     justify-content: center;
 }
-#lightbox-venster.gemaximaliseerd #lightbox-vlak img {
+#lightbox-venster.gemaximaliseerd #lightbox-vlak img,
+#lightbox-venster.gemaximaliseerd #lightbox-vlak video {
     max-width: 100%;
     max-height: 100%;
     width: auto;
@@ -430,7 +431,8 @@
     line-height: 0;
     overflow: hidden;
 }
-#lightbox-overlay img {
+#lightbox-overlay img,
+#lightbox-overlay video {
     display: block;
     max-width: 84vw;
     max-height: 78vh;

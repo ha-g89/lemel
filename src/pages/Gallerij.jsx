@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Pagina from '../components/Pagina.jsx'
 import Lightbox from '../components/Lightbox.jsx'
@@ -9,6 +9,7 @@ import leesmijIcoon from '../assets/iconen/leesmij.png'
 import overmijIcoon from '../assets/iconen/overmij.png'
 import patchnotesIcoon from '../assets/iconen/patchnotes.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
 import { FOTOLIJST, LEESMIJ, OVERMIJ } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
 import { patchnotesTekst } from '../data/patchnotes.js'
@@ -18,11 +19,7 @@ export default function Gallerij() {
   const [params] = useSearchParams()
   const lens = params.get('lens')
   const thema = params.get('thema')
-  /* elk open venster: { id, basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
-     ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop.
-     id blijft gelijk bij vorige/volgende, zodat het venster niet opnieuw laadt. */
-  const [vensters, zetVensters] = useState([])
-  const vensterTeller = useRef(0)
+  const lightbox = useLightboxVensters((foto) => foto.naam + '.jpg')
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, foto } */
   const [leesmijOpen, zetLeesmijOpen] = useState(false)
   const [overmijOpen, zetOvermijOpen] = useState(false)
@@ -47,51 +44,11 @@ export default function Gallerij() {
 
   useMenuLayout({ deps: [lens, thema] })
 
-  const openLightbox = useCallback((foto) => {
-    zetVensters((lijst) => {
-      const bestaat = lijst.some((v) => v.basis === foto.basis)
-      if (bestaat) {
-        return lijst.map((v) => (v.basis === foto.basis ? { ...v, geminimaliseerd: false } : v))
-      }
-      vensterTeller.current += 1
-      return [...lijst, { id: vensterTeller.current, basis: foto.basis, foto, geminimaliseerd: false }]
-    })
-  }, [])
-  const sluitLightbox = useCallback((basis) => {
-    zetVensters((lijst) => lijst.filter((v) => v.basis !== basis))
-  }, [])
-  const wisselLightbox = useCallback((basis) => {
-    zetVensters((lijst) =>
-      lijst.map((v) => (v.basis === basis ? { ...v, geminimaliseerd: !v.geminimaliseerd } : v))
-    )
-  }, [])
-  const minimaliseerAlles = useCallback(() => {
-    zetVensters((lijst) => lijst.map((v) => ({ ...v, geminimaliseerd: true })))
-  }, [])
-  /* wisselt een open venster naar een andere foto (vorige/volgende), zonder
-     het venster zelf te sluiten; doet niets als die foto al in een ander
-     venster open staat */
-  const navigeerLightbox = useCallback((huidigeBasis, nieuweFoto) => {
-    zetVensters((lijst) => {
-      if (lijst.some((v) => v.basis === nieuweFoto.basis && v.basis !== huidigeBasis)) return lijst
-      return lijst.map((v) =>
-        v.basis === huidigeBasis ? { ...v, basis: nieuweFoto.basis, foto: nieuweFoto, geminimaliseerd: false } : v
-      )
-    })
-  }, [])
-
-  const taakbalkVensters = vensters.map((v) => ({
-    basis: v.basis,
-    titel: v.foto.naam + '.jpg',
-    actief: !v.geminimaliseerd,
-    onKlik: () => wisselLightbox(v.basis),
-  }))
-
   return (
     <Pagina
       titel="le mel"
       metJaar
-      vensters={taakbalkVensters}
+      vensters={lightbox.taakbalkVensters}
       /* leesmij, overmij en patchnotes staan op het bureaubladje onder de
          foto's, naast "naar boven!!" (zie Pagina) */
       naarBovenPlek={plek(3)}
@@ -160,7 +117,7 @@ export default function Gallerij() {
                   if (img?.complete && img.naturalWidth) img.classList.add('binnen-direct')
                 }}
                 onLoad={(e) => e.currentTarget.classList.add('binnen')}
-                onClick={() => openLightbox(foto)}
+                onClick={() => lightbox.open(foto)}
                 onContextMenu={(e) => {
                   e.preventDefault()
                   zetContextMenu({ x: e.clientX, y: e.clientY, foto })
@@ -172,12 +129,12 @@ export default function Gallerij() {
       </div>
 
       <Lightbox
-        vensters={vensters}
+        vensters={lightbox.vensters}
         fotolijst={zichtbareFotos}
-        onSluit={sluitLightbox}
-        onMinimaliseer={wisselLightbox}
-        onMinimaliseerAlles={minimaliseerAlles}
-        onNavigeer={navigeerLightbox}
+        onSluit={lightbox.sluit}
+        onMinimaliseer={lightbox.wissel}
+        onMinimaliseerAlles={lightbox.minimaliseerAlles}
+        onNavigeer={lightbox.navigeer}
       />
 
       {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
@@ -203,7 +160,7 @@ export default function Gallerij() {
           x={contextMenu.x}
           y={contextMenu.y}
           foto={contextMenu.foto}
-          onOpenen={() => openLightbox(contextMenu.foto)}
+          onOpenen={() => lightbox.open(contextMenu.foto)}
           onSluiten={() => zetContextMenu(null)}
         />
       )}

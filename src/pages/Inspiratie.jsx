@@ -1,8 +1,12 @@
 import Pagina from '../components/Pagina.jsx'
 import DataVenster from '../components/DataVenster.jsx'
+import Lightbox from '../components/Lightbox.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
+import { INSPIRATIE_TEKST } from '../data/inspiratie.js'
 import inspiratieIcoon from '../assets/iconen/inspiratie.png'
 import './Lenzendatabase.css'
+import './Gallerij.css'
 import './Inspiratie.css'
 
 /* elk plaatje, gifje of filmpje in src/assets/inspiratie komt vanzelf op de
@@ -14,16 +18,24 @@ const bestanden = import.meta.glob('../assets/inspiratie/*.{jpg,JPG,jpeg,JPEG,pn
 })
 const PLAATJES = Object.entries(bestanden)
   .map(([pad, url]) => {
-    const naam = pad.split('/').pop()
-    return { naam, url, filmpje: /\.(webm|mp4)$/i.test(naam) }
+    const bestand = pad.split('/').pop()
+    const basis = bestand.replace(/\.[^.]+$/, '')
+    return {
+      basis,
+      bestand,
+      url,
+      filmpje: /\.(webm|mp4)$/i.test(bestand),
+      verhaal: INSPIRATIE_TEKST[basis] ?? null,
+    }
   })
-  .sort((a, b) => a.naam.localeCompare(b.naam, 'nl', { numeric: true }))
+  .sort((a, b) => a.bestand.localeCompare(b.bestand, 'nl', { numeric: true }))
 
 export default function Inspiratie() {
   useMenuLayout()
+  const lightbox = useLightboxVensters((p) => p.bestand)
 
   return (
-    <Pagina titel="le mel — inspiratie" klasse="database">
+    <Pagina titel="le mel — inspiratie" klasse="database" vensters={lightbox.taakbalkVensters}>
       <DataVenster
         titel="inspiratie"
         icoon={inspiratieIcoon}
@@ -32,16 +44,25 @@ export default function Inspiratie() {
         <div className="inspiratie-inhoud">
           {PLAATJES.length === 0 && 'binnenkort meer.'}
           {PLAATJES.map((p) => (
-            <a key={p.naam} className="inspiratie-plaatje" href={p.url} target="_blank" rel="noreferrer" title={p.naam}>
+            <div key={p.basis} className="inspiratie-plaatje" title={p.bestand} onClick={() => lightbox.open(p)}>
               {p.filmpje ? (
                 <video src={p.url} autoPlay muted loop playsInline />
               ) : (
                 <img src={p.url} alt="" loading="lazy" />
               )}
-            </a>
+            </div>
           ))}
         </div>
       </DataVenster>
+
+      <Lightbox
+        vensters={lightbox.vensters}
+        fotolijst={PLAATJES}
+        onSluit={lightbox.sluit}
+        onMinimaliseer={lightbox.wissel}
+        onMinimaliseerAlles={lightbox.minimaliseerAlles}
+        onNavigeer={lightbox.navigeer}
+      />
     </Pagina>
   )
 }

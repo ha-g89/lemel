@@ -12,7 +12,8 @@ import Vraagteken from './Vraagteken.jsx'
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft
  * gemount als het geminimaliseerd is (alleen met display:none verborgen),
  * zodat positie, maximaliseren en het laadprofiel bewaard blijven.
- * @param {object}   foto            item uit FOTOLIJST ({ basis, url, naam, lens })
+ * @param {object}   foto            item uit FOTOLIJST ({ basis, url, naam, lens }), of van de
+ *                                   inspiratiepagina ({ basis, url, bestand, filmpje, verhaal })
  * @param {boolean}  geminimaliseerd niet zichtbaar, maar wel nog gemount
  * @param {Function} onSluit         sluit dit venster helemaal (kruisje)
  * @param {Function} onMinimaliseer  verberg dit venster (streepje), blijft in de taakbalk
@@ -90,7 +91,10 @@ function LightboxVenster({
   }, [])
 
   const lensnaam = foto.lens ? LENS_NAAM[foto.lens] : null
-  const verhaal = foto.basis ? VERHAAL[foto.basis] : null
+  const verhaal = foto.verhaal ?? VERHAAL[foto.basis]
+  /* inspiratie heeft een eigen bestandsnaam en geen lens */
+  const bestandsnaam = foto.bestand ?? foto.naam + '.jpg'
+  const metLens = !foto.bestand
 
   return (
     <div
@@ -115,12 +119,12 @@ function LightboxVenster({
         onPointerMove={opSleepBeweeg}
         onPointerUp={opSleepEind}
       >
-        <span id="lightbox-naam">{foto.naam}.jpg</span>
+        <span id="lightbox-naam">{bestandsnaam}</span>
         <span className="lightbox-knoppen">
           {verhaal && (
             <span
               id="lightbox-info"
-              title="verhaal achter deze foto"
+              title={metLens ? 'verhaal achter deze foto' : 'tekstje erbij'}
               onClick={() => zetVerhaalOpen((o) => !o)}
             >
               <Vraagteken />
@@ -138,7 +142,11 @@ function LightboxVenster({
         </span>
       </div>
       <div id="lightbox-vlak" onTouchStart={opVeegStart} onTouchEnd={opVeegEind}>
-        <img id="lightbox-img" src={foto.url} alt="" />
+        {foto.filmpje ? (
+          <video id="lightbox-img" src={foto.url} autoPlay muted loop playsInline />
+        ) : (
+          <img id="lightbox-img" src={foto.url} alt="" />
+        )}
         {verhaal && verhaalOpen && (
           <div id="lightbox-verhaal-venster" onClick={(e) => e.stopPropagation()}>
             <p id="lightbox-verhaal-tekst">{verhaal}</p>
@@ -170,8 +178,8 @@ function LightboxVenster({
       )}
       {/* bestandsnaam, lens en plek in de lijst, zoals de statusbalk van een fotoviewer */}
       <div className="statusbalk">
-        <span>{foto.naam}.jpg</span>
-        <span>{lensnaam || 'onbekende lens'}</span>
+        <span>{bestandsnaam}</span>
+        {metLens && <span>{lensnaam || 'onbekende lens'}</span>}
         {nummer > 0 && (
           <span className="smal">
             {nummer} van {totaal}

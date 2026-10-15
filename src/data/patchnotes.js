@@ -4,6 +4,15 @@
    de laatste patch. */
 export const PATCHNOTES = [
   {
+    datum: '2026-10-15',
+    punten: [
+      'inspiratie: elf nieuwe gifjes erbij.',
+      "foto's en inspiratie: de tegels staan dichter op elkaar.",
+      'inspiratie: de gifjes zijn zwart-wit.',
+      "inspiratie: klik op een tegel en hij opent in een eigen venster, net als de foto's. bij sommige staat een (?) met een tekstje erbij.",
+    ],
+  },
+  {
     datum: '2026-10-14',
     punten: [
       "nieuw: inspiratie in het start-menu, met een eigen icoontje. hier komen foto's en gifjes die mij inspireren.",
