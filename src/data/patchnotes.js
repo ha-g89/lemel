@@ -6,9 +6,13 @@ export const PATCHNOTES = [
   {
     datum: '2026-10-15',
     punten: [
-      'inspiratie: zestien nieuwe gifjes erbij.',
+      'inspiratie: zeventien nieuwe gifjes erbij.',
       "foto's en inspiratie: de tegels staan dichter op elkaar.",
       'inspiratie: de gifjes zijn zwart-wit.',
+      'patchnotes.txt: het zwarte lijntje boven het icoontje is weg.',
+      'taakbalk: klik op het boompje en je kunt doneren aan natuurmonumenten.',
+      'taakbalk: de smiley doet nu ook iets. klik maar.',
+      'taakbalk: het computertje gaat nu naar linkedin. instagram vind je onderaan de pagina.',
       "inspiratie: klik op een tegel en hij opent in een eigen venster, net als de foto's. bij sommige staat een (?) met een tekstje erbij.",
     ],
   },

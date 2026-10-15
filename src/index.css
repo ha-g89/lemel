@@ -215,13 +215,7 @@ table {
     line-height: 0;
     cursor: pointer;
 }
-.lade-icoon {
-    display: flex;
-    align-items: center;
-    line-height: 0;
-}
-.lade-knop img,
-.lade-icoon img {
+.lade-knop img {
     width: 11px;
     height: 11px;
     flex-shrink: 0;

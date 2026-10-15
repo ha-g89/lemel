@@ -76,19 +76,31 @@ export default function Taakbalk({
       <div className="lade">
         <a
           className="lade-knop"
-          href="https://www.instagram.com/meneermel/"
+          href="https://www.linkedin.com/in/melcayci/"
           target="_blank"
           rel="noopener noreferrer"
-          title="netwerk: instagram"
+          title="netwerk: linkedin"
         >
           <img src={netwerkIcoon} alt="" />
         </a>
-        <span className="lade-icoon">
+        <a
+          className="lade-knop"
+          href="https://youtu.be/RUsUQ9tRHHQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          title=":)"
+        >
           <img src={smileyIcoon} alt="" />
-        </span>
-        <span className="lade-icoon">
+        </a>
+        <a
+          className="lade-knop"
+          href="https://www.natuurmonumenten.nl/doneer"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="doneer aan natuurmonumenten"
+        >
           <img src={boomIcoon} alt="" />
-        </span>
+        </a>
         <Klok />
       </div>
     </div>
