@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import './Contextmenu.css'
 
 /**
  * Generiek Win98-contextmenu: verschijnt op (x, y), sluit bij een klik

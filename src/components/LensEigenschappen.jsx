@@ -2,6 +2,7 @@ import { prijsTekst, STATUS_LABEL } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
 import databaseIcoon from '../assets/iconen/database.png'
 import Kruisje from './Kruisje.jsx'
+import './Venster.css'
 
 
 function Veld({ label, waarde }) {

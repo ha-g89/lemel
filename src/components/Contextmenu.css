@@ -1,0 +1,44 @@
+/* ---- win98-rechtermuisknopmenu (op een foto of een tabelrij) ---- */
+.contextmenu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    background-color: #C0C0C0;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    z-index: 2000;
+}
+.contextmenu button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    text-align: left;
+    padding: 4px 16px 4px 10px;
+    white-space: nowrap;
+    font: inherit;
+    color: #000000;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+.contextmenu button img {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+}
+.contextmenu button:hover {
+    background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
+    color: #FFFFFF;
+}

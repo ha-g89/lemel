@@ -1,6 +1,7 @@
 import concertIcoon from '../assets/iconen/concert.png'
 import Kruisje from './Kruisje.jsx'
 import { useEscape } from '../hooks/useEscape.js'
+import './Venster.css'
 
 const MAANDEN_EN = [
   'January', 'February', 'March', 'April', 'May', 'June',

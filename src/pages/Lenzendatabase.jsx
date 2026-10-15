@@ -5,12 +5,12 @@ import LensEigenschappen from '../components/LensEigenschappen.jsx'
 import vergrootglasIcoon from '../assets/iconen/vergrootglas2.png'
 import Vraagteken from '../components/Vraagteken.jsx'
 import StatusIcoon from '../components/StatusIcoon.jsx'
-import DesktopIcoon from '../components/DesktopIcoon.jsx'
-import Leesmij from '../components/Leesmij.jsx'
+import LeesmijPlek from '../components/LeesmijPlek.jsx'
+import KolomVinkjes from '../components/KolomVinkjes.jsx'
+import { useKolommen } from '../hooks/useKolommen.js'
 import DataVenster from '../components/DataVenster.jsx'
 import Keuzelijst from '../components/Keuzelijst.jsx'
 import databaseIcoon from '../assets/iconen/database.png'
-import leesmijIcoon from '../assets/iconen/leesmij.png'
 import inBezitTegel from '../assets/iconen/in-bezit.png'
 import kijklijstTegel from '../assets/iconen/kijklijst.png'
 import { LEESMIJ } from '../data/lenzen.js'
@@ -116,21 +116,7 @@ export default function Lenzendatabase() {
   const [sortering, zetSortering] = useState({ kolom: 'maker', omhoog: true })
   const [contextMenu, zetContextMenu] = useState(null) /* { x, y, r } */
   const [eigenschappenRij, zetEigenschappenRij] = useState(null)
-  const [leesmijOpen, zetLeesmijOpen] = useState(false)
-  const [verborgen, zetVerborgen] = useState(STANDAARD_VERBORGEN)
-
-  const toon = useMemo(() => {
-    const t = {}
-    KOLOMMEN.forEach(([k]) => {
-      t[k] = !verborgen.includes(k)
-    })
-    return t
-  }, [verborgen])
-  const zichtbareKolommen = KOLOMMEN.filter(([k]) => toon[k])
-
-  function wisselKolom(kolom) {
-    zetVerborgen((v) => (v.includes(kolom) ? v.filter((k) => k !== kolom) : [...v, kolom]))
-  }
+  const { toon, zichtbareKolommen, wisselKolom } = useKolommen(KOLOMMEN, STANDAARD_VERBORGEN)
 
   useEffect(() => {
     let actief = true
@@ -198,15 +184,7 @@ export default function Lenzendatabase() {
 
   return (
     <Pagina titel="le mel — lenzen" klasse="database">
-      <div className="leesmij-plek-boven">
-        <DesktopIcoon
-          icoon={leesmijIcoon}
-          naam="leesmij.txt"
-          onOpen={() => zetLeesmijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-leesmij-plek-lenzen"
-        />
-      </div>
+      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-lenzen" />
 
       <DataVenster
         titel="lenzen.db - database"
@@ -274,17 +252,7 @@ export default function Lenzendatabase() {
           </div>
         )}
 
-        {geladen && (
-          <div id="kolommenrij">
-            {KOLOMMEN.filter(([kolom]) => kolom !== VASTE_KOLOM).map(([kolom, kop]) => (
-              <label key={kolom} className="kolom-optie">
-                <input type="checkbox" checked={toon[kolom]} onChange={() => wisselKolom(kolom)} />
-                <span className="kolom-vinkje"></span>
-                {kop}
-              </label>
-            ))}
-          </div>
-        )}
+        {geladen && <KolomVinkjes kolommen={KOLOMMEN} vast={VASTE_KOLOM} toon={toon} onWissel={wisselKolom} />}
 
         <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="lenzentabel">
@@ -338,7 +306,6 @@ export default function Lenzendatabase() {
       {eigenschappenRij && (
         <LensEigenschappen r={eigenschappenRij} onSluiten={() => zetEigenschappenRij(null)} />
       )}
-      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
     </Pagina>
   )
 }

@@ -1,7 +1,7 @@
 /* patchnotes: wat er per dag op de site is veranderd, nieuwste bovenaan.
    datum als 'jjjj-mm-dd'. hier blijft de hele geschiedenis staan; in
    patchnotes.txt (start-menu, instellingen) staat alleen de laatste patch. */
-export const PATCHNOTES = [
+const PATCHNOTES = [
   {
     datum: '2026-10-15',
     punten: [
@@ -17,6 +17,7 @@ export const PATCHNOTES = [
       'taakbalk: de smiley doet nu ook iets. klik maar.',
       'taakbalk: het computertje gaat nu naar linkedin. instagram vind je onderaan de pagina.',
       "inspiratie: klik op een tegel en hij opent in een eigen venster, net als de foto's. bij sommige staat een (?) met een tekstje erbij.",
+      'achter de schermen: code opgeruimd.',
     ],
   },
   {

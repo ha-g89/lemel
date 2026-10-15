@@ -1,6 +1,7 @@
 import Kruisje from './Kruisje.jsx'
 import { useEscape } from '../hooks/useEscape.js'
 import leesmijIcoon from '../assets/iconen/leesmij.png'
+import './Venster.css'
 
 /**
  * Kladblok-venster met een tekstbestand, standaard leesmij.txt: de gedachte

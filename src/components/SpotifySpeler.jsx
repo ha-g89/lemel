@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Kruisje from './Kruisje.jsx'
 import concertIcoon from '../assets/iconen/concert.png'
+import './Venster.css'
 
 /* haalt het track-id uit een spotify-link ("delen → link naar nummer
    kopiëren"), of accepteert een kaal id */

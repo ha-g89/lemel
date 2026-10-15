@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Kruisje from './Kruisje.jsx'
+import './Venster.css'
 
 /**
  * Windows-95-programmavenster om een databasetabel heen: titelbalk met

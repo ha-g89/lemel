@@ -1,0 +1,167 @@
+/* ---- win95-vensters: het programmavenster om een tabel of de foto's
+   (DataVenster.jsx) en de info-, eigenschappen- en kladblokvensters
+   (Leesmij, LensEigenschappen, WikiInfo, DagInfo) ---- */
+.databox {
+    width: var(--doek-breedte);
+    position: relative;
+    left: 50%;
+    margin-left: calc(var(--doek-breedte) / -2);
+    /* de wereldbol heeft zelf 2px marge onder */
+    margin-top: calc(var(--wereldbol-ruimte) - 2px);
+    margin-bottom: 40px;
+    text-align: left;
+}
+/* programmavenster */
+.data-venster {
+    box-sizing: border-box;
+    padding: 3px;
+    background-color: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+}
+.data-venster .titelbalk .sluitknop {
+    text-decoration: none;
+}
+/* statusbalk onderin (basisstijl in index.css): blijft onderaan in beeld
+   terwijl je door de tabel scrolt, net als in een echt programma */
+.data-venster .statusbalk {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+}
+
+/* ---- eigenschappen-venster (rechtsklik op een rij), ook de basis van de
+   info-vensters en leesmij ---- */
+.eigenschappen-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.eigenschappen-venster {
+    width: 320px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #C0C0C0;
+    padding: 6px;
+    box-sizing: border-box;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow:
+        inset -2px -2px 0 #808080,
+        inset 2px 2px 0 #DFDFDF;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+}
+.eigenschappen-venster .titelbalk,
+.data-venster .titelbalk {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* zelfde maat als de lightbox-titelbalk van de gallerij: 15px knopjes
+       + 3px padding */
+    padding: 3px 3px 3px 5px;
+    margin-bottom: 6px;
+}
+/* in het datavenster sluit het filterpaneel direct aan op de titelbalk */
+.data-venster .titelbalk {
+    margin-bottom: 0;
+}
+.eigenschappen-venster .titelbalk-icoon,
+.data-venster .titelbalk-icoon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    image-rendering: pixelated;
+}
+.eigenschappen-venster .titelbalk-tekst,
+.data-venster .titelbalk-tekst {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* overflow: hidden knipt anders de staart van g/p/y en de 1px schaduw
+       eronder af; extra ruimte onderin, met een negatieve marge zodat de
+       titelbalk zelf niet hoger wordt */
+    padding-bottom: 2px;
+    margin-bottom: -2px;
+}
+.eigenschappen-venster .titelbalk .sluitknop,
+.data-venster .titelbalk .sluitknop {
+    width: 17px;
+    height: 15px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C0C0C0;
+    cursor: pointer;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow:
+        inset -1px -1px 0 #808080,
+        inset 1px 1px 0 #DFDFDF;
+}
+.eigenschappen-venster .titelbalk .sluitknop:active,
+.data-venster .titelbalk .sluitknop:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #DFDFDF;
+    background-color: #D4D4D4;
+}
+.eigenschappen-venster .titelbalk .sluitknop:active svg,
+.data-venster .titelbalk .sluitknop:active svg {
+    transform: translate(1px, 1px);
+}
+.eigenschappen-venster fieldset {
+    margin: 0 0 8px 0;
+    padding: 8px;
+    border: 1px solid #808080;
+    box-shadow: inset 1px 1px 0 #FFFFFF;
+}
+.eigenschappen-venster legend {
+    padding: 0 3px;
+}
+.eigenschappen-venster dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    margin: 0;
+}
+.eigenschappen-venster dt {
+    color: #333333;
+    white-space: nowrap;
+}
+.eigenschappen-venster dd {
+    margin: 0;
+    text-align: right;
+    overflow-wrap: break-word;
+}
+.eigenschappen-venster dd a {
+    color: #05430a;
+}

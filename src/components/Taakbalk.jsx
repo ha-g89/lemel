@@ -6,6 +6,13 @@ import boomIcoon from '../assets/iconen/boom.png'
 import netwerkIcoon from '../assets/iconen/netwerk.png'
 import smileyIcoon from '../assets/iconen/smiley.png'
 
+/* knopjes in het systeemvak rechts, elk een link naar buiten */
+const LADE = [
+  { href: 'https://www.linkedin.com/in/melcayci/', icoon: netwerkIcoon, titel: 'netwerk: linkedin' },
+  { href: 'https://youtu.be/RUsUQ9tRHHQ', icoon: smileyIcoon, titel: ':)' },
+  { href: 'https://www.natuurmonumenten.nl/doneer', icoon: boomIcoon, titel: 'doneer aan natuurmonumenten' },
+]
+
 function tijdNu() {
   const d = new Date()
   return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2)
@@ -31,11 +38,8 @@ function Klok() {
  * @param {Function} onToggleMenu  klik op Start: menu open/dicht
  * @param {Function} onSluitMenu   sluit het Start-menu (klik op een link erin)
  * @param {boolean}  metJaar       doorgegeven aan Navbar
- * @param {Function} [opAfsluiten] doorgegeven aan Navbar
- * @param {Function} [onOpenInstellingen] doorgegeven aan Navbar, opent de weergave-instellingen
- * @param {Function} [onOpenOvermij]      doorgegeven aan Navbar, opent overmij.txt
- * @param {Function} [onOpenLeesmij]      doorgegeven aan Navbar, opent leesmij.txt
- * @param {Function} [onOpenPatchnotes]   doorgegeven aan Navbar, opent patchnotes.txt
+ * @param {Function} opAfsluiten   doorgegeven aan Navbar
+ * @param {Function} onOpenVenster doorgegeven aan Navbar
  * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean, icoon?: string }[]} [vensters]
  *   icoon valt terug op het vensterpictogram
  */
@@ -46,10 +50,7 @@ export default function Taakbalk({
   onSluitMenu,
   metJaar,
   opAfsluiten,
-  onOpenInstellingen,
-  onOpenOvermij,
-  onOpenLeesmij,
-  onOpenPatchnotes,
+  onOpenVenster,
 }) {
   return (
     <div className="taakbalk">
@@ -58,10 +59,7 @@ export default function Taakbalk({
         open={menuOpen}
         onSluitMenu={onSluitMenu}
         opAfsluiten={opAfsluiten}
-        onOpenInstellingen={onOpenInstellingen}
-        onOpenOvermij={onOpenOvermij}
-        onOpenLeesmij={onOpenLeesmij}
-        onOpenPatchnotes={onOpenPatchnotes}
+        onOpenVenster={onOpenVenster}
       />
       <button
         type="button"
@@ -84,33 +82,11 @@ export default function Taakbalk({
         </button>
       ))}
       <div className="lade">
-        <a
-          className="lade-knop"
-          href="https://www.linkedin.com/in/melcayci/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="netwerk: linkedin"
-        >
-          <img src={netwerkIcoon} alt="" />
-        </a>
-        <a
-          className="lade-knop"
-          href="https://youtu.be/RUsUQ9tRHHQ"
-          target="_blank"
-          rel="noopener noreferrer"
-          title=":)"
-        >
-          <img src={smileyIcoon} alt="" />
-        </a>
-        <a
-          className="lade-knop"
-          href="https://www.natuurmonumenten.nl/doneer"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="doneer aan natuurmonumenten"
-        >
-          <img src={boomIcoon} alt="" />
-        </a>
+        {LADE.map((l) => (
+          <a key={l.href} className="lade-knop" href={l.href} target="_blank" rel="noopener noreferrer" title={l.titel}>
+            <img src={l.icoon} alt="" />
+          </a>
+        ))}
         <Klok />
       </div>
     </div>

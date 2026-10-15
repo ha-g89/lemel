@@ -29,12 +29,10 @@ const THEMA_ICOON = {
  * verschijnt dan als uitklapmenu boven de taakbalk.
  * @param {boolean}  metJaar             toont het jaartal in de groene balk (alleen op de gallerij)
  * @param {boolean}  open                staat het menu open
- * @param {Function} [onSluitMenu]       sluit het menu (klik op een link erin)
- * @param {Function} [opAfsluiten]       klik op "Shut Down..." onderaan het menu
- * @param {Function} [onOpenInstellingen] klik op "scherminstellingen" in het instellingen-submenu
- * @param {Function} [onOpenOvermij]      klik op "over mij" (onder inspiratie)
- * @param {Function} [onOpenLeesmij]      klik op "leesmij" in het instellingen-submenu
- * @param {Function} [onOpenPatchnotes]   klik op "patchnotes" in het instellingen-submenu
+ * @param {Function} onSluitMenu         sluit het menu (klik op een link erin)
+ * @param {Function} opAfsluiten         klik op "Shut Down..." onderaan het menu
+ * @param {Function} onOpenVenster       (naam) => void, opent een venster uit het menu:
+ *   'scherminstellingen', 'overmij', 'leesmij' of 'patchnotes' (zie Pagina)
  */
 export default function Navbar({ open = false, ...rest }) {
   if (!open) return null
@@ -43,7 +41,7 @@ export default function Navbar({ open = false, ...rest }) {
 
 /* het opengeklapte menu zelf; los component zodat het open submenu bij
    elke keer openen weer dicht begint */
-function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstellingen, onOpenOvermij, onOpenLeesmij, onOpenPatchnotes }) {
+function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenVenster }) {
   const jaarKort = String(new Date().getFullYear()).slice(-2)
   const { pathname, search } = useLocation()
   /* op een touchscreen bestaat geen hover: de eerste tik op een item met een
@@ -57,6 +55,20 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
     return true
   }
   const itemKlasse = (naam) => (openSubmenu === naam ? 'menu-item open' : 'menu-item')
+  /* menu-item dat geen pagina opent maar een venster (zie Pagina) */
+  const vensterItem = (naam, icoon, label, klasse) => (
+    <a
+      href="#"
+      onClick={(e) => {
+        e.preventDefault()
+        onSluitMenu()
+        onOpenVenster(naam)
+      }}
+    >
+      <img src={icoon} alt="" className={klasse} />
+      <span>{label}</span>
+    </a>
+  )
 
   return (
     <div
@@ -75,7 +87,7 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
             end
             className={actief}
             onClick={(e) => {
-              if (!klapOpen(e, 'gallerij') && onSluitMenu) onSluitMenu()
+              if (!klapOpen(e, 'gallerij')) onSluitMenu()
             }}
           >
             <img src={gallerijIcoon} alt="" />
@@ -106,97 +118,53 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenInstelling
           <img src={inspiratieIcoon} alt="" />
           <span><u>i</u>nspiratie</span>
         </NavLink>
+        {vensterItem('overmij', overmijIcoon, <><u>o</u>ver mij</>)}
+        <div className="menu-scheiding"></div>
+        <Link
+          to="/"
+          onClick={(e) => {
+            onSluitMenu()
+            /* al op de startpagina: rustig naar boven rollen in plaats van
+               opnieuw navigeren (dat springt meteen naar boven) */
+            if (pathname === '/' && !search) {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
+        >
+          <img src={homeIcoon} alt="" className="home-icoon" />
+          <span><u>h</u>ome</span>
+        </Link>
+        {/* onderaan het menu: submenu klapt omhoog open, anders hangt het over de taakbalk */}
+        <div className={itemKlasse('instellingen') + ' omhoog'}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
+              if (aanraking.current) zetOpenSubmenu(openSubmenu === 'instellingen' ? null : 'instellingen')
+            }}
+          >
+            <img src={settingIcoon} alt="" />
+            <span><u>i</u>nstellingen</span>
+            <span className="pijl">&#9654;</span>
+          </a>
+          <div className="submenu">
+            {vensterItem('scherminstellingen', weergaveIcoon, <>s<u>c</u>herminstellingen</>, 'weergave-icoon')}
+            {vensterItem('leesmij', leesmijIcoon, <><u>l</u>eesmij</>)}
+            {vensterItem('patchnotes', patchnotesIcoon, <><u>p</u>atchnotes</>)}
+          </div>
+        </div>
         <a
           href="#"
           onClick={(e) => {
             e.preventDefault()
-            if (onSluitMenu) onSluitMenu()
-            if (onOpenOvermij) onOpenOvermij()
+            onSluitMenu()
+            opAfsluiten()
           }}
         >
-          <img src={overmijIcoon} alt="" />
-          <span><u>o</u>ver mij</span>
+          <img src={afsluitenIcoon} alt="" className="afsluiten-icoon" />
+          <span><u>s</u>hut down...</span>
         </a>
-        {opAfsluiten && (
-          <>
-            <div className="menu-scheiding"></div>
-            <Link
-              to="/"
-              onClick={(e) => {
-                if (onSluitMenu) onSluitMenu()
-                /* al op de startpagina: rustig naar boven rollen in plaats van
-                   opnieuw navigeren (dat springt meteen naar boven) */
-                if (pathname === '/' && !search) {
-                  e.preventDefault()
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }
-              }}
-            >
-              <img src={homeIcoon} alt="" className="home-icoon" />
-              <span><u>h</u>ome</span>
-            </Link>
-            {/* onderaan het menu: submenu klapt omhoog open, anders hangt het over de taakbalk */}
-            <div className={itemKlasse('instellingen') + ' omhoog'}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  if (aanraking.current) zetOpenSubmenu(openSubmenu === 'instellingen' ? null : 'instellingen')
-                }}
-              >
-                <img src={settingIcoon} alt="" />
-                <span><u>i</u>nstellingen</span>
-                <span className="pijl">&#9654;</span>
-              </a>
-              <div className="submenu">
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    if (onSluitMenu) onSluitMenu()
-                    if (onOpenInstellingen) onOpenInstellingen()
-                  }}
-                >
-                  <img src={weergaveIcoon} alt="" className="weergave-icoon" />
-                  <span>s<u>c</u>herminstellingen</span>
-                </a>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    if (onSluitMenu) onSluitMenu()
-                    if (onOpenLeesmij) onOpenLeesmij()
-                  }}
-                >
-                  <img src={leesmijIcoon} alt="" />
-                  <span><u>l</u>eesmij</span>
-                </a>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    if (onSluitMenu) onSluitMenu()
-                    if (onOpenPatchnotes) onOpenPatchnotes()
-                  }}
-                >
-                  <img src={patchnotesIcoon} alt="" />
-                  <span><u>p</u>atchnotes</span>
-                </a>
-              </div>
-            </div>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault()
-                if (onSluitMenu) onSluitMenu()
-                opAfsluiten()
-              }}
-            >
-              <img src={afsluitenIcoon} alt="" className="afsluiten-icoon" />
-              <span><u>s</u>hut down...</span>
-            </a>
-          </>
-        )}
       </div>
     </div>
   )

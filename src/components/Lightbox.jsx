@@ -7,6 +7,7 @@ import Kruisje from './Kruisje.jsx'
 import Streepje from './Streepje.jsx'
 import Vergroten from './Vergroten.jsx'
 import Vraagteken from './Vraagteken.jsx'
+import './Lightbox.css'
 
 /**
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft

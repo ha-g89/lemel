@@ -7,9 +7,9 @@ import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
 import { CONCERTEN, DAG_NIEUWS, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
-import Leesmij from '../components/Leesmij.jsx'
-import leesmijIcoon from '../assets/iconen/leesmij.png'
-import DesktopIcoon from '../components/DesktopIcoon.jsx'
+import LeesmijPlek from '../components/LeesmijPlek.jsx'
+import KolomVinkjes from '../components/KolomVinkjes.jsx'
+import { useKolommen } from '../hooks/useKolommen.js'
 import DataVenster from '../components/DataVenster.jsx'
 import Keuzelijst from '../components/Keuzelijst.jsx'
 import concertIcoon from '../assets/iconen/concert.png'
@@ -93,21 +93,7 @@ export default function Concerten() {
   const [info, zetInfo] = useState(null) /* { titel, wiki } */
   const [dagInfo, zetDagInfo] = useState(null) /* datum 'jjjj-mm-dd' */
   const [speelRij, zetSpeelRij] = useState(null)
-  const [leesmijOpen, zetLeesmijOpen] = useState(false)
-  const [verborgen, zetVerborgen] = useState([])
-
-  const toon = useMemo(() => {
-    const t = {}
-    KOLOMMEN.forEach(([k]) => {
-      t[k] = !verborgen.includes(k)
-    })
-    return t
-  }, [verborgen])
-  const zichtbareKolommen = KOLOMMEN.filter(([k]) => toon[k])
-
-  function wisselKolom(kolom) {
-    zetVerborgen((v) => (v.includes(kolom) ? v.filter((k) => k !== kolom) : [...v, kolom]))
-  }
+  const { toon, zichtbareKolommen, wisselKolom } = useKolommen(KOLOMMEN)
 
   const rijen = useMemo(() => {
     const term = zoekterm.trim().toLowerCase()
@@ -151,15 +137,7 @@ export default function Concerten() {
       titel={speelRij ? '♪ ' + speelRij.liedje + ' – le mel' : 'le mel — concerten'}
       klasse="database"
     >
-      <div className="leesmij-plek-boven">
-        <DesktopIcoon
-          icoon={leesmijIcoon}
-          naam="leesmij.txt"
-          onOpen={() => zetLeesmijOpen(true)}
-          sleepbaar
-          opslagSleutel="lemel-leesmij-plek-concerten"
-        />
-      </div>
+      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-concerten" />
 
       <DataVenster
         titel="concerten.db - database"
@@ -202,15 +180,7 @@ export default function Concerten() {
           </label>
         </div>
 
-        <div id="kolommenrij">
-          {KOLOMMEN.filter(([kolom]) => kolom !== VASTE_KOLOM).map(([kolom, kop]) => (
-            <label key={kolom} className="kolom-optie">
-              <input type="checkbox" checked={toon[kolom]} onChange={() => wisselKolom(kolom)} />
-              <span className="kolom-vinkje"></span>
-              {kop}
-            </label>
-          ))}
-        </div>
+        <KolomVinkjes kolommen={KOLOMMEN} vast={VASTE_KOLOM} toon={toon} onWissel={wisselKolom} />
 
         <div ref={omhulselRef} className={teBreed ? 'tabel-omhulsel te-breed' : 'tabel-omhulsel'}>
           <table className="datatable" id="concertentabel">
@@ -329,7 +299,6 @@ export default function Concerten() {
 
       {info && <WikiInfo titel={info.titel} wiki={info.wiki} onSluiten={() => zetInfo(null)} />}
       {dagInfo && <DagInfo datum={dagInfo} nieuws={DAG_NIEUWS[dagInfo]} onSluiten={() => zetDagInfo(null)} />}
-      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
       {speelRij && (
         <SpotifySpeler r={speelRij} onKlaar={() => zetSpeelRij(null)} onSluiten={() => zetSpeelRij(null)} />
       )}

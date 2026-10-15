@@ -1,0 +1,63 @@
+/* rij met win98-vinkjes onder het filterpaneel: welke kolommen de tabel toont
+   (de vaste kolom, model of artiest, staat er niet bij en blijft altijd zichtbaar) */
+#kolommenrij {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 0 4px 6px;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    color: #000000;
+    background-color: #C0C0C0;
+}
+.kolom-optie {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+.kolom-optie input {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    margin: 0;
+    opacity: 0;
+}
+.kolom-vinkje {
+    position: relative;
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    /* win98-verzonken vakje: buitenrand grijs/wit, binnenrand zwart/lichtgrijs */
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    box-shadow:
+        inset 1px 1px 0 #000000,
+        inset -1px -1px 0 #DFDFDF;
+}
+/* ingedrukt houden: grijs vakje, net als in windows */
+.kolom-optie:active .kolom-vinkje {
+    background-color: #C0C0C0;
+}
+/* aangevinkt: strak zwart vinkje in het witte vakje (vector, zodat het op
+   elk scherm scherp blijft) */
+.kolom-optie input:checked + .kolom-vinkje::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M1.2 4.6 L3.5 6.9 L7.8 2.1' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='butt' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 9px 9px;
+}
+.kolom-optie input:focus-visible + .kolom-vinkje {
+    outline: 1px dotted #000000;
+    outline-offset: 1px;
+}

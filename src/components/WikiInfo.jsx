@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import concertIcoon from '../assets/iconen/concert.png'
 import Kruisje from './Kruisje.jsx'
 import { useEscape } from '../hooks/useEscape.js'
+import './Venster.css'
 
 /* samenvatting + foto van een wikipedia-artikel; eerst de nederlandse
    wikipedia, valt terug op de engelse als het artikel daar niet bestaat */

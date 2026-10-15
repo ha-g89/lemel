@@ -1,13 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Taakbalk from './Taakbalk.jsx'
 import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
 import SchermInstellingen from './SchermInstellingen.jsx'
 import Leesmij from './Leesmij.jsx'
 import patchnotesIcoon from '../assets/iconen/patchnotes.png'
+import overmijIcoon from '../assets/iconen/overmij.png'
 import { patchnotesTekst } from '../data/patchnotes.js'
 import { LEESMIJ, OVERMIJ } from '../data/fotos.js'
-import overmijIcoon from '../assets/iconen/overmij.png'
 import logo from '../assets/iconen/logo.png'
 import instagramIcoon from '../assets/iconen/instagram.png'
 import naarBovenIcoon from '../assets/iconen/naar-boven.png'
@@ -20,6 +20,13 @@ const BUILDDATUM = new Date(import.meta.env.VITE_BUILDDATUM).toLocaleDateString(
   month: 'short',
   year: 'numeric',
 })
+
+/* kladblokvensters die vanuit het start-menu opengaan (zie Navbar) */
+const TEKSTVENSTERS = {
+  overmij: { tekst: OVERMIJ, naam: 'overmij.txt', icoon: overmijIcoon },
+  leesmij: { tekst: LEESMIJ },
+  patchnotes: { tekst: patchnotesTekst(), naam: 'patchnotes.txt', icoon: patchnotesIcoon },
+}
 
 /**
  * Gedeelde paginaschil: titel-logo, menu, inhoud, taakbalk en voettekst,
@@ -43,10 +50,9 @@ export default function Pagina({
   const [afgesloten, zetAfgesloten] = useState(false)
   const [menuOpen, zetMenuOpen] = useState(false)
   const [bsod, zetBsod] = useState(false)
-  const [instellingenOpen, zetInstellingenOpen] = useState(false)
-  const [overmijOpen, zetOvermijOpen] = useState(false)
-  const [leesmijOpen, zetLeesmijOpen] = useState(false)
-  const [patchnotesOpen, zetPatchnotesOpen] = useState(false)
+  /* welk venster uit het start-menu openstaat: 'scherminstellingen' of een
+     sleutel uit TEKSTVENSTERS */
+  const [venster, zetVenster] = useState(null)
   const [naarBovenIngedrukt, zetNaarBovenIngedrukt] = useState(false)
 
   /* "naar boven" in de taakbalk blijft ingedrukt zodra je erop klikt, ook
@@ -76,25 +82,6 @@ export default function Pagina({
   useEffect(() => {
     document.title = titel
   }, [titel])
-
-  /* hoe ver de slijmdruppels vallen: van de klodder (12px onder de bovenkant
-     van de knop) tot de bovenrand van de foto's of het venster eronder.
-     opnieuw meten als de pagina van vorm verandert */
-  const houderRef = useRef(null)
-  useLayoutEffect(() => {
-    const houder = houderRef.current
-    if (!houder) return
-    function meet() {
-      const doek = document.querySelector('[data-doek]')
-      if (!doek) return
-      const val = doek.getBoundingClientRect().top - houder.getBoundingClientRect().top - 12
-      houder.style.setProperty('--slijm-val', Math.max(20, Math.round(val)) + 'px')
-    }
-    meet()
-    const waarnemer = new ResizeObserver(meet)
-    waarnemer.observe(document.body)
-    return () => waarnemer.disconnect()
-  }, [afgesloten, bsod])
 
   /* paasei zonder knop: typ ergens op de site "bsod" (niet terwijl je in
      een tekstveld typt, anders triggert het per ongeluk bij het zoeken) */
@@ -128,8 +115,7 @@ export default function Pagina({
 
   return (
     <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
-      {/* de wereldbol brengt je naar de taakbalk onderaan, zolang de
-          naar-start-knop onzichtbaar is */}
+      {/* de wereldbol brengt je naar de taakbalk onderaan */}
       <button
         type="button"
         className="titel-link"
@@ -138,33 +124,6 @@ export default function Pagina({
       >
         <img className="titel" src={logo} alt="le mel" />
       </button>
-
-      {/* houder zodat het slijm buiten de knop kan hangen (de knop zelf heeft
-          overflow: hidden voor het glimeffect) */}
-      <div className="naar-start-houder" ref={houderRef}>
-        <button
-          type="button"
-          id="naar-start-knop"
-          className="naar-start-knop"
-          onClick={() =>
-            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
-          }
-        >
-          <span>naar start</span>
-        </button>
-        <span className="slijm slijm-links" aria-hidden="true" />
-        <span className="slijm slijm-rechts" aria-hidden="true" />
-        <span className="slijm-baan slijm-baan-links" aria-hidden="true">
-          <span className="slijm-drup">
-            <span className="slijm-drup-vorm" />
-          </span>
-        </span>
-        <span className="slijm-baan slijm-baan-rechts" aria-hidden="true">
-          <span className="slijm-drup">
-            <span className="slijm-drup-vorm" />
-          </span>
-        </span>
-      </div>
 
       {children}
 
@@ -186,32 +145,11 @@ export default function Pagina({
         onToggleMenu={() => zetMenuOpen((o) => !o)}
         onSluitMenu={() => zetMenuOpen(false)}
         opAfsluiten={() => zetAfgesloten(true)}
-        onOpenInstellingen={() => zetInstellingenOpen(true)}
-        onOpenOvermij={() => zetOvermijOpen(true)}
-        onOpenLeesmij={() => zetLeesmijOpen(true)}
-        onOpenPatchnotes={() => zetPatchnotesOpen(true)}
+        onOpenVenster={zetVenster}
       />
 
-      <SchermInstellingen open={instellingenOpen} onClose={() => zetInstellingenOpen(false)} />
-      {/* overmij.txt, via "over mij" in het start-menu */}
-      {overmijOpen && (
-        <Leesmij
-          tekst={OVERMIJ}
-          naam="overmij.txt"
-          icoon={overmijIcoon}
-          onSluiten={() => zetOvermijOpen(false)}
-        />
-      )}
-      {/* leesmij.txt van de site (hoe alles werkt), via instellingen in het start-menu */}
-      {leesmijOpen && <Leesmij tekst={LEESMIJ} onSluiten={() => zetLeesmijOpen(false)} />}
-      {patchnotesOpen && (
-        <Leesmij
-          tekst={patchnotesTekst()}
-          naam="patchnotes.txt"
-          icoon={patchnotesIcoon}
-          onSluiten={() => zetPatchnotesOpen(false)}
-        />
-      )}
+      <SchermInstellingen open={venster === 'scherminstellingen'} onClose={() => zetVenster(null)} />
+      {TEKSTVENSTERS[venster] && <Leesmij {...TEKSTVENSTERS[venster]} onSluiten={() => zetVenster(null)} />}
 
       <div className="footer" id="contact">
         <a

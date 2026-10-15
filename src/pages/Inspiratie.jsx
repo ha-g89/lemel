@@ -5,8 +5,6 @@ import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
 import { INSPIRATIE_TEKST } from '../data/inspiratie.js'
 import inspiratieIcoon from '../assets/iconen/inspiratie.png'
-import './Lenzendatabase.css'
-import './Gallerij.css'
 import './Inspiratie.css'
 
 /* elk plaatje, gifje of filmpje in src/assets/inspiratie komt vanzelf op de

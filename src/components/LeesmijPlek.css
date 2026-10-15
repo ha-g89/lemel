@@ -1,0 +1,15 @@
+/* ---- leesmij.txt ---- */
+/* strook boven het venster, zo breed als het venster: hierbinnen kun je het
+   leesmij-icoon verslepen. de negatieve marge onderaan haalt het venster
+   tot vlak onder het icoon */
+.leesmij-plek-boven {
+    position: relative;
+    width: var(--doek-breedte);
+    left: 50%;
+    margin-left: calc(var(--doek-breedte) / -2);
+    height: 90px;
+    /* het icoon staat 20px binnen de strook; zo zit er boven en onder het
+       icoon evenveel ruimte als boven de wereldbol (--wereldbol-ruimte) */
+    margin-top: calc(var(--wereldbol-ruimte) - 22px);
+    margin-bottom: -18px;
+}

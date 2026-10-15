@@ -9,7 +9,6 @@ import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
 import { FOTOLIJST } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
-import './Lenzendatabase.css'
 import './Gallerij.css'
 
 export default function Gallerij() {
