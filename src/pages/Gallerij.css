@@ -96,7 +96,7 @@
     color: #05430a;
 }
 
-/* ---- telefoon: twee kolommen, met aan de zijkanten ruimte om te vegen ---- */
+/* ---- telefoon: twee kolommen ---- */
 @media (max-width: 700px) {
     .photogrid {
         column-count: 2;

@@ -10,6 +10,38 @@ import Vraagteken from './Vraagteken.jsx'
 import './Lightbox.css'
 
 /**
+ * Filmpje in het lightboxvenster. Bij vorige/volgende laadt het nieuwe filmpje
+ * eerst onzichtbaar en blijft het oude staan tot het eerste beeld er is: krijgt
+ * één video een nieuwe src, dan wordt hij meteen leeg en 300x150 groot en zie
+ * je een lege grijze balk. Beide video's hebben hun url als key, zodat de
+ * voorlader daarna zelf het zichtbare filmpje wordt zonder opnieuw te laden.
+ * @param {string} url
+ */
+function LightboxFilmpje({ url }) {
+  const [getoond, zetGetoond] = useState(url)
+  const urls = url === getoond ? [url] : [getoond, url]
+  return urls.map((u) =>
+    u === getoond ? (
+      <video key={u} id="lightbox-img" src={u} autoPlay muted loop playsInline />
+    ) : (
+      <video
+        key={u}
+        className="lightbox-voorlader"
+        src={u}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={(e) => {
+          e.currentTarget.play().catch(() => {})
+          zetGetoond(u)
+        }}
+      />
+    ),
+  )
+}
+
+/**
  * Eén Windows-95-venster met de aangeklikte foto op volle grootte. Blijft
  * gemount als het geminimaliseerd is (alleen met display:none verborgen),
  * zodat positie, maximaliseren en het laadprofiel bewaard blijven.
@@ -144,7 +176,7 @@ function LightboxVenster({
       </div>
       <div id="lightbox-vlak" onTouchStart={opVeegStart} onTouchEnd={opVeegEind}>
         {foto.filmpje ? (
-          <video id="lightbox-img" src={foto.url} autoPlay muted loop playsInline />
+          <LightboxFilmpje url={foto.url} />
         ) : (
           <img id="lightbox-img" src={foto.url} alt="" />
         )}

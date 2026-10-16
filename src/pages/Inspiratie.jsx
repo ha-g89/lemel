@@ -8,8 +8,9 @@ import inspiratieIcoon from '../assets/iconen/inspiratie.png'
 import './Inspiratie.css'
 
 /* elk plaatje, gifje of filmpje in src/assets/inspiratie komt vanzelf op de
-   pagina, op bestandsnaam gesorteerd. grote gifs liever als webm of mp4: die
-   lopen hier net zo rond (zonder geluid), maar zijn vele malen kleiner */
+   pagina, op bestandsnaam gesorteerd. grote gifs liever als mp4 (h.264): die
+   lopen hier net zo rond (zonder geluid), maar zijn vele malen kleiner. geen
+   webm: safari op de iphone loopt die niet en blijft op het laatste beeld hangen */
 const bestanden = import.meta.glob('../assets/inspiratie/*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,webp,WEBP,webm,WEBM,mp4,MP4}', {
   eager: true,
   import: 'default',

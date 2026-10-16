@@ -3,6 +3,15 @@
    patchnotes.txt (start-menu, instellingen) staat alleen de laatste patch. */
 const PATCHNOTES = [
   {
+    datum: '2026-10-16',
+    punten: [
+      'op de telefoon lopen de vensters en de taakbalk nu van rand tot rand.',
+      'inspiratie: twee nieuwe gifjes erbij.',
+      'inspiratie: de gifjes lopen nu ook op de iphone steeds opnieuw rond.',
+      'inspiratie: bij vorige en volgende in het venster zie je geen lege grijze balk meer, het gifje wisselt meteen.',
+    ],
+  },
+  {
     datum: '2026-10-15',
     punten: [
       "startpagina: de foto's staan nu in een eigen venster, vijf naast elkaar. alles is wat breder geworden.",

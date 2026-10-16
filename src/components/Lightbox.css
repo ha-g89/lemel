@@ -262,6 +262,17 @@
     display: block;
     flex-shrink: 0;
 }
+/* volgend filmpje dat nog laadt (LightboxFilmpje): onzichtbaar en zonder
+   ruimte in te nemen, maar wel in de pagina, anders laadt safari hem niet */
+#lightbox-vlak video.lightbox-voorlader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
 #lightbox-vlak {
     position: relative;
     border-top: 1px solid #808080;

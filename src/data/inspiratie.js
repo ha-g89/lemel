@@ -1,7 +1,7 @@
 /* ============================================================
    INSPIRATIE — tekstje bij een plaatje of gifje op de inspiratiepagina,
    voor het (?)-knopje in het venster. Sleutel is de bestandsnaam in
-   src/assets/inspiratie zonder extensie, bv. 'mt' voor mt.webm. Zonder
+   src/assets/inspiratie zonder extensie, bv. 'mt' voor mt.mp4. Zonder
    sleutel hier geen (?)-knop.
    ============================================================ */
 export const INSPIRATIE_TEKST = {

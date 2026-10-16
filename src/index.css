@@ -571,16 +571,17 @@ h2 {
 }
 
 @media (max-width: 700px) {
-    :root {
-        --doek-breedte: 66vw;
-    }
-    /* tabellen passen niet in 66vw: op de telefoon bijna schermbreed */
-    .wrapper.database {
-        --doek-breedte: 92vw;
-    }
-    /* minder lege ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
+    /* op de telefoon gaan de vensters van rand tot rand: de wrapper krijgt
+       geen zijmarge en de vensters zijn even breed (100% i.p.v. 100vw, dat
+       telt een schuifbalk mee en schuift dan buiten beeld). minder lege
+       ruimte boven de inhoud, zodat de foto's eerder in beeld zijn */
     .wrapper {
+        --doek-breedte: 100%;
         --wereldbol-ruimte: 44px;
+        width: auto;
+        max-width: none;
+        padding-left: 0;
+        padding-right: 0;
     }
     /* onder de 16px zoomt iOS in zodra je in een tekstveld tikt */
     input[type="text"],
