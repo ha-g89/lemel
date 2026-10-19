@@ -6,6 +6,8 @@ const PATCHNOTES = [
     datum: '2026-10-19',
     punten: [
       'inspiratie: de gifjes zijn een stuk kleiner gemaakt, dus de pagina laadt sneller.',
+      'gallerij, database, concerten en inspiratie: de vensters hebben nu knoppen om te minimaliseren, maximaliseren en sluiten. een gesloten venster krijg je terug via het start-menu.',
+      'taakbalk: icoon en tekst staan nu netjes in het midden van de knop van een open venster.',
     ],
   },
   {

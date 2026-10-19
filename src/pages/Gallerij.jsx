@@ -7,6 +7,7 @@ import FotoContextMenu from '../components/FotoContextMenu.jsx'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
+import { useVensterStand } from '../hooks/useVensterStand.js'
 import { FOTOLIJST } from '../data/fotos.js'
 import { LENS_NAAM, THEMA_NAAM } from '../data/lenzen.js'
 import './Gallerij.css'
@@ -31,18 +32,21 @@ export default function Gallerij() {
   /* bij een filter alles direct laden, anders pas als de foto in beeld komt */
   const laadwijze = filterGeldig ? 'eager' : 'lazy'
 
-  useMenuLayout({ deps: [lens, thema] })
+  const titel = filterGeldig ? 'gallerij - ' + filternaam : 'gallerij'
+  const gallerij = useVensterStand({ titel, icoon: gallerijIcoon })
+
+  useMenuLayout({ deps: [lens, thema, gallerij.stand, gallerij.venster.gemaximaliseerd] })
 
   return (
     <Pagina
       titel="le mel"
       metJaar
-      vensters={lightbox.taakbalkVensters}
+      vensters={[...gallerij.taakbalkVensters, ...lightbox.taakbalkVensters]}
     >
       <DataVenster
-        titel={filterGeldig ? 'gallerij - ' + filternaam : 'gallerij'}
+        titel={titel}
         icoon={gallerijIcoon}
-        sluitbaar={false}
+        venster={gallerij.venster}
         status={
           filterGeldig ? (
             <>

@@ -26,8 +26,28 @@
     font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
     font-size: 11px;
 }
-.data-venster .titelbalk .sluitknop {
-    text-decoration: none;
+.data-venster .titelbalk .vensterknop {
+    padding: 0;
+}
+/* minimaliseren, maximaliseren en sluiten naast elkaar, zoals in de lightbox */
+.data-venster .titelbalk-knoppen {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+}
+/* gemaximaliseerd: zo breed als het scherm, met dezelfde marge als de wrapper.
+   op de telefoon is het venster al van rand tot rand */
+@media (min-width: 701px) {
+    .data-venster.gemaximaliseerd {
+        --doek-breedte: calc(100vw - 40px);
+    }
+}
+/* venster dicht of geminimaliseerd: alleen het lege bureaublad met de taakbalk */
+.leeg-bureaublad {
+    height: 60vh;
+}
+.data-venster.verborgen {
+    display: none;
 }
 /* statusbalk onderin (basisstijl in index.css): blijft onderaan in beeld
    terwijl je door de tabel scrolt, net als in een echt programma */
@@ -105,7 +125,7 @@
     margin-bottom: -2px;
 }
 .eigenschappen-venster .titelbalk .sluitknop,
-.data-venster .titelbalk .sluitknop {
+.data-venster .titelbalk .vensterknop {
     width: 17px;
     height: 15px;
     flex-shrink: 0;
@@ -124,7 +144,7 @@
         inset 1px 1px 0 #DFDFDF;
 }
 .eigenschappen-venster .titelbalk .sluitknop:active,
-.data-venster .titelbalk .sluitknop:active {
+.data-venster .titelbalk .vensterknop:active {
     border-top: 1px solid #000000;
     border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
@@ -135,7 +155,7 @@
     background-color: #D4D4D4;
 }
 .eigenschappen-venster .titelbalk .sluitknop:active svg,
-.data-venster .titelbalk .sluitknop:active svg {
+.data-venster .titelbalk .vensterknop:active svg {
     transform: translate(1px, 1px);
 }
 .eigenschappen-venster fieldset {

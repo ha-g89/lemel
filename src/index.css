@@ -144,7 +144,8 @@ table {
     min-width: 0;
     max-width: 220px;
     height: 20px;
-    padding: 0 8px;
+    /* links een pixel minder dan rechts, dan oogt de inhoud in het midden */
+    padding: 0 9px 0 7px;
     margin: 0;
     font-family: inherit;
     font-size: 11px;
@@ -180,9 +181,9 @@ table {
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
 }
-/* tekst en icoon zakken een pixel mee als de knop ingedrukt is */
-.taakvenster.actief > *,
-.taakvenster:active > * {
+/* tekst en icoon zakken een pixel mee zolang je de muisknop vasthoudt. een
+   open venster (actief) blijft wel ingedrukt, maar met de inhoud gecentreerd */
+.taakvenster:not(.actief):active > * {
     transform: translate(1px, 1px);
 }
 .taakvenster img {
@@ -192,7 +193,11 @@ table {
     object-fit: contain;
     image-rendering: pixelated;
 }
+/* het lettertype heeft boven meer lucht dan onder: een pixel omhoog en de
+   tekst staat net als bij de Start-knop midden in de knop */
 .taakvenster span {
+    position: relative;
+    top: -1px;
     min-width: 0;
     white-space: nowrap;
     overflow: hidden;

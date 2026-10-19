@@ -15,6 +15,7 @@ import inBezitTegel from '../assets/iconen/in-bezit.png'
 import kijklijstTegel from '../assets/iconen/kijklijst.png'
 import { LEESMIJ } from '../data/lenzen.js'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useVensterStand } from '../hooks/useVensterStand.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
 import { laadLenzen, prijsTekst, vergelijk, STATUS_LABEL } from '../lib/lenzendatabase.js'
 import { ebayZoeklink } from '../lib/ebay.js'
@@ -176,19 +177,21 @@ export default function Lenzendatabase() {
   const geladen = alleRijen !== null
 
   /* het menu opnieuw uitlijnen zodra de tabel er staat */
-  useMenuLayout({ deps: [geladen] })
+  const venster = useVensterStand({ titel: 'lenzen.db - database', icoon: databaseIcoon })
+  useMenuLayout({ deps: [geladen, venster.stand, venster.venster.gemaximaliseerd] })
 
   /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
   const omhulselRef = useRef(null)
   const teBreed = useTeBreed(omhulselRef)
 
   return (
-    <Pagina titel="le mel — lenzen" klasse="database">
+    <Pagina titel="le mel — lenzen" klasse="database" vensters={venster.taakbalkVensters}>
       <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-lenzen" />
 
       <DataVenster
         titel="lenzen.db - database"
         icoon={databaseIcoon}
+        venster={venster.venster}
         status={
           geladen && (
             <>

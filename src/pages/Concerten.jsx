@@ -5,6 +5,7 @@ import DagInfo from '../components/DagInfo.jsx'
 import Afspelen from '../components/Afspelen.jsx'
 import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useVensterStand } from '../hooks/useVensterStand.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
 import { CONCERTEN, DAG_NIEUWS, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
 import LeesmijPlek from '../components/LeesmijPlek.jsx'
@@ -123,7 +124,8 @@ export default function Concerten() {
     )
   }
 
-  useMenuLayout()
+  const venster = useVensterStand({ titel: 'concerten.db - database', icoon: concertIcoon })
+  useMenuLayout({ deps: [venster.stand, venster.venster.gemaximaliseerd] })
 
   /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
   const omhulselRef = useRef(null)
@@ -136,12 +138,14 @@ export default function Concerten() {
     <Pagina
       titel={speelRij ? '♪ ' + speelRij.liedje + ' – le mel' : 'le mel — concerten'}
       klasse="database"
+      vensters={venster.taakbalkVensters}
     >
       <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-concerten" />
 
       <DataVenster
         titel="concerten.db - database"
         icoon={concertIcoon}
+        venster={venster.venster}
         status={
           <>
             <span>

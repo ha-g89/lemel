@@ -2,6 +2,7 @@ import Pagina from '../components/Pagina.jsx'
 import DataVenster from '../components/DataVenster.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
+import { useVensterStand } from '../hooks/useVensterStand.js'
 import { useLightboxVensters } from '../hooks/useLightboxVensters.js'
 import { INSPIRATIE_TEKST } from '../data/inspiratie.js'
 import inspiratieIcoon from '../assets/iconen/inspiratie.png'
@@ -30,14 +31,16 @@ const PLAATJES = Object.entries(bestanden)
   .sort((a, b) => a.bestand.localeCompare(b.bestand, 'nl', { numeric: true }))
 
 export default function Inspiratie() {
-  useMenuLayout()
+  const venster = useVensterStand({ titel: 'inspiratie', icoon: inspiratieIcoon })
+  useMenuLayout({ deps: [venster.stand, venster.venster.gemaximaliseerd] })
   const lightbox = useLightboxVensters((p) => p.bestand)
 
   return (
-    <Pagina titel="le mel — inspiratie" klasse="database" vensters={lightbox.taakbalkVensters}>
+    <Pagina titel="le mel — inspiratie" klasse="database" vensters={[...venster.taakbalkVensters, ...lightbox.taakbalkVensters]}>
       <DataVenster
         titel="inspiratie"
         icoon={inspiratieIcoon}
+        venster={venster.venster}
         status={<span>{PLAATJES.length} {PLAATJES.length === 1 ? 'object' : 'objecten'}</span>}
       >
         <div className="inspiratie-inhoud">
