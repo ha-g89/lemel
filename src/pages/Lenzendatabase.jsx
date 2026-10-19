@@ -177,7 +177,7 @@ export default function Lenzendatabase() {
   const geladen = alleRijen !== null
 
   /* het menu opnieuw uitlijnen zodra de tabel er staat */
-  const venster = useVensterStand({ titel: 'lenzen.db - database', icoon: databaseIcoon })
+  const venster = useVensterStand({ titel: 'lenzen.db', icoon: databaseIcoon })
   useMenuLayout({ deps: [geladen, venster.stand, venster.venster.gemaximaliseerd] })
 
   /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
@@ -189,7 +189,7 @@ export default function Lenzendatabase() {
       <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-lenzen" />
 
       <DataVenster
-        titel="lenzen.db - database"
+        titel="lenzen.db"
         icoon={databaseIcoon}
         venster={venster.venster}
         status={

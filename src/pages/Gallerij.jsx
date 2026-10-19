@@ -100,6 +100,7 @@ export default function Gallerij() {
         fotolijst={zichtbareFotos}
         onSluit={lightbox.sluit}
         onMinimaliseer={lightbox.wissel}
+        onMaximaliseer={lightbox.maximaliseer}
         onMinimaliseerAlles={lightbox.minimaliseerAlles}
         onNavigeer={lightbox.navigeer}
       />

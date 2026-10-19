@@ -11,7 +11,7 @@ import './Venster.css'
  * Dicht of geminimaliseerd blijft het venster gemount (alleen verborgen),
  * zodat filters, sortering en een spelend liedje bewaard blijven; er staat
  * dan een leeg bureaublad, zodat de taakbalk op zijn plek blijft.
- * @param {string}    titel   tekst in de titelbalk, bv. 'lenzen.db - database'
+ * @param {string}    titel   tekst in de titelbalk, bv. 'lenzen.db'
  * @param {string}    icoon   url van het icoon in de titelbalk
  * @param {ReactNode} status  inhoud van de statusbalk (één vakje per element)
  * @param {object}    venster stand uit useVensterStand: { zichtbaar, gemaximaliseerd,

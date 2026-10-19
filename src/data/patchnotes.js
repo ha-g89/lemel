@@ -8,6 +8,12 @@ const PATCHNOTES = [
       'inspiratie: de gifjes zijn een stuk kleiner gemaakt, dus de pagina laadt sneller.',
       'gallerij, database, concerten en inspiratie: de vensters hebben nu knoppen om te minimaliseren, maximaliseren en sluiten. een gesloten venster krijg je terug via het start-menu.',
       'taakbalk: icoon en tekst staan nu netjes in het midden van de knop van een open venster.',
+      'taakbalk: klik met de rechtermuisknop op een venster om het te herstellen, minimaliseren, maximaliseren of sluiten.',
+      'taakbalk: open je een andere pagina, dan blijft de vorige als knop in de taakbalk staan en kun je er zo naar terug. pas als de taakbalk vol is gaat de pagina die je het langst niet gebruikt hebt vanzelf dicht.',
+      'database en concerten: in de titelbalk en de taakbalk staat nu gewoon lenzen.db en concerten.db.',
+      'concerten: de groene knop speelt het liedje af, klik op de titel en het opent in de spotify-app.',
+      'concerten: pendulum staat erbij op 19 februari 2027 in afas live.',
+      'leesmij: uitleg over de wereldbol en de naar boven-knop erbij.',
     ],
   },
   {

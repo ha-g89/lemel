@@ -49,7 +49,9 @@ function LightboxFilmpje({ url }) {
  *                                   inspiratiepagina ({ basis, url, bestand, filmpje, verhaal })
  * @param {boolean}  geminimaliseerd niet zichtbaar, maar wel nog gemount
  * @param {Function} onSluit         sluit dit venster helemaal (kruisje)
+ * @param {boolean}  gemaximaliseerd vult het hele scherm
  * @param {Function} onMinimaliseer  verberg dit venster (streepje), blijft in de taakbalk
+ * @param {Function} onMaximaliseer  wissel tussen gemaximaliseerd en het vorige formaat
  * @param {object}   [vorigeFoto]    vorige foto in de (gefilterde) lijst, of undefined bij de eerste
  * @param {object}   [volgendeFoto]  volgende foto in de (gefilterde) lijst, of undefined bij de laatste
  * @param {Function} onNavigeer      (nieuweFoto) => void, wisselt dit venster naar een andere foto
@@ -61,8 +63,10 @@ function LightboxFilmpje({ url }) {
 function LightboxVenster({
   foto,
   geminimaliseerd,
+  gemaximaliseerd,
   onSluit,
   onMinimaliseer,
+  onMaximaliseer,
   vorigeFoto,
   volgendeFoto,
   onNavigeer,
@@ -73,7 +77,6 @@ function LightboxVenster({
 }) {
   /* elke keer een ander, ongelijkmatig laadpatroon en -tempo, alsof een trage pc hapert */
   const [laadprofiel, zetLaadprofiel] = useState(null)
-  const [gemaximaliseerd, zetGemaximaliseerd] = useState(false)
   const [verhaalOpen, zetVerhaalOpen] = useState(false)
   /* verschuiving t.o.v. de door flexbox gecentreerde basispositie */
   const [positie, zetPositie] = useState({ x: 0, y: 0 })
@@ -166,7 +169,7 @@ function LightboxVenster({
           <span id="lightbox-min" onClick={onMinimaliseer}>
             <Streepje />
           </span>
-          <span id="lightbox-max" onClick={() => zetGemaximaliseerd((m) => !m)}>
+          <span id="lightbox-max" onClick={onMaximaliseer}>
             <Vergroten hersteld={gemaximaliseerd} />
           </span>
           <span id="lightbox-sluit" onClick={onSluit}>
@@ -231,6 +234,7 @@ function LightboxVenster({
  * @param {object[]} fotolijst          de (gefilterde) fotolijst waarbinnen vorige/volgende bladert
  * @param {Function} onSluit             sluit één venster helemaal (basis) => void
  * @param {Function} onMinimaliseer      verberg één venster (streepje) (basis) => void
+ * @param {Function} onMaximaliseer      wissel één venster tussen gemaximaliseerd en het vorige formaat (basis) => void
  * @param {Function} onMinimaliseerAlles verberg alle zichtbare vensters, blijven in de taakbalk
  * @param {Function} onNavigeer          (basis, nieuweFoto) => void, wisselt een venster naar een andere foto
  */
@@ -239,6 +243,7 @@ export default function Lightbox({
   fotolijst,
   onSluit,
   onMinimaliseer,
+  onMaximaliseer,
   onMinimaliseerAlles,
   onNavigeer,
 }) {
@@ -289,8 +294,10 @@ export default function Lightbox({
             key={v.id}
             foto={v.foto}
             geminimaliseerd={v.geminimaliseerd}
+            gemaximaliseerd={v.gemaximaliseerd}
             onSluit={() => onSluit(v.basis)}
             onMinimaliseer={() => onMinimaliseer(v.basis)}
+            onMaximaliseer={() => onMaximaliseer(v.basis)}
             vorigeFoto={index > 0 ? fotolijst[index - 1] : undefined}
             volgendeFoto={index !== -1 && index < fotolijst.length - 1 ? fotolijst[index + 1] : undefined}
             onNavigeer={(nieuweFoto) => onNavigeer(v.basis, nieuweFoto)}

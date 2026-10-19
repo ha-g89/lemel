@@ -38,7 +38,13 @@
     flex-shrink: 0;
     image-rendering: pixelated;
 }
-.contextmenu button:hover {
+.contextmenu button:hover:not(:disabled) {
     background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
     color: #FFFFFF;
+}
+/* niet beschikbaar: grijs met een witte schaduw, zoals in windows */
+.contextmenu button:disabled {
+    color: #808080;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    cursor: default;
 }

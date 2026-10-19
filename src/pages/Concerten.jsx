@@ -7,6 +7,7 @@ import SpotifySpeler from '../components/SpotifySpeler.jsx'
 import { useMenuLayout } from '../hooks/useMenuLayout.js'
 import { useVensterStand } from '../hooks/useVensterStand.js'
 import { useTeBreed } from '../hooks/useTeBreed.js'
+import { spotifyAppLink } from '../lib/spotify.js'
 import { CONCERTEN, DAG_NIEUWS, LEESMIJ, LOCATIE_WIKI } from '../data/concerten.js'
 import LeesmijPlek from '../components/LeesmijPlek.jsx'
 import KolomVinkjes from '../components/KolomVinkjes.jsx'
@@ -124,7 +125,7 @@ export default function Concerten() {
     )
   }
 
-  const venster = useVensterStand({ titel: 'concerten.db - database', icoon: concertIcoon })
+  const venster = useVensterStand({ titel: 'concerten.db', icoon: concertIcoon })
   useMenuLayout({ deps: [venster.stand, venster.venster.gemaximaliseerd] })
 
   /* te brede tabel (smal scherm): eigen schuifvenster, zie .te-breed */
@@ -143,7 +144,7 @@ export default function Concerten() {
       <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-concerten" />
 
       <DataVenster
-        titel="concerten.db - database"
+        titel="concerten.db"
         icoon={concertIcoon}
         venster={venster.venster}
         status={
@@ -251,22 +252,20 @@ export default function Concerten() {
                   {toon.liedje && (
                     <td className="knop-kolom">
                       {r.spotify ? (
-                        /* knop en titel samen één klikvlak: klikken speelt het
-                           liedje af, nog een keer klikken zet het uit */
-                        <button
-                          type="button"
-                          className="liedje-cel"
-                          title={
-                            (speelRij === r ? 'zet ' : 'speel ') +
-                            (r.liedje || 'liedje') +
-                            (speelRij === r ? ' uit' : ' af')
-                          }
-                          onClick={() => zetSpeelRij(speelRij === r ? null : r)}
-                        >
-                          {/* het liedje dat speelt: ingedrukte knop met een dansende equalizer */}
-                          <span
+                        /* de speelknop speelt het liedje hier af (nog een keer
+                           klikken zet het uit), de titel opent het in de spotify-app */
+                        <span className="liedje-cel">
+                          <button
+                            type="button"
                             className={speelRij === r ? 'infoknop speelknop speelt' : 'infoknop speelknop'}
+                            title={
+                              (speelRij === r ? 'zet ' : 'speel ') +
+                              (r.liedje || 'liedje') +
+                              (speelRij === r ? ' uit' : ' af')
+                            }
+                            onClick={() => zetSpeelRij(speelRij === r ? null : r)}
                           >
+                            {/* het liedje dat speelt: ingedrukte knop met een dansende equalizer */}
                             {speelRij === r ? (
                               <span className="equalizer" aria-label="speelt nu">
                                 <span />
@@ -276,9 +275,11 @@ export default function Concerten() {
                             ) : (
                               <Afspelen />
                             )}
-                          </span>
-                          <span className="liedje-titel">{r.liedje}</span>
-                        </button>
+                          </button>
+                          <a className="liedje-titel" href={spotifyAppLink(r.spotify)} title="open in spotify">
+                            {r.liedje}
+                          </a>
+                        </span>
                       ) : (
                         <span className="geen-data">&mdash;</span>
                       )}

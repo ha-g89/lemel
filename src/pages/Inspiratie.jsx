@@ -62,6 +62,7 @@ export default function Inspiratie() {
         fotolijst={PLAATJES}
         onSluit={lightbox.sluit}
         onMinimaliseer={lightbox.wissel}
+        onMaximaliseer={lightbox.maximaliseer}
         onMinimaliseerAlles={lightbox.minimaliseerAlles}
         onNavigeer={lightbox.navigeer}
       />

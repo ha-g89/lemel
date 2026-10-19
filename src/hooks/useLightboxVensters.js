@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from 'react'
+import { vensterMenu } from '../lib/vensterMenu.js'
 
 /**
  * Open lightbox-vensters bijhouden, voor de gallerij en de inspiratiepagina.
- * Elk venster: { id, basis, foto, geminimaliseerd }. Meerdere tegelijk kan,
+ * Elk venster: { id, basis, foto, geminimaliseerd, gemaximaliseerd }. Meerdere tegelijk kan,
  * ze komen dan ernaast in de overlay en krijgen elk hun eigen taakbalkknop.
  * id blijft gelijk bij vorige/volgende, zodat het venster niet opnieuw laadt.
  * @param {Function} bestandsnaam (foto) => naam in de taakbalk, bv. 'MCA_0194.jpg'
@@ -18,7 +19,7 @@ export function useLightboxVensters(bestandsnaam) {
         return lijst.map((v) => (v.basis === foto.basis ? { ...v, geminimaliseerd: false } : v))
       }
       vensterTeller.current += 1
-      return [...lijst, { id: vensterTeller.current, basis: foto.basis, foto, geminimaliseerd: false }]
+      return [...lijst, { id: vensterTeller.current, basis: foto.basis, foto, geminimaliseerd: false, gemaximaliseerd: false }]
     })
   }, [])
   const sluit = useCallback((basis) => {
@@ -27,6 +28,15 @@ export function useLightboxVensters(bestandsnaam) {
   const wissel = useCallback((basis) => {
     zetVensters((lijst) =>
       lijst.map((v) => (v.basis === basis ? { ...v, geminimaliseerd: !v.geminimaliseerd } : v))
+    )
+  }, [])
+  const zetVenster = useCallback((basis, velden) => {
+    zetVensters((lijst) => lijst.map((v) => (v.basis === basis ? { ...v, ...velden } : v)))
+  }, [])
+  /* waarde weglaten wisselt tussen gemaximaliseerd en het vorige formaat */
+  const maximaliseer = useCallback((basis, waarde) => {
+    zetVensters((lijst) =>
+      lijst.map((v) => (v.basis === basis ? { ...v, gemaximaliseerd: waarde ?? !v.gemaximaliseerd } : v))
     )
   }, [])
   const minimaliseerAlles = useCallback(() => {
@@ -49,7 +59,15 @@ export function useLightboxVensters(bestandsnaam) {
     titel: bestandsnaam(v.foto),
     actief: !v.geminimaliseerd,
     onKlik: () => wissel(v.basis),
+    menu: vensterMenu({
+      zichtbaar: !v.geminimaliseerd,
+      gemaximaliseerd: v.gemaximaliseerd,
+      toon: () => zetVenster(v.basis, { geminimaliseerd: false }),
+      minimaliseer: () => zetVenster(v.basis, { geminimaliseerd: true }),
+      zetMaximaal: (waarde) => maximaliseer(v.basis, waarde),
+      sluit: () => sluit(v.basis),
+    }),
   }))
 
-  return { vensters, open, sluit, wissel, minimaliseerAlles, navigeer, taakbalkVensters }
+  return { vensters, open, sluit, wissel, maximaliseer, minimaliseerAlles, navigeer, taakbalkVensters }
 }

@@ -186,9 +186,9 @@ export const CONCERTEN = [
   },
   {
     artiest: 'pendulum',
-    locatie: '',
-    stad: '',
-    datum: '',
+    locatie: 'afas live',
+    stad: 'amsterdam',
+    datum: '2027-02-19',
     geweest: false,
     wil: true,
     wiki: 'Pendulum (drum and bass band)',
@@ -314,7 +314,7 @@ export const DAG_NIEUWS = {
     ],
   },
   '2027-02-19': {
-    kop: 'dit is nog niet gebeurd. grote kans dat bullet for my valentine in afas live het belangrijkste nieuws van de dag wordt.',
+    kop: 'dit is nog niet gebeurd. grote kans dat bullet for my valentine en pendulum in afas live het belangrijkste nieuws van de dag worden.',
   },
 }
 

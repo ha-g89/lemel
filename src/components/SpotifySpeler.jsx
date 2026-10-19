@@ -1,15 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Kruisje from './Kruisje.jsx'
 import concertIcoon from '../assets/iconen/concert.png'
+import { spotifyId } from '../lib/spotify.js'
 import './Venster.css'
-
-/* haalt het track-id uit een spotify-link ("delen → link naar nummer
-   kopiëren"), of accepteert een kaal id */
-function spotifyId(link) {
-  if (!link) return null
-  const m = link.match(/track[/:]([A-Za-z0-9]+)/)
-  return m ? m[1] : link
-}
 
 /* spotify's iframe-api (eenmalig geladen): daarmee kan de pagina zelf op
    "play" drukken, zodat het liedje meteen begint na een klik op de speelknop */

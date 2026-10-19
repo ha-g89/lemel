@@ -91,18 +91,15 @@
 .stad {
     color: #808080;
 }
-/* favo liedje: speelknop links van de titel */
+/* favo liedje: speelknop links van de titel, de titel is een link naar de spotify-app */
 .liedje-cel {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 0;
-    border: 0;
-    background: none;
-    font: inherit;
+}
+.liedje-cel .liedje-titel {
     color: inherit;
-    text-align: left;
-    cursor: pointer;
+    text-decoration: none;
 }
 /* groene speelknop met wit driehoekje, valt op tussen de grijze knopjes;
    bij hover over de rij licht hij op, bij hover over het liedje ook de titel */
@@ -116,11 +113,11 @@
 .wrapper.database table.datatable tbody tr:hover .speelknop {
     background-color: #18a51d;
 }
-.liedje-cel:hover .liedje-titel {
+.liedje-cel .liedje-titel:hover {
     color: #05430a;
     text-decoration: underline;
 }
-.liedje-cel:active .speelknop {
+.speelknop:active {
     border-top: 1px solid #000000;
     border-left: 1px solid #000000;
     border-right: 1px solid #FFFFFF;
@@ -129,7 +126,7 @@
         inset 1px 1px 0 #05430a,
         inset -1px -1px 0 #39FF14;
 }
-.liedje-cel:active .speelknop svg {
+.speelknop:active svg {
     transform: translate(1px, 1px);
 }
 /* nu aan het spelen: knop blijft ingedrukt, titel vet */
