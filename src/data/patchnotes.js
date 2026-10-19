@@ -3,6 +3,12 @@
    patchnotes.txt (start-menu, instellingen) staat alleen de laatste patch. */
 const PATCHNOTES = [
   {
+    datum: '2026-10-19',
+    punten: [
+      'inspiratie: de gifjes zijn een stuk kleiner gemaakt, dus de pagina laadt sneller.',
+    ],
+  },
+  {
     datum: '2026-10-16',
     punten: [
       'op de telefoon lopen de vensters en de taakbalk nu van rand tot rand.',
