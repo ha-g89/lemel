@@ -27,6 +27,9 @@ const KOLOMMEN = [
   ['wil', 'wil heen'],
 ]
 
+/* kolommen die bij het openen uit staan; via de vinkjes weer aan te zetten */
+const STANDAARD_VERBORGEN = ['datum']
+
 /* de artiest blijft altijd zichtbaar, dus die krijgt geen vinkje */
 const VASTE_KOLOM = 'artiest'
 
@@ -95,7 +98,7 @@ export default function Concerten() {
   const [info, zetInfo] = useState(null) /* { titel, wiki } */
   const [dagInfo, zetDagInfo] = useState(null) /* datum 'jjjj-mm-dd' */
   const [speelRij, zetSpeelRij] = useState(null)
-  const { toon, zichtbareKolommen, wisselKolom } = useKolommen(KOLOMMEN)
+  const { toon, zichtbareKolommen, wisselKolom } = useKolommen(KOLOMMEN, STANDAARD_VERBORGEN)
 
   const rijen = useMemo(() => {
     const term = zoekterm.trim().toLowerCase()

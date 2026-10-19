@@ -14,6 +14,7 @@ const PATCHNOTES = [
       'concerten: de groene knop speelt het liedje af, klik op de titel en het opent in de spotify-app.',
       'concerten: pendulum staat erbij op 19 februari 2027 in afas live.',
       'leesmij: uitleg over de wereldbol en de naar boven-knop erbij.',
+      'concerten: de datumkolom staat standaard uit. zet hem aan met het vinkje datum.',
     ],
   },
   {
