@@ -98,6 +98,8 @@ export default function Concerten() {
   const [info, zetInfo] = useState(null) /* { titel, wiki } */
   const [dagInfo, zetDagInfo] = useState(null) /* datum 'jjjj-mm-dd' */
   const [speelRij, zetSpeelRij] = useState(null)
+  /* aangeklikte rij, zoals een geselecteerde regel in verkenner */
+  const [gekozenRij, zetGekozenRij] = useState(null)
   const { toon, zichtbareKolommen, wisselKolom } = useKolommen(KOLOMMEN, STANDAARD_VERBORGEN)
 
   const rijen = useMemo(() => {
@@ -215,7 +217,8 @@ export default function Concerten() {
               {rijen.map((r) => (
                 <tr
                   key={r.artiest + r.datum + r.locatie}
-                  className={speelRij === r ? 'speelt-rij' : undefined}
+                  className={[speelRij === r && 'speelt-rij', gekozenRij === r && 'gekozen-rij'].filter(Boolean).join(' ') || undefined}
+                  onClick={() => zetGekozenRij(gekozenRij === r ? null : r)}
                 >
                   {toon.datum && (
                     <td className="niet-afbreken">

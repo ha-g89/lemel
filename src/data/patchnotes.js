@@ -17,6 +17,7 @@ const PATCHNOTES = [
       'concerten: de datumkolom staat standaard uit. zet hem aan met het vinkje datum.',
       'database en concerten: een geselecteerd zoekveld of keuzelijst heeft nu een groene gloed in plaats van een hard groen randje.',
       'de pictogrammen in de taakbalk, titelbalken en op het bureaublad hebben nu een subtiele harde schaduw, net als in het start-menu.',
+      'concerten: een aangeklikte regel wordt zachtgroen met een stippelrandje, zoals een geselecteerde regel in windows. nog een keer klikken haalt de selectie weg.',
     ],
   },
   {

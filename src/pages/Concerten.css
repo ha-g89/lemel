@@ -144,7 +144,7 @@
 .wrapper.database table.datatable tbody tr.speelt-rij {
     background-color: #CFE8CF;
 }
-.speelknop.speelt + .liedje-titel {
+tr.gekozen-rij .speelknop.speelt + .liedje-titel {
     color: #05430a;
 }
 /* drie pixelbalkjes die op en neer dansen, zoals de equalizer in winamp */
@@ -293,4 +293,12 @@
 }
 .dag-ook li {
     margin-bottom: 3px;
+}
+/* aangeklikte rij: zachtgroen (duidelijk meer dan de hover) met een
+   stippelrandje, zoals een geselecteerde regel in verkenner */
+.wrapper.database table.datatable tbody tr.gekozen-rij,
+.wrapper.database table.datatable tbody tr.gekozen-rij:hover {
+    background-color: #B4DCB4;
+    outline: 1px dotted #0e7d12;
+    outline-offset: -1px;
 }
