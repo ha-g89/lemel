@@ -390,7 +390,6 @@ table {
     object-fit: contain;
     image-rendering: pixelated;
     flex-shrink: 0;
-    filter: drop-shadow(1px 1px 0 #000000);
 }
 .navbar a img.afsluiten-icoon {
     /* afsluiten.png vult zijn canvas vrijwel helemaal, andere
@@ -594,6 +593,19 @@ h2 {
     select {
         font-size: 16px !important;
     }
+}
+
+/* harde, half doorzichtige zwarte schaduw onder de pictogrammen: start-menu, taakbalk,
+   systeemvak, titelbalken en bureaubladiconen */
+.navbar a img,
+.startknop img,
+.taakvenster img,
+.lade-knop img,
+.titelbalk-icoon {
+    filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.4));
+}
+.desktop-icoon-plaatje img {
+    filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.5));
 }
 
 /* ---- schuifbalken in vensters (kladblok, eigenschappen, tabellen): win98-
