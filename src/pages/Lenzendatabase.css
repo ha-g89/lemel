@@ -148,12 +148,15 @@
     }
 }
 #zoekveld { width: 120px; }
-/* geen blauwe focusrand van de browser (safari/ios), maar een strak
-   groen randje in de kleur van de site */
+/* geen blauwe focusrand van de browser (safari/ios), maar een groene gloed
+   in de kleur van de site */
 #filterpaneel input[type="text"]:focus,
 #filterpaneel select:focus {
-    outline: 1px solid #0e7d12;
-    outline-offset: 0;
+    outline: none;
+    box-shadow:
+        inset 1px 1px 0 #000000,
+        inset -1px -1px 0 #DFDFDF,
+        0 0 6px 2px rgba(14, 125, 18, 0.8);
 }
 /* past de tabel niet in de breedte, dan krijgt hij een eigen schuifvenster
    van maximaal schermhoogte (zoals een lijst in verkenner): de horizontale

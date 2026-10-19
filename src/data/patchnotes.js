@@ -15,6 +15,7 @@ const PATCHNOTES = [
       'concerten: pendulum staat erbij op 19 februari 2027 in afas live.',
       'leesmij: uitleg over de wereldbol en de naar boven-knop erbij.',
       'concerten: de datumkolom staat standaard uit. zet hem aan met het vinkje datum.',
+      'database en concerten: een geselecteerd zoekveld of keuzelijst heeft nu een groene gloed in plaats van een hard groen randje.',
     ],
   },
   {
