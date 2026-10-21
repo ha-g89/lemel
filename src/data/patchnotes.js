@@ -17,6 +17,8 @@ const PATCHNOTES = [
       'database, concerten en inspiratie: sluit of minimaliseer je het venster, dan staan ook daar de mapjes, leesmij.txt en patchnotes.txt op het bureaublad.',
       'database en concerten: het leesmij-icoon bovenaan verdwijnt nu mee als je het venster sluit of minimaliseert.',
       'database en concerten: om een geselecteerd zoekveld of keuzelijst zit nu een neongroene pixelgloed, dus beter te zien.',
+      'taakbalk: de knop van een open venster is ingedrukt met het geruite rastertje van windows 98.',
+      'deel je de link van de site, dan zie je nu een voorbeeld met de gallerij erin.',
     ],
   },
   {

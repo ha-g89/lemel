@@ -160,6 +160,12 @@ table {
         inset 1px 1px 0 #808080,
         inset -1px -1px 0 #DFDFDF;
 }
+/* open venster: ingedrukt met het geruite win98-rastertje, witte en grijze
+   pixels om en om */
+.taakvenster.actief {
+    background-image: conic-gradient(#FFFFFF 25%, #C0C0C0 0 50%, #FFFFFF 0 75%, #C0C0C0 0);
+    background-size: 2px 2px;
+}
 .taakvenster:not(.actief) {
     background-color: #C0C0C0;
     border-top: 1px solid #FFFFFF;
