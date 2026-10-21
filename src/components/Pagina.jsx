@@ -163,6 +163,7 @@ export default function Pagina({
                     icoon: naarBovenIcoon,
                     actief: naarBovenIngedrukt,
                     onKlik: naarBoven,
+                    menuTekst: 'dat gaat helaas niet werken :(',
                   },
                 ]),
             ...vensters,

@@ -88,9 +88,10 @@ function Klok() {
  * @param {boolean}  metJaar       doorgegeven aan Navbar
  * @param {Function} opAfsluiten   doorgegeven aan Navbar
  * @param {Function} onOpenVenster doorgegeven aan Navbar
- * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean, icoon?: string, menu?: object }[]} [vensters]
+ * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean, icoon?: string, menu?: object, menuTekst?: string }[]} [vensters]
  *   icoon valt terug op het vensterpictogram; met menu (zie lib/vensterMenu.js)
- *   krijgt de knop een rechtermuismenu
+ *   krijgt de knop een rechtermuismenu, met menuTekst een geel briefje met
+ *   die tekst
  */
 export default function Taakbalk({
   vensters = [],
@@ -150,9 +151,11 @@ export default function Taakbalk({
           className={v.actief ? 'taakvenster actief' : 'taakvenster'}
           onClick={v.onKlik}
           onContextMenu={(e) => {
-            if (!v.menu) return
+            if (!v.menu && !v.menuTekst) return
             e.preventDefault()
-            zetKnopMenu({ basis: v.basis, x: e.clientX, y: e.clientY })
+            /* een briefje staat net boven de knop, een menu bij de muis */
+            const y = v.menuTekst ? e.currentTarget.getBoundingClientRect().top - 2 : e.clientY
+            zetKnopMenu({ basis: v.basis, x: e.clientX, y })
           }}
         >
           <img src={v.icoon ?? vensterIcoon} alt="" />
@@ -161,6 +164,11 @@ export default function Taakbalk({
       ))}
       {menuVenster?.menu && (
         <VensterknopMenu menu={menuVenster.menu} x={knopMenu.x} y={knopMenu.y} onSluiten={sluitKnopMenu} />
+      )}
+      {menuVenster?.menuTekst && (
+        <Contextmenu x={knopMenu.x} y={knopMenu.y} omhoog klasse="notitie" onSluiten={sluitKnopMenu}>
+          {menuVenster.menuTekst}
+        </Contextmenu>
       )}
       <div className="lade">
         {LADE.map((l) => (

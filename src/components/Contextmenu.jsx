@@ -9,8 +9,9 @@ import './Contextmenu.css'
  * @param {number}   y
  * @param {Function} onSluiten
  * @param {boolean}  [omhoog] menu boven (x, y) in plaats van eronder, bv. vanuit de taakbalk
+ * @param {string}   [klasse] extra klasse, bv. 'notitie' voor een geel briefje i.p.v. een menu
  */
-export default function Contextmenu({ x, y, omhoog = false, onSluiten, children }) {
+export default function Contextmenu({ x, y, omhoog = false, klasse, onSluiten, children }) {
   useEffect(() => {
     function opDocumentKlik(e) {
       if (e.target.closest('.contextmenu')) return
@@ -28,7 +29,7 @@ export default function Contextmenu({ x, y, omhoog = false, onSluiten, children 
   }, [onSluiten])
 
   return (
-    <div className="contextmenu" style={omhoog ? { left: x, bottom: window.innerHeight - y } : { left: x, top: y }}>
+    <div className={klasse ? 'contextmenu ' + klasse : 'contextmenu'} style={omhoog ? { left: x, bottom: window.innerHeight - y } : { left: x, top: y }}>
       {children}
     </div>
   )

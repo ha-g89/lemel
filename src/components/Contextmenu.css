@@ -42,6 +42,19 @@
     background: linear-gradient(to right, #05430a 0%, #0e7d12 55%, #39FF14 100%);
     color: #FFFFFF;
 }
+/* geel briefje i.p.v. een menu (rechtsklik op "naar boven" in de taakbalk),
+   zo compact als de tooltip bij een foto */
+.contextmenu.notitie {
+    display: block;
+    padding: 2px 4px;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    box-shadow: none;
+    font-size: 11px;
+    line-height: normal;
+    white-space: nowrap;
+    cursor: default;
+}
 /* niet beschikbaar: grijs met een witte schaduw, zoals in windows */
 .contextmenu button:disabled {
     color: #808080;
