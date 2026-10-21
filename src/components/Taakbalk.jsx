@@ -85,7 +85,6 @@ function Klok() {
  * @param {boolean}  menuOpen      staat het Start-menu open
  * @param {Function} onToggleMenu  klik op Start: menu open/dicht
  * @param {Function} onSluitMenu   sluit het Start-menu (klik op een link erin)
- * @param {boolean}  metJaar       doorgegeven aan Navbar
  * @param {Function} opAfsluiten   doorgegeven aan Navbar
  * @param {Function} onOpenVenster doorgegeven aan Navbar
  * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean, icoon?: string, menu?: object, menuTekst?: string }[]} [vensters]
@@ -98,7 +97,6 @@ export default function Taakbalk({
   menuOpen,
   onToggleMenu,
   onSluitMenu,
-  metJaar,
   opAfsluiten,
   onOpenVenster,
 }) {
@@ -129,7 +127,6 @@ export default function Taakbalk({
   return (
     <div className="taakbalk" ref={balkRef}>
       <Navbar
-        metJaar={metJaar}
         open={menuOpen}
         onSluitMenu={onSluitMenu}
         opAfsluiten={opAfsluiten}

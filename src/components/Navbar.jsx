@@ -27,7 +27,6 @@ const THEMA_ICOON = {
 /**
  * Het Windows-95 Start-menu: verborgen totdat er op Start wordt geklikt,
  * verschijnt dan als uitklapmenu boven de taakbalk.
- * @param {boolean}  metJaar             toont het jaartal in de groene balk (alleen op de gallerij)
  * @param {boolean}  open                staat het menu open
  * @param {Function} onSluitMenu         sluit het menu (klik op een link erin)
  * @param {Function} opAfsluiten         klik op "Shut Down..." onderaan het menu
@@ -41,7 +40,7 @@ export default function Navbar({ open = false, ...rest }) {
 
 /* het opengeklapte menu zelf; los component zodat het open submenu bij
    elke keer openen weer dicht begint */
-function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenVenster }) {
+function StartMenu({ onSluitMenu, opAfsluiten, onOpenVenster }) {
   const jaarKort = String(new Date().getFullYear()).slice(-2)
   const { pathname, search } = useLocation()
   /* op een touchscreen bestaat geen hover: de eerste tik op een item met een
@@ -78,7 +77,7 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenVenster })
       }}
     >
       <div className="balk" id="jaarbalk">
-        <b>meneer</b>mel{metJaar && <>&nbsp;{jaarKort}</>}
+        <b>meneer</b>mel&nbsp;{jaarKort}
       </div>
       <div className="items">
         <div className={itemKlasse('gallerij')}>

@@ -1,3 +1,4 @@
+import Bureaublad from './Bureaublad.jsx'
 import Kruisje from './Kruisje.jsx'
 import Streepje from './Streepje.jsx'
 import Vergroten from './Vergroten.jsx'
@@ -10,15 +11,15 @@ import './Venster.css'
  * in beeld blijft terwijl je door de tabel scrolt.
  * Dicht of geminimaliseerd blijft het venster gemount (alleen verborgen),
  * zodat filters, sortering en een spelend liedje bewaard blijven; er staat
- * dan een leeg bureaublad, zodat de taakbalk op zijn plek blijft.
+ * dan een bureaublad met iconen (zie Bureaublad), zodat de taakbalk op zijn
+ * plek blijft.
  * @param {string}    titel   tekst in de titelbalk, bv. 'lenzen.db'
  * @param {string}    icoon   url van het icoon in de titelbalk
  * @param {ReactNode} status  inhoud van de statusbalk (één vakje per element)
  * @param {object}    venster stand uit useVensterStand: { zichtbaar, gemaximaliseerd,
  *                            minimaliseer, maximaliseer, sluit }
- * @param {ReactNode} [bureaublad] iconen op het lege bureaublad als het venster weg is
  */
-export default function DataVenster({ titel, icoon, status, venster, bureaublad, children }) {
+export default function DataVenster({ titel, icoon, status, venster, children }) {
   const { zichtbaar, gemaximaliseerd: max } = venster
   const klassen = ['databox', 'data-venster']
   if (max) klassen.push('gemaximaliseerd')
@@ -27,8 +28,8 @@ export default function DataVenster({ titel, icoon, status, venster, bureaublad,
   return (
     <>
       {!zichtbaar && (
-        <div className={bureaublad ? 'databox leeg-bureaublad met-iconen' : 'databox leeg-bureaublad'} data-doek>
-          {bureaublad}
+        <div className="databox leeg-bureaublad" data-doek>
+          <Bureaublad />
         </div>
       )}
       <div className={klassen.join(' ')} data-doek={zichtbaar || undefined}>

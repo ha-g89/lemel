@@ -7,4 +7,5 @@
 export const INSPIRATIE_TEKST = {
   bruder: 'wir sind alle brüder!',
   mt: "we're not here because we're free, we're here because we're not free.",
+  wtyl: "welcome to your life, there's no turning back.",
 }

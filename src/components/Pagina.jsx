@@ -36,7 +36,6 @@ const TEKSTVENSTERS = {
  *
  * @param {string}  titel     browsertitel
  * @param {string}  klasse    extra klasse op de wrapper voor paginaspecifieke stijlen
- * @param {boolean} metJaar   jaartal in de menubalk (alleen gallerij)
  * @param {{ basis: string, titel: string, onKlik: Function, actief: boolean }[]} [vensters]
  *   knoppen in de taakbalk voor open vensters (bv. de lightbox), één per geopende foto,
  *   na de vaste knop "naar boven"
@@ -44,7 +43,6 @@ const TEKSTVENSTERS = {
 export default function Pagina({
   titel,
   klasse,
-  metJaar = false,
   vensters = [],
   children,
 }) {
@@ -168,7 +166,6 @@ export default function Pagina({
                 ]),
             ...vensters,
           ]}
-          metJaar={metJaar}
           menuOpen={menuOpen}
           onToggleMenu={() => zetMenuOpen((o) => !o)}
           onSluitMenu={() => zetMenuOpen(false)}

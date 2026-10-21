@@ -7,8 +7,8 @@ import leesmijIcoon from '../assets/iconen/leesmij.png'
 import patchnotesIcoon from '../assets/iconen/patchnotes.png'
 
 /**
- * Iconen op het lege bureaublad als het gallerijvenster dicht of
- * geminimaliseerd is, onder elkaar links zoals op een echt bureaublad:
+ * Iconen op het bureaublad als het venster van een pagina dicht of
+ * geminimaliseerd is (zie DataVenster), onder elkaar links zoals op een echt bureaublad:
  * een mapje per fotogallerij, daaronder leesmij en patchnotes.
  */
 export default function Bureaublad() {

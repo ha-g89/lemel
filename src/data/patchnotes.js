@@ -11,6 +11,11 @@ const PATCHNOTES = [
       'concerten: op de telefoon heeft het spotify-venster geen ronde hoekjes meer, de speler sluit nu strak aan op het venster, ook onderaan zonder grijs randje.',
       'concerten: de speelknoppen zijn nu paars in plaats van groen, zodat ze meer opvallen.',
       'taakbalk: probeer eens met de rechtermuisknop op naar boven te klikken.',
+      'inspiratie: twee nieuwe gifjes erbij.',
+      'het gele tekstje achter het (?) is bij een korte tekst nu net zo breed als de tekst, in het midden.',
+      'start-menu: in de groene balk staat nu op elke pagina meneermel 26, niet alleen op de gallerij.',
+      'database, concerten en inspiratie: sluit of minimaliseer je het venster, dan staan ook daar de mapjes, leesmij.txt en patchnotes.txt op het bureaublad.',
+      'database en concerten: het leesmij-icoon bovenaan verdwijnt nu mee als je het venster sluit of minimaliseert.',
     ],
   },
   {

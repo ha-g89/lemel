@@ -46,10 +46,10 @@
 .leeg-bureaublad {
     height: 60vh;
 }
-/* met iconen (zie Bureaublad.jsx): zo breed als de pagina, iconen onder
-   elkaar aan de linkerkant, net als op een echt bureaublad */
+/* zo breed als de pagina, met de iconen (zie Bureaublad.jsx) onder elkaar
+   aan de linkerkant, net als op een echt bureaublad */
 @media (min-width: 701px) {
-    .leeg-bureaublad.met-iconen {
+    .leeg-bureaublad {
         --doek-breedte: calc(100vw - 40px);
     }
 }

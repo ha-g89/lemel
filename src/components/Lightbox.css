@@ -172,6 +172,8 @@
     top: 12px;
     left: 12px;
     right: 12px;
+    /* krimpt mee met een korte tekst, zodat het vakje niet rechts leeg is */
+    width: fit-content;
     max-width: 360px;
     margin: 0 auto;
     background-color: #FFFFE1;

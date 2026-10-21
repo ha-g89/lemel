@@ -146,7 +146,8 @@ export default function Concerten() {
       klasse="database"
       vensters={venster.taakbalkVensters}
     >
-      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-concerten" />
+      {/* het leesmij hoort bij het venster: dicht of geminimaliseerd is het ook weg */}
+      {venster.venster.zichtbaar && <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-concerten" />}
 
       <DataVenster
         titel="concerten.db"

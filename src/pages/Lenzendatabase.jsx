@@ -186,7 +186,8 @@ export default function Lenzendatabase() {
 
   return (
     <Pagina titel="meneermel — lenzen" klasse="database" vensters={venster.taakbalkVensters}>
-      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-lenzen" />
+      {/* het leesmij hoort bij het venster: dicht of geminimaliseerd is het ook weg */}
+      {venster.venster.zichtbaar && <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-lenzen" />}
 
       <DataVenster
         titel="lenzen.db"
