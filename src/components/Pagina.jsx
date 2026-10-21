@@ -55,6 +55,26 @@ export default function Pagina({
      sleutel uit TEKSTVENSTERS */
   const [venster, zetVenster] = useState(null)
   const [naarBovenIngedrukt, zetNaarBovenIngedrukt] = useState(false)
+  /* staat de taakbalk bovenaan de pagina al helemaal in beeld, dan valt er
+     niets omhoog te rollen en laat de taakbalk "naar boven" weg (de
+     voettekst eronder mag buiten beeld vallen) */
+  const [pastInBeeld, zetPastInBeeld] = useState(false)
+  useEffect(() => {
+    function meet() {
+      const balk = document.querySelector('.taakbalk')
+      if (!balk) return
+      const onderkant = balk.getBoundingClientRect().bottom + window.scrollY
+      zetPastInBeeld(onderkant <= window.innerHeight + 1)
+    }
+    meet()
+    const waarnemer = new ResizeObserver(meet)
+    waarnemer.observe(document.body)
+    window.addEventListener('resize', meet)
+    return () => {
+      waarnemer.disconnect()
+      window.removeEventListener('resize', meet)
+    }
+  }, [])
 
   /* "naar boven" in de taakbalk blijft ingedrukt zodra je erop klikt, ook
      als je boven bent aangekomen. pas als de pagina weer ergens anders tot
@@ -130,16 +150,21 @@ export default function Pagina({
         {children}
 
         <Taakbalk
-          /* "naar boven" staat altijd als geminimaliseerd venster vooraan in de
-             taakbalk; klikken rolt de pagina rustig terug naar boven */
+          /* "naar boven" staat als geminimaliseerd venster vooraan in de
+             taakbalk, behalve als de taakbalk bovenaan al in beeld staat; klikken
+             rolt de pagina rustig terug naar boven */
           vensters={[
-            {
-              basis: 'naar-boven',
-              titel: 'naar boven',
-              icoon: naarBovenIcoon,
-              actief: naarBovenIngedrukt,
-              onKlik: naarBoven,
-            },
+            ...(pastInBeeld
+              ? []
+              : [
+                  {
+                    basis: 'naar-boven',
+                    titel: 'naar boven',
+                    icoon: naarBovenIcoon,
+                    actief: naarBovenIngedrukt,
+                    onKlik: naarBoven,
+                  },
+                ]),
             ...vensters,
           ]}
           metJaar={metJaar}

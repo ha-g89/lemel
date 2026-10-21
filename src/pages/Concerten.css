@@ -101,17 +101,19 @@
     color: inherit;
     text-decoration: none;
 }
-/* groene speelknop met wit driehoekje, valt op tussen de grijze knopjes;
-   bij hover over de rij licht hij op, bij hover over het liedje ook de titel */
+/* paarse speelknop met wit driehoekje: paars is het tegenovergestelde van
+   het groen van de site, dus hij valt op als actieknop tussen de grijze
+   knopjes; bij hover over de rij licht hij op, bij hover over het liedje
+   ook de titel */
 .infoknop.speelknop {
-    background-color: #0e7d12;
+    background-color: #800080;
     color: #FFFFFF;
     box-shadow:
-        inset -1px -1px 0 #05430a,
-        inset 1px 1px 0 #39FF14;
+        inset -1px -1px 0 #4A004A,
+        inset 1px 1px 0 #E014FF;
 }
 .wrapper.database table.datatable tbody tr:hover .speelknop {
-    background-color: #18a51d;
+    background-color: #A0168C;
 }
 .liedje-cel .liedje-titel:hover {
     color: #05430a;
@@ -123,8 +125,8 @@
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
     box-shadow:
-        inset 1px 1px 0 #05430a,
-        inset -1px -1px 0 #39FF14;
+        inset 1px 1px 0 #4A004A,
+        inset -1px -1px 0 #E014FF;
 }
 .speelknop:active svg {
     transform: translate(1px, 1px);
@@ -136,8 +138,8 @@
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
     box-shadow:
-        inset 1px 1px 0 #05430a,
-        inset -1px -1px 0 #39FF14;
+        inset 1px 1px 0 #4A004A,
+        inset -1px -1px 0 #E014FF;
 }
 /* de rij die speelt blijft lichtgroen, zoals een geselecteerde rij, en de
    titel wordt groen in dezelfde kleur als "nu speelt" in de statusbalk */
@@ -243,8 +245,13 @@ tr.gekozen-rij .speelknop.speelt + .liedje-titel {
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
 }
+/* spotify rondt zijn speler zelf af; door hem rondom 5px groter te maken
+   dan het vak vallen de ronde hoekjes erbuiten en sluit hij strak aan */
 .speler-vak iframe {
     display: block;
+    width: calc(100% + 10px);
+    height: 90px;
+    margin: -5px;
 }
 
 .eigenschappen-venster.kladblok-venster {
