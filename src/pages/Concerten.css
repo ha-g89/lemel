@@ -237,7 +237,7 @@ tr.gekozen-rij .speelknop.speelt + .liedje-titel {
 }
 /* verzonken vak om de speler, zoals de rand om het kladblokblad */
 .speler-vak {
-    height: 80px;
+    height: 70px;
     overflow: hidden;
     background-color: #C0C0C0;
     border-top: 2px solid #808080;
@@ -245,12 +245,13 @@ tr.gekozen-rij .speelknop.speelt + .liedje-titel {
     border-right: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
 }
-/* spotify rondt zijn speler zelf af; door hem rondom 5px groter te maken
-   dan het vak vallen de ronde hoekjes erbuiten en sluit hij strak aan */
+/* spotify rondt zijn speler zelf af en tekent hem altijd 80px hoog; het
+   vak is rondom 5px kleiner, zodat de ronde hoekjes erbuiten vallen en er
+   alleen de kleur van de speler te zien is */
 .speler-vak iframe {
     display: block;
     width: calc(100% + 10px);
-    height: 90px;
+    height: 80px;
     margin: -5px;
 }
 

@@ -8,7 +8,7 @@ const PATCHNOTES = [
       "gallerij: sluit of minimaliseer je het venster, dan staan er links op het bureaublad mapjes voor de gallerij, auto's en jp26, plus leesmij.txt en patchnotes.txt. dubbelklik om te openen.",
       'de site heet nu meneermel in plaats van le mel: in de titel van het tabblad, het start-menu en het blauwe scherm.',
       'taakbalk: staat de taakbalk al helemaal in beeld zonder te scrollen, dan staat de knop naar boven er niet, want er valt niets omhoog te rollen.',
-      'concerten: op de telefoon heeft het spotify-venster geen ronde hoekjes meer, de speler sluit nu strak aan op het venster.',
+      'concerten: op de telefoon heeft het spotify-venster geen ronde hoekjes meer, de speler sluit nu strak aan op het venster, ook onderaan zonder grijs randje.',
       'concerten: de speelknoppen zijn nu paars in plaats van groen, zodat ze meer opvallen.',
     ],
   },
