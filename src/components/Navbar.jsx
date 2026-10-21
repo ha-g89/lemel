@@ -78,7 +78,7 @@ function StartMenu({ metJaar = false, onSluitMenu, opAfsluiten, onOpenVenster })
       }}
     >
       <div className="balk" id="jaarbalk">
-        <b>le</b>&nbsp;mel{metJaar && <>&nbsp;{jaarKort}</>}
+        <b>meneer</b>mel{metJaar && <>&nbsp;{jaarKort}</>}
       </div>
       <div className="items">
         <div className={itemKlasse('gallerij')}>

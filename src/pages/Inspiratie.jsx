@@ -36,7 +36,7 @@ export default function Inspiratie() {
   const lightbox = useLightboxVensters((p) => p.bestand)
 
   return (
-    <Pagina titel="le mel — inspiratie" klasse="database" vensters={[...venster.taakbalkVensters, ...lightbox.taakbalkVensters]}>
+    <Pagina titel="meneermel — inspiratie" klasse="database" vensters={[...venster.taakbalkVensters, ...lightbox.taakbalkVensters]}>
       <DataVenster
         titel="inspiratie"
         icoon={inspiratieIcoon}

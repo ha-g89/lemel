@@ -4,6 +4,7 @@ import Afsluitscherm from './Afsluitscherm.jsx'
 import BSOD from './BSOD.jsx'
 import SchermInstellingen from './SchermInstellingen.jsx'
 import Leesmij from './Leesmij.jsx'
+import { StartVensterContext } from '../hooks/useStartVenster.js'
 import patchnotesIcoon from '../assets/iconen/patchnotes.png'
 import overmijIcoon from '../assets/iconen/overmij.png'
 import { patchnotesTekst } from '../data/patchnotes.js'
@@ -114,57 +115,59 @@ export default function Pagina({
   if (bsod) return <BSOD />
 
   return (
-    <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
-      {/* de wereldbol brengt je naar de taakbalk onderaan */}
-      <button
-        type="button"
-        className="titel-link"
-        title="naar de taakbalk"
-        onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })}
-      >
-        <img className="titel" src={logo} alt="le mel" />
-      </button>
-
-      {children}
-
-      <Taakbalk
-        /* "naar boven" staat altijd als geminimaliseerd venster vooraan in de
-           taakbalk; klikken rolt de pagina rustig terug naar boven */
-        vensters={[
-          {
-            basis: 'naar-boven',
-            titel: 'naar boven',
-            icoon: naarBovenIcoon,
-            actief: naarBovenIngedrukt,
-            onKlik: naarBoven,
-          },
-          ...vensters,
-        ]}
-        metJaar={metJaar}
-        menuOpen={menuOpen}
-        onToggleMenu={() => zetMenuOpen((o) => !o)}
-        onSluitMenu={() => zetMenuOpen(false)}
-        opAfsluiten={() => zetAfgesloten(true)}
-        onOpenVenster={zetVenster}
-      />
-
-      <SchermInstellingen open={venster === 'scherminstellingen'} onClose={() => zetVenster(null)} />
-      {TEKSTVENSTERS[venster] && <Leesmij {...TEKSTVENSTERS[venster]} onSluiten={() => zetVenster(null)} />}
-
-      <div className="footer" id="contact">
-        <a
-          href="https://www.instagram.com/meneermel/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
+    <StartVensterContext.Provider value={zetVenster}>
+      <div className={klasse ? 'wrapper ' + klasse : 'wrapper'}>
+        {/* de wereldbol brengt je naar de taakbalk onderaan */}
+        <button
+          type="button"
+          className="titel-link"
+          title="naar de taakbalk"
+          onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })}
         >
-          <img src={instagramIcoon} alt="Instagram" />
-        </a>
-        <div className="copyright">&copy; 2026 mel cayci &mdash; foto's niet gebruiken zonder toestemming please</div>
-        <div className="versie" title="commitcode van deze versie op github">
-          versie {VERSIE} &middot; {BUILDDATUM}
+          <img className="titel" src={logo} alt="meneermel" />
+        </button>
+
+        {children}
+
+        <Taakbalk
+          /* "naar boven" staat altijd als geminimaliseerd venster vooraan in de
+             taakbalk; klikken rolt de pagina rustig terug naar boven */
+          vensters={[
+            {
+              basis: 'naar-boven',
+              titel: 'naar boven',
+              icoon: naarBovenIcoon,
+              actief: naarBovenIngedrukt,
+              onKlik: naarBoven,
+            },
+            ...vensters,
+          ]}
+          metJaar={metJaar}
+          menuOpen={menuOpen}
+          onToggleMenu={() => zetMenuOpen((o) => !o)}
+          onSluitMenu={() => zetMenuOpen(false)}
+          opAfsluiten={() => zetAfgesloten(true)}
+          onOpenVenster={zetVenster}
+        />
+
+        <SchermInstellingen open={venster === 'scherminstellingen'} onClose={() => zetVenster(null)} />
+        {TEKSTVENSTERS[venster] && <Leesmij {...TEKSTVENSTERS[venster]} onSluiten={() => zetVenster(null)} />}
+
+        <div className="footer" id="contact">
+          <a
+            href="https://www.instagram.com/meneermel/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <img src={instagramIcoon} alt="Instagram" />
+          </a>
+          <div className="copyright">&copy; 2026 mel cayci &mdash; foto's niet gebruiken zonder toestemming please</div>
+          <div className="versie" title="commitcode van deze versie op github">
+            versie {VERSIE} &middot; {BUILDDATUM}
+          </div>
         </div>
       </div>
-    </div>
+    </StartVensterContext.Provider>
   )
 }

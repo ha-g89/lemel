@@ -3,6 +3,13 @@
    patchnotes.txt (start-menu, instellingen) staat alleen de laatste patch. */
 const PATCHNOTES = [
   {
+    datum: '2026-10-21',
+    punten: [
+      "gallerij: sluit of minimaliseer je het venster, dan staan er links op het bureaublad mapjes voor de gallerij, auto's en jp26, plus leesmij.txt en patchnotes.txt. dubbelklik om te openen.",
+      'de site heet nu meneermel in plaats van le mel: in de titel van het tabblad, het start-menu en het blauwe scherm.',
+    ],
+  },
+  {
     datum: '2026-10-19',
     punten: [
       'inspiratie: de gifjes zijn een stuk kleiner gemaakt, dus de pagina laadt sneller.',

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { ProgrammaContext } from '../hooks/useProgrammas.js'
 
 /* open programma's (pagina's) in de taakbalk, ook na verversen van de pagina */
-const OPSLAG = 'lemel-programmas'
+const OPSLAG = 'meneermel-programmas'
 
 function lees() {
   try {

@@ -1,4 +1,4 @@
-# le mel
+# meneermel
 
 Fotosite met Windows-95-look, gebouwd in React + Vite. Begonnen als nabouw
 van de oorspronkelijke HTML-pagina's, daarna uitgebreid met onder meer de

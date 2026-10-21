@@ -142,11 +142,11 @@ export default function Concerten() {
 
   return (
     <Pagina
-      titel={speelRij ? '♪ ' + speelRij.liedje + ' – le mel' : 'le mel — concerten'}
+      titel={speelRij ? '♪ ' + speelRij.liedje + ' – meneermel' : 'meneermel — concerten'}
       klasse="database"
       vensters={venster.taakbalkVensters}
     >
-      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-concerten" />
+      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-concerten" />
 
       <DataVenster
         titel="concerten.db"

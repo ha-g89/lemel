@@ -16,8 +16,9 @@ import './Venster.css'
  * @param {ReactNode} status  inhoud van de statusbalk (één vakje per element)
  * @param {object}    venster stand uit useVensterStand: { zichtbaar, gemaximaliseerd,
  *                            minimaliseer, maximaliseer, sluit }
+ * @param {ReactNode} [bureaublad] iconen op het lege bureaublad als het venster weg is
  */
-export default function DataVenster({ titel, icoon, status, venster, children }) {
+export default function DataVenster({ titel, icoon, status, venster, bureaublad, children }) {
   const { zichtbaar, gemaximaliseerd: max } = venster
   const klassen = ['databox', 'data-venster']
   if (max) klassen.push('gemaximaliseerd')
@@ -25,7 +26,11 @@ export default function DataVenster({ titel, icoon, status, venster, children })
 
   return (
     <>
-      {!zichtbaar && <div className="databox leeg-bureaublad" data-doek />}
+      {!zichtbaar && (
+        <div className={bureaublad ? 'databox leeg-bureaublad met-iconen' : 'databox leeg-bureaublad'} data-doek>
+          {bureaublad}
+        </div>
+      )}
       <div className={klassen.join(' ')} data-doek={zichtbaar || undefined}>
         <div className="titelbalk venster-titelbalk">
           <img className="titelbalk-icoon" src={icoon} alt="" />

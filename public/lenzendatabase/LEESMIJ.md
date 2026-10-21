@@ -1,7 +1,7 @@
 # lenzendatabase
 
 Doorzoekbare database van vintage handmatige prime-lenzen: specs, marktprijzen en reviews.
-Hoort bij le mel.
+Hoort bij meneermel.
 
 ## Bestanden
 

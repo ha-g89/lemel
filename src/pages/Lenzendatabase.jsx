@@ -185,8 +185,8 @@ export default function Lenzendatabase() {
   const teBreed = useTeBreed(omhulselRef)
 
   return (
-    <Pagina titel="le mel — lenzen" klasse="database" vensters={venster.taakbalkVensters}>
-      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="lemel-leesmij-plek-lenzen" />
+    <Pagina titel="meneermel — lenzen" klasse="database" vensters={venster.taakbalkVensters}>
+      <LeesmijPlek tekst={LEESMIJ} opslagSleutel="meneermel-leesmij-plek-lenzen" />
 
       <DataVenster
         titel="lenzen.db"

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Pagina from '../components/Pagina.jsx'
 import DataVenster from '../components/DataVenster.jsx'
+import Bureaublad from '../components/Bureaublad.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FotoContextMenu from '../components/FotoContextMenu.jsx'
 import gallerijIcoon from '../assets/iconen/gallerij.png'
@@ -39,7 +40,7 @@ export default function Gallerij() {
 
   return (
     <Pagina
-      titel="le mel"
+      titel="meneermel"
       metJaar
       vensters={[...gallerij.taakbalkVensters, ...lightbox.taakbalkVensters]}
     >
@@ -47,6 +48,7 @@ export default function Gallerij() {
         titel={titel}
         icoon={gallerijIcoon}
         venster={gallerij.venster}
+        bureaublad={<Bureaublad />}
         status={
           filterGeldig ? (
             <>
