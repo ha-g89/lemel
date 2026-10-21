@@ -16,6 +16,7 @@ const PATCHNOTES = [
       'start-menu: in de groene balk staat nu op elke pagina meneermel 26, niet alleen op de gallerij.',
       'database, concerten en inspiratie: sluit of minimaliseer je het venster, dan staan ook daar de mapjes, leesmij.txt en patchnotes.txt op het bureaublad.',
       'database en concerten: het leesmij-icoon bovenaan verdwijnt nu mee als je het venster sluit of minimaliseert.',
+      'database en concerten: om een geselecteerd zoekveld of keuzelijst zit nu een neongroene pixelgloed, dus beter te zien.',
     ],
   },
   {
